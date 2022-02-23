@@ -21,26 +21,27 @@
       
     </head>
     <body class="font-sans antialiased">
-        <x-jet-banner />
+        {{-- <x-jet-banner /> --}}
 
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-w-screen bg-gray-100">
             @livewire('navigation-menu')
-
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
         </div>
+        <div class="flex h-screen">
+                <div class="p-6 border-r w-1/3 border-blue-500">
+                    <ul>
+                        <li class="mb-8">Inicio</li>
+                        <li class="mb-8">Empleado</li>
+                        <li class="mb-8">Administrador</li>
+                        <li class="mb-8">Almacen</li>
+                        <li class="mb-8">Recursos MAteriales</li>
+                        <li class="mb-8">Director</li>
+                    </ul>
+                </div>
 
+                <div class="p-6">
+                    <h1 class="text-4xl font-bold mb-10"> Grid Template</h1>
+                </div>
+        </div>
         @stack('modals')
 
         @livewireScripts
