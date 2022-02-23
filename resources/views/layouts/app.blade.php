@@ -26,17 +26,10 @@
         <div class="min-w-screen bg-gray-100">
             @livewire('navigation-menu')
         </div>
-        <div class="flex h-screen">
-                <div class="p-6 border-r w-1/3 border-blue-500">
-                    <ul>
-                        <li class="mb-8">Inicio</li>
-                        <li class="mb-8">Empleado</li>
-                        <li class="mb-8">Administrador</li>
-                        <li class="mb-8">Almacen</li>
-                        <li class="mb-8">Recursos MAteriales</li>
-                        <li class="mb-8">Director</li>
-                    </ul>
-                </div>
+        <div class="flex">
+            <div class=" h-screen p-6 border-r w-64 border-blue-500">
+               
+               @livewire('side-nav')
 
                 <div class="p-6">
                     <h1 class="text-4xl font-bold mb-10"> Grid Template</h1>
