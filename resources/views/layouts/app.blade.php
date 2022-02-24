@@ -21,19 +21,21 @@
       
     </head>
     <body class="font-sans antialiased">
-        {{-- <x-jet-banner /> --}}
+        <x-jet-banner />
 
         <div class="min-w-screen bg-gray-100">
             @livewire('navigation-menu')
         </div>
-        <div class="flex">
-            <div class=" h-screen p-6 border-r w-64 border-blue-500">
-               
-               @livewire('side-nav')
 
-                <div class="p-6">
-                    <h1 class="text-4xl font-bold mb-10"> Grid Template</h1>
-                </div>
+        <div class="flex mt-2">
+            <div class="min-h-screen w-1/3">
+            @livewire('side-nav')
+            
+            </div> 
+
+            <div class="min-h-screen w-2/3 ml-1 ">
+                @livewire('contend-template')
+            </div> 
         </div>
         @stack('modals')
 

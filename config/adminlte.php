@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Dashboard',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Panel de Control</b>',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -241,83 +241,181 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],
+        // ['header' => 'USUARIO'],
+
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
+            'text'    => 'GENERAL',
+            'icon'    => 'fas fa-fw fa-user',
+            'submenu' => [
+                [
+                    'text' => 'requisicion',
+                    'url'  => 'admin/blog', 
+                ],
+                [
+                    'text' => 'solicitudes',
+                    'url'  => 'admin/blog', 
+                ],
+                [
+                    'text' => 'materiales',
+                    'url'  => 'admin/blog', 
+                ],
+                [
+                    'text' => 'historial',
+                    'url'  => 'admin/blog', 
+                ],
+            ],
+        ],        
+
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
+            'text'    => 'ALMACEN',
+            'icon'    => 'fas fa-fw fa-user',
+            'submenu' => [
+                [
+                    'text' => 'opcion 1',
+                    'url'  => 'admin/blog', 
+                ],
+                [
+                    'text' => 'opcion 2',
+                    'url'  => 'admin/blog', 
+                ],
+                [
+                    'text' => 'opcion 3',
+                    'url'  => 'admin/blog', 
+                ],
+                [
+                    'text' => 'opcion 4',
+                    'url'  => 'admin/blog', 
+                ],
+            ],
         ],
-        ['header' => 'account_settings'],
+        
+        [
+            'text'    => 'RECURSOS',
+            'icon'    => 'fas fa-fw fa-user',
+            'submenu' => [
+                [
+                    'text' => 'opcion 1',
+                    'url'  => 'admin/blog', 
+                ],
+                [
+                    'text' => 'opcion 2',
+                    'url'  => 'admin/blog', 
+                ],
+                [
+                    'text' => 'opcion 3',
+                    'url'  => 'admin/blog', 
+                ],
+                [
+                    'text' => 'opcion 4',
+                    'url'  => 'admin/blog', 
+                ],
+            ],
+        ],
+
+        [
+            'text'    => 'ADMINISTRACIÓN',
+            'icon'    => 'fas fa-fw fa-user',
+            'submenu' => [
+                [
+                    'text' => 'Administrador',
+                    'url'  => 'admin/blog',
+                    'submenu' => [
+                        [
+                            'text' => 'opcion 1',
+                        'url' => '#',
+                        ],
+                        [
+                            'text' => 'opcion 2',
+                        'url' => '#',
+                        ],
+
+                        [
+                            'text' => 'opcion 3',
+                        'url' => '#',
+                        ],
+
+                    ], 
+                ],
+
+                [
+                    'text' => 'Recursos materiales',
+                    'url'  => 'admin/blog',
+                    'submenu' => [
+                        [
+                            'text' => 'opcion 1',
+                        'url' => '#',
+                        ],
+                        [
+                            'text' => 'opcion 2',
+                        'url' => '#',
+                        ],
+
+                        [
+                            'text' => 'opcion 3',
+                        'url' => '#',
+                        ],
+
+                    ], 
+                ],
+
+                
+            ],
+        ],
+
+        [
+            'text'    => 'DIRECTOR',
+            'icon'    => 'fas fa-fw fa-user',
+            'submenu' => [
+                [
+                    'text' => 'opcion 1',
+                    'url'  => 'admin/blog', 
+                ],
+                [
+                    'text' => 'opcion 2',
+                    'url'  => 'admin/blog', 
+                ],
+                [
+                    'text' => 'opcion 3',
+                    'url'  => 'admin/blog', 
+                ],
+                [
+                    'text' => 'opcion 4',
+                    'url'  => 'admin/blog', 
+                ],
+            ],
+        ],
+        
+        // [
+        //     'text'        => 'pages',
+        //     'url'         => 'admin/pages',
+        //     'icon'        => 'far fa-fw fa-file',
+        //     'label'       => 4,
+        //     'label_color' => 'success',
+        // ],
+      
         [
             'text' => 'profile',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
         ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-                [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-            ],
-        ],
-        ['header' => 'labels'],
-        [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],
+       
+
+        // ['header' => 'labels'],
+        // [
+        //     'text'       => 'important',
+        //     'icon_color' => 'red',
+        //     'url'        => '#',
+        // ],
+        // [
+        //     'text'       => 'warning',
+        //     'icon_color' => 'yellow',
+        //     'url'        => '#',
+        // ],
+        // [
+        //     'text'       => 'information',
+        //     'icon_color' => 'cyan',
+        //     'url'        => '#',
+        // ],
     ],
 
     /*
@@ -472,5 +570,5 @@ return [
     |
     */
 
-    'livewire' => false,
+    'livewire' => true,
 ];
