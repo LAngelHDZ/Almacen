@@ -342,17 +342,17 @@ return [
                     'url'  => 'admin/blog',
                     'submenu' => [
                         [
-                            'text' => 'opcion 1',
-                        'url' => '#',
+                            'text' => 'Catalogo',
+                            'route' => 'catalogo',
                         ],
                         [
-                            'text' => 'opcion 2',
-                        'url' => '#',
+                            'text' => 'Proveedores',
+                            'route' => 'proveedor',
                         ],
 
                         [
-                            'text' => 'opcion 3',
-                        'url' => '#',
+                            'text' => 'Producto',
+                            'route' => 'producto',
                         ],
 
                     ], 

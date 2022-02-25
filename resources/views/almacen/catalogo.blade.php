@@ -3,11 +3,13 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <p class="text-blue-500 font-bold text-4xl">Dashboard</p>
+    <p class="text-blue-500 font-bold text-4xl">Catalogo</p>
 @stop
 
 @section('content')
-    <p class=" text-blue-500 text-3xl font-bold">Welcome  beautiful admin panel.</p>
+
+    {{-- <livewire:catalogo-insumos /> --}}
+    @livewire('catalogo-insumos')
 @stop
 
 @section('css')
@@ -17,4 +19,5 @@
 
 @section('js')
     <script> console.log('Hi!'); </script>
+    {{-- @livewireScripts --}}
 @stop

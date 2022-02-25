@@ -3,11 +3,11 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <p class="text-blue-500 font-bold text-4xl">Dashboard</p>
+    <p class="text-blue-500 font-bold text-4xl">Proveedor</p>
 @stop
 
 @section('content')
-    <p class=" text-blue-500 text-3xl font-bold">Welcome  beautiful admin panel.</p>
+    @livewire('almacen.proveedor-insumos')
 @stop
 
 @section('css')
