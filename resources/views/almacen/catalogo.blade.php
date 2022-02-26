@@ -9,7 +9,7 @@
 @section('content')
 
     {{-- <livewire:catalogo-insumos /> --}}
-    @livewire('catalogo-insumos')
+    @livewire('almacen.catalogo-insumos')
 @stop
 
 @section('css')
