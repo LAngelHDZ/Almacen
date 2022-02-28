@@ -7,10 +7,11 @@ use Livewire\Component;
 class CreateProveedor extends Component
 {
 
-    public $openmodal = true;
+    //  public $openmodal = true;
 
     public function showmodal(){
-        $this->openmodal = true;
+        // $this->openmodal = true;
+        $this->dispatchBrowserEvent('show-form');
     }
     public function render()
     {

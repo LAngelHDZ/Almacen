@@ -1,5 +1,38 @@
 <div>
-    <div class=""> 
+
+  <div class="">
+    <table class="table bg-white border shadow-sm rounded-2">
+      <div class="bg-primary bg-gradient p-1 text-dark " style="--bs-bg-opacity: .5;">
+        <thead class="">
+          <tr>
+            <th scope="col" class="text-center text-uppercase">Clave</th>
+            <th scope="col" class="text-center text-uppercase">RFC</th>
+            <th scope="col" class="text-center text-uppercase">Empresa</th>
+            <th scope="col" class="text-center text-uppercase">Direción</th>
+            <th scope="col" class="text-center text-uppercase">Email</th>
+            <th scope="col" class="text-center text-uppercase">Telefono</th>
+            <th scope="col" class="text-center text-uppercase">Acciones</th>
+          </tr>
+        </thead>
+      </div>
+      <tbody>
+        <tr class="fw-normal">
+          <th >0235684</th>
+          <td>VDh0536412D</td>
+          <th >VITAVIC</th>
+          <td>Calle Maria de la O CP. 39780 COlonia LA libertad No. 44 Lt45 MN 80 </td>
+          <th >vitavicemprise@gmail.com</th>
+          <td>7445512746</td>
+          <td>
+            <button type="button" class="btn btn-primary px-3 mx-1">Editar</button>
+            <button type="button" class="btn btn-secondary">Eliminar</button>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+    {{-- <div class=""> 
         <div class="flex flex-col">
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div class="py-2 align-middle inline-block  sm:px-6 lg:px-8">
@@ -61,5 +94,5 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> --}}
 </div>
