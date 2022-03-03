@@ -58,10 +58,10 @@
   {{-- <--- Data table de poveedores ---> --}}
     @if($proveedor->count())
     <table class="table bg-white border shadow-sm rounded-2">
-      <div class="bg-primary bg-gradient p-1  " style="--bs-bg-opacity: .5;">
-        <thead class="">
-          <tr>
-            <th scope="col" class="text-center text-uppercase">Clave</th>
+      <thead class="">
+        <div class="bg-primary bg-gradient p-1  " style="--bs-bg-opacity: .5;">
+        <tr>
+            <th scope="col" class="text-center text-uppercase">#</th>
             <th scope="col" class="text-center text-uppercase">RFC</th>
             <th scope="col" class="text-center text-uppercase">Empresa</th>
             <th scope="col" class=" text-uppercase">Direción</th>
@@ -69,13 +69,16 @@
             <th scope="col" class="text-center text-uppercase">Telefono</th>
             <th scope="col" class="text-center text-uppercase">Acciones</th>
           </tr>
+        </div>
         </thead>
-      </div>
       <tbody>
+        @php
+          $int=1;
+        @endphp
         @foreach ($proveedor as $item )
           
         <tr class="">
-          <th class="pt-3 fst-normal text-decoration-underline text-center">{{ $item->id }}</th>
+          <th class="pt-3 fst-normal text-decoration-underline text-center">{{ $int++ }}</th>
           <th class="pt-3 fst-normal text-center">{{ $item->rfc }}</th>
           <th class="pt-3 fst-normal text-center">{{ $item->empresa }}</th>
           <th class="pt-3 fst-normal ">{{ $item->direccion }}</th>
