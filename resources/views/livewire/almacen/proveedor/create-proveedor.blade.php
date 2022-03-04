@@ -42,6 +42,7 @@
                         <label for="text-rfc" class="form-label">RFC</label>
                         <input wire:model='rfc' type="text" class="form-control" id="rfc">
                         @error('rfc') <span class="error">{{ $message }}</span> @enderror
+                        {{$rfc}}
                       </div>
                     <div class="mb-3">
                         <label for="text-empresa" class="form-label">Empresa</label>

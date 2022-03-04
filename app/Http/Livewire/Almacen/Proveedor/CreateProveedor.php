@@ -14,7 +14,7 @@ class CreateProveedor extends Component
 
     protected $listeners = ['aditform' => 'showmodal'];
     protected $rules = [
-        'rfc' => 'required',
+        'rfc' => 'required|min:10|max:10',
         'empresa' => 'required',
         'direccion' => 'required|max:100',
         'email' => 'required|email',
@@ -58,7 +58,6 @@ class CreateProveedor extends Component
      }
 
      public function showmodal(){
-         $this->type = 0;
          $this->dispatchBrowserEvent('show-form');
     }
 

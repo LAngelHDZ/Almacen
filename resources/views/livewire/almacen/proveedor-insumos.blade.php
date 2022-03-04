@@ -56,23 +56,29 @@
   {{-- <----- Fin fragmento de código modal -----> --}}
 
   {{-- <--- Data table de poveedores ---> --}}
-    @if($proveedor->count())
-    <table class="table bg-white border shadow-sm rounded-2">
-      <thead class="">
-        <div class="bg-primary bg-gradient p-1  " style="--bs-bg-opacity: .5;">
+  <table class="table bg-white border shadow-sm rounded-2">
+    <thead class="">
+      <div class="bg-primary bg-gradient p-1  " style="--bs-bg-opacity: .5;">
         <tr>
-            <th scope="col" class="text-center text-uppercase">#</th>
-            <th scope="col" class="text-center text-uppercase">RFC</th>
-            <th scope="col" class="text-center text-uppercase">Empresa</th>
-            <th scope="col" class=" text-uppercase">Direción</th>
-            <th scope="col" class="text-uppercase">Email</th>
-            <th scope="col" class="text-center text-uppercase">Telefono</th>
-            <th scope="col" class="text-center text-uppercase">Acciones</th>
-          </tr>
-        </div>
-        </thead>
-      <tbody>
-        @php
+          <th scope="col" class="text-center text-uppercase">#</th>
+          <th scope="col" class="text-center text-uppercase">RFC</th>
+          <th scope="col" class="text-center text-uppercase">Empresa</th>
+          <th scope="col" class=" text-uppercase">Direción</th>
+          <th scope="col" class="text-uppercase">Email</th>
+          <th scope="col" class="text-center text-uppercase">Telefono</th>
+          <th scope="col" class="text-center text-uppercase">Acciones</th>
+        </tr>
+      </div>
+    </thead>
+    
+    <tbody>
+    @if($proveedor->count()==0)
+
+    <tr>
+      <td ><span class="text-center text-gray">No hay registros</span> </td>
+    </tr>
+      @endif
+      @php
           $int=1;
         @endphp
         @foreach ($proveedor as $item )
@@ -103,9 +109,9 @@
         </tr>
         @endforeach
       </tbody>
+
     </table>
     {{ $proveedor->links('vendor.livewire.bootstrap') }}
-    @endif
 
     
     {{-- <div class=""> 
