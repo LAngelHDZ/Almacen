@@ -25,12 +25,8 @@
 
                 {{-- <--- Cabecera del modal donde aparece el titulo del modal ---> --}}
                 <div class="modal-header">
-                  @if ($type==1)
-                  <h5 class="modal-title" id="exampleModalLabel">Actualizar proveedor</h5>
-                  @endif
-                  @if ($type==0)
+                  
                   <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo proveedor</h5>
-                  @endif
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 {{-- <--- Fin cabecera modal ---> --}}

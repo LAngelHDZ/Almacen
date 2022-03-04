@@ -11,7 +11,7 @@
 
     <div class="mt-5">
     
-        @livewire('almacen.proveedor.create-producto')
+        @livewire('almacen.producto.create-producto')
     </div>
     <div class="mt-2">
     
