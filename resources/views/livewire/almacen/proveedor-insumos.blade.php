@@ -84,12 +84,12 @@
         @foreach ($proveedor as $item )
           
         <tr class="">
-          <th class="pt-3 fst-normal text-decoration-underline text-center">{{ $int++ }}</th>
-          <th class="pt-3 fst-normal text-center">{{ $item->rfc }}</th>
-          <th class="pt-3 fst-normal text-center">{{ $item->empresa }}</th>
-          <th class="pt-3 fst-normal ">{{ $item->direccion }}</th>
-          <th class="pt-3 fst-normal ">{{ $item->email }}</th>
-          <th class="pt-3 fst-normal text-center">{{ $item->telefono }}</th>
+          <th class="pt-3 font-weight-normal text-decoration-underline text-center">{{ $int++ }}</th>
+          <th class="pt-3 font-weight-normal text-center">{{ $item->rfc }}</th>
+          <th class="pt-3 font-weight-normal text-center">{{ $item->empresa }}</th>
+          <th class="pt-3 font-weight-normal ">{{ $item->direccion }}</th>
+          <th class="pt-3 font-weight-normal ">{{ $item->email }}</th>
+          <th class="pt-3 font-weight-normal text-center">{{ $item->telefono }}</th>
          
           <td class="text-center">
             <button  wire:click='edit({{$item->id}})' type="button" class="btn btn-outline-primary">
