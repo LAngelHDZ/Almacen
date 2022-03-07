@@ -249,7 +249,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'requisicion',
-                    'url'  => 'admin/blog', 
+                    'route'  => 'solicitud', 
                 ],
                 [
                     'text' => 'solicitudes',
