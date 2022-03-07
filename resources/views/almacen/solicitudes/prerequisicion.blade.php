@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <p class="text-blue font-bold text-4xl">Prerequisicion</p>
+    <p class="text-blue h2">Prerequisición</p>
 @stop
 
 @section('content')
@@ -40,6 +40,9 @@
                 @livewire('almacen.solictud.pre-solicitud')
             </div>
         </div>
+    </div>
+    <div>
+        <button class="btn btn-success">Solicitar requisicion</button>
     </div>
 
 </div>
