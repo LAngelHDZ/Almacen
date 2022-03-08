@@ -7,7 +7,21 @@
 @stop
 
 @section('content')
+<div class="mx-2 mt-5 ">
+    <div class=" d-flex justify-content-between">
+        <div>
+             <i class="fa fa-search mr-1"> </i><input type="text" >
+        </div> 
+        <div>
+            <a href="{{route('formusers')}}" class="btn btn-success"> <i class="fa fa-plus-circle  mr-1"></i>Rigistro</a>
+        </div>
+        
+    </div>
+
+    <div class="pt-2">
     @livewire('almacen.root.table-users')
+    </div>
+</div>
 @stop
 
 @section('css')

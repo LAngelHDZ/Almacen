@@ -7,7 +7,11 @@ use Illuminate\Http\Request;
 
 class UserstController extends Controller
 {
-    public function index(){
+    public function users(){
         return view('almacen.root.user');
+    }
+
+    public function create(){
+        return view('almacen.root.createuser');
     }
 }
