@@ -2,14 +2,14 @@
     <div class="m-2">
         <form action="">
             <label for=""> Producto:</label>
-            <select name="select" class=" w-25 border-gray">
+            <select name="select" style="height:35px" class=" w-25 border-gray form-select">
                 <option value="value1">Value 1</option>
                 <option value="value2" selected>Value 2</option>
                 <option value="value3">Value 3</option>
             </select>
-            <label for="" class="ml-2"> Cantidad:</label>
-            <input type="text" style="height:25px" class="w-25"   placeholder="0">
-            <button class="bg-blue rounded border-0 ml-5  px-2 hover: bg-whit" style="">Aregar</button>
+            <label for="" class="ml-5"> Cantidad:</label>
+            <input type="text" style="height:35px" class="w-25"   placeholder="0">
+            <button class="btn btn-primary rounded border-0 ml-5  px-2" style="">Aregar</button>
         </form>
     </div>
 

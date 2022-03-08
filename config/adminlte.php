@@ -363,19 +363,19 @@ return [
         ],
 
         [
-            'text'    => 'DIRECTOR',
+            'text'    => 'ROOT',
             'icon'    => 'fas fa-fw fa-user',
             'submenu' => [
                 [
-                    'text' => 'opcion 1',
+                    'text' => 'user',
+                    'route'  => 'users', 
+                ],
+                [
+                    'text' => 'permisos',
                     'url'  => 'admin/blog', 
                 ],
                 [
-                    'text' => 'opcion 2',
-                    'url'  => 'admin/blog', 
-                ],
-                [
-                    'text' => 'opcion 3',
+                    'text' => 'auditoria',
                     'url'  => 'admin/blog', 
                 ],
                 [

@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <p class="text-blue h2">Prerequisición</p>
+    <p class="text-blue font-bold text-4xl">Prerequisicion</p>
 @stop
 
 @section('content')
@@ -44,7 +44,7 @@
     <div>
         <button class="btn btn-success">Solicitar requisicion</button>
     </div>
-
+    
 </div>
    
 @stop

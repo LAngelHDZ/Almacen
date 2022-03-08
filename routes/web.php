@@ -3,6 +3,7 @@
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlmacenController;
+use App\Http\Controllers\root\UserstController;
 use App\Http\Controllers\solicitudes\SolicitudController;
 
 /*
@@ -29,4 +30,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::get('/catalogo',[AlmacenController::class,'catalogo'])->name('catalogo');
 Route::get('/proveedor',[AlmacenController::class,'proveedor'])->name('proveedor');
 Route::get('/producto',[AlmacenController::class,'producto'])->name('producto');
+
 Route::get('/solictud-requicision',[SolicitudController::class,'prerequicision'])->name('solicitud');
+
+Route::get('/root/users',[UserstController::class,'index'])->name('users');
