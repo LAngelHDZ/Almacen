@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <p class="text-blue-500 font-bold text-4xl">Panel de usuarios</p>
+    <p class="text-blue-500 font-bold text-4xl">Registro de usuario</p>
 @stop
 
 @section('content')
