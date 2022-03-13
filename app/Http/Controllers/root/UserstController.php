@@ -12,6 +12,12 @@ class UserstController extends Controller
     }
 
     public function create(){
-        return view('almacen.root.createuser');
+        $view=false;
+        return view('almacen.root.createuser',compact('view'));
+    }
+
+    public function update($id){
+        $view=true;
+        return view('almacen.root.createuser',compact('id','view'));
     }
 }

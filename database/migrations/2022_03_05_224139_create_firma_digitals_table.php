@@ -16,7 +16,7 @@ class CreateFirmaDigitalsTable extends Migration
         Schema::create('firma_digitals', function (Blueprint $table) {
             $table->id();
             $table->string('firma');
-            $table->integer('id_empleado')->references('id')->on('empleados');
+            $table->integer('id_empleado')->references('id')->on('empleados')->onDelete('cascade');
             $table->timestamps();
         });
     }

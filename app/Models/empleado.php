@@ -9,15 +9,13 @@ class empleado extends Model
 {
     use HasFactory;
     protected $fillable =[
-        'id_empelado',
+        'clave',
         'id_user',
         'nss',
         'rfc',
-        'nombre',
-        'apaterno',
-        'amaterno',
         'fecha_nac',
         'direccion',
+        'area',
         'cargo',
 
     ];

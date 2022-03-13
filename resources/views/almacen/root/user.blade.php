@@ -13,7 +13,7 @@
              <i class="fa fa-search mr-1"> </i><input type="text" >
         </div> 
         <div>
-            <a href="{{route('formusers')}}" class="btn btn-success"> <i class="fa fa-plus-circle  mr-1"></i>Rigistro</a>
+            <a href="{{route('formusers')}}" class="btn btn-success"> <i class="fa fa-plus-circle  mr-1"></i>Nuevo usuario</a>
         </div>
         
     </div>
@@ -30,5 +30,9 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+    <script>
+         window.addEventListener('show-modal', event =>{
+        $('#showinfo').modal('show');
+    })
+    </script>
 @stop

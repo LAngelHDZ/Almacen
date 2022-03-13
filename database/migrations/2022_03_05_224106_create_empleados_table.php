@@ -15,16 +15,13 @@ class CreateEmpleadosTable extends Migration
     {
         Schema::create('empleados', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_empleado')->unique();
-            $table->integer('id_user')->references('id')->on('users')->unique();
-            $table->integer('nss')->unique();
-            $table->integer('rfc')->unique();
-            $table->string('nombre',30);
-            $table->string('apaterno',30);
-            $table->string('amaterno',30);
+            $table->integer('clave')->unique();
+            $table->integer('id_user')->references('id')->on('users')->unique()->onDelete('cascade');
+            $table->string('nss',11)->unique();
+            $table->string('rfc',13)->unique();
             $table->date('fecha_nac');
             $table->text('direccion');
-            $table->integer('area');
+            $table->integer('area')->references('id')->on('areas');
             $table->string('cargo');
             $table->timestamps();
         });

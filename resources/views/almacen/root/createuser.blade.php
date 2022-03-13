@@ -3,13 +3,21 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <p class="text-blue-500 font-bold text-4xl">Registro de usuario</p>
+@if(!$view)
+<p class="text-blue-500 font-bold text-4xl">Registro de usuario</p>
+    @else
+    <p class="text-blue-500 font-bold text-4xl">Actualizacion de usuario</p>
+    @endif
 @stop
 
 @section('content')
 <div class="container w-75">
-    
-    @livewire('almacen.root.form-users')
+    @if(!$view)
+    @livewire('almacen.root.form-users',['viewer' => $view])
+    @else
+    @livewire('almacen.root.form-users',['viewer' => $view, 'id_user' => $id])
+    @endif
+
 
 </div>
 @stop
@@ -20,5 +28,16 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+    <script> 
+    Livewire.on('alert', function(){
+        Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'Operacion realizada con exito',
+        showConfirmButton: false,
+        timer: 1700
+})
+    })
+    
+    </script>
 @stop

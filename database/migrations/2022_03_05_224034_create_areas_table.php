@@ -16,7 +16,7 @@ class CreateAreasTable extends Migration
         Schema::create('areas', function (Blueprint $table) {
             $table->id();
             $table->integer('id_departamento')->refeences('id')->on('departamentos');
-            $table->integer('clave');
+            $table->string('clave',2);
             $table->string('area');
             $table->text('descripcion');
             $table->timestamps();

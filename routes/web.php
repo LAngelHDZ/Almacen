@@ -34,4 +34,5 @@ Route::get('/producto',[AlmacenController::class,'producto'])->name('producto');
 Route::get('/solictud-requicision',[SolicitudController::class,'prerequicision'])->name('solicitud');
 
 Route::get('/root/users',[UserstController::class,'users'])->name('users');
-Route::get('/root/users/form',[UserstController::class,'create'])->name('formusers');
+Route::get('/root/users/create',[UserstController::class,'create'])->name('formusers');
+Route::get('/root/users/update/{id}/',[UserstController::class,'update'])->name('formupdate');
