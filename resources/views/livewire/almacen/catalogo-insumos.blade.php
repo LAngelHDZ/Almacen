@@ -1,67 +1,48 @@
 <div>
-   <!-- This example requires Tailwind CSS v2.0+ -->
-   <div class="container mx-auto"> 
-      <div class="flex flex-col">
-          <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="py-2 align-middle inline-block  sm:px-6 lg:px-8">
-              <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                <table class="min-w-full divide-y divide-gray-200 ">
-                  <thead class="bg-gray-50">
-                    <tr>
-                      <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-black-500 uppercase tracking-wider">Id</th>
-                      <th scope="col" class="mx-2 px-6 py-3 text-left text-xs font-bold text-black-500 uppercase tracking-wider">Producto</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-black-500 uppercase tracking-wider">Descripcion</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-black-500 uppercase tracking-wider">Proveedor</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-black-500 uppercase tracking-wider">Marca</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-black-500 uppercase tracking-wider">Precio</th>
-                      <th scope="col" class="  px-6 py-3 text-center">
-                        <div class="mx-3">Acciones</div>
-                      </th>
-                    </tr>
-                  </thead>
+  <table class="table bg-white border shadow-sm rounded-2">
+    <div class="bg-primary bg-gradient p-1  ">
+      <thead class="">
+        <tr>
+          <th scope="col" class="text-center text-uppercase">Clave</th>
+          <th scope="col" class="text-center text-uppercase">Material</th>
+          <th scope="col" class=" text-uppercase">Descripción</th>
+          <th scope="col" class="text-uppercase">Proveedor</th>
+          <th scope="col" class=" text-uppercase">Marca</th>
+          <th scope="col" class=" text-uppercase">Precio</th>
+          <th scope="col" class="text-center text-uppercase">acciones</th>
+        </tr>
+      </thead>
+    </div>
+    <tbody>
       
-                  <tbody class="bg-white divide-y divide-gray-200">
-                    <tr>
-                      <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="flex items-center">
-                          <div class="">
-                            <div class="text-sm font-medium text-gray-900">03254365</div>
-      
-                          </div>
-                        </div>
-                      </td>
-                      <td class="  px-6 py-4 whitespace-nowrap">
-                        <div class=" mx-2 text-sm text-gray-900">Jeringa</div>
-                      </td>
-                      <td class="px-6 py-4 whitespace-nowrap flex">
-                        <div class=" ">
-                          <p class="px-2 inline-flex text-sm leading-5 font-semibold">Jeringas de 5ml de plastico con buen aaguja de color trasnparente goma color negra y de buen material </p>
-      
-                        </div>
-                      </td>
-                      <td class="px-6 py-4 whitespace-nowrap  text-left">Vitavic</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-right  font-medium">
-                        <p class="text-black">Patito</p>
-                      </td>
-                      <td class="px-6 py-4 whitespace-nowrap text-left text-sm ">
-                          <p class="text-black font-bold">$520</p>
-                        </td>
-      
-                        <td class="px-3">
-                          <div class="flex">
-                            <button class=" px-3 py-2 mx-3 bg-green-700 rounded-lg text-white hover:bg-green-500"  >Editar</button>
-                            <button class=" px-2 py-2 mx-3 bg-red-700 rounded-lg text-white hover:bg-red-500"> Eliminar</button>
-                          </div>
-                        </td>
-                    </tr>
         
-                    <!-- More people... -->
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      @foreach ($catalogo as $data)
+      <tr class="">
+        <th class="pt-3 font-weight-normal text-decoration-underline text-center">{{ $data->clave}}</th>
+        <th class="pt-3 font-weight-normal text-center ">{{ $data->producto }}</th>
+        <th class="pt-3 font-weight-normal ">{{ $data->descripcion }}</th>
+        <th class="pt-3 font-weight-normal ">{{ $data->empresa }}</th>
+        <th class="pt-3 font-weight-normal ">{{ $data->marca }}</th>
+        <th class="pt-3 font-weight-normal ">{{ $data->precio}}</th>
+        
+        <td class="text-center">
+          <button  wire:click.prevent='modalupdate({{$data->id}})' type="button" class="btn btn-outline-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+              <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+              <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+            </svg>
+          </button>
+          
+          <button wire:click.prevent='delete' type="button" class="btn btn-outline-danger" >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square " viewBox="0 0 16 16">
+              <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+            </svg>
+          </button>
+        </td>
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
   
 </div>

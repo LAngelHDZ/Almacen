@@ -3,7 +3,7 @@
 @section('title', 'Proveedores')
 
 @section('content_header')
-    <p class="text-blue fw-bold ">Proveedor</p>
+    <p class="text-blue fw-bold ">Producto</p>
 @stop
 @livewireStyles
 @section('content')
@@ -22,7 +22,7 @@
 
 @section('css')
     {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
-    {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     
 @stop
 
@@ -30,19 +30,19 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
 <script>
     window.addEventListener('show-form', event =>{
-        $('#form').modal('show');
+        $('#pro-create').modal('show');
     })
 
     window.addEventListener('close-form', event =>{
-        $('#form').modal('hide');
+        $('#pro-create').modal('hide');
     })
 
     window.addEventListener('show-formedit', event =>{
-        $('#formedit').modal('show');
+        $('#pro-update').modal('show');
     })
 
     window.addEventListener('close-formedit', event =>{
-        $('#formedit').modal('hide');
+        $('#pro-update').modal('hide');
     })
 
     Livewire.on('alert', function(){

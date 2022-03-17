@@ -1,13 +1,4 @@
-<div>
-{{-- <button class=" inline-flex  rounded-lg bg-sky-700 text-white font-medium px-3 py-2">Crear</button> --}}
-        {{-- <button wire:click="showmodal"  class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">Crear</button> --}}
-        {{-- <x-jet-button wire:click="$set('open', true)">
-            Crear
-        </x-jet-button> --}}
-        {{-- <button click="showmodal" type="button" class="btn btn-outline-primary">Nuevo</button> --}}
-
-
-    
+<div>    
             {{-- Este boton abre un modal donde está el formulario para dar de alta un proveedor --}}
            
                  <div class="d-flex justify-content-end">
@@ -17,7 +8,7 @@
                  </div>
               
         {{-- <----- Este fragmento de código es el modal -----> --}}
-        <div wire:ignore.self  class="modal fade" id="form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div wire:ignore.self  class="modal fade" id="pro-create" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
 
@@ -32,45 +23,81 @@
 
                 {{-- <-- Inicio Cuerpo del modal donde estan los controles de formulario --> --}}
                 <div class="modal-body">
-                    <div class="mb-3">
-                      {{-- {{ $infoproveedor }} --}}
-                        <label for="text-rfc" class="form-label">CLave</label>
-                        <input wire:model='clave' type="text" class="form-control" id="rfc">
-                        @error('rfc') <span class="error">{{ $message }}</span> @enderror
-                        {{$rfc}}
+                  <div class="d-flex justify-content-between">
+                    <div class=" pr-2 ">
+                      <div>
+                        <label for="clave" class="form-label">CLave producto</label>
+                        <input wire:model='clave' @error('clave')  class=" bg-gray-50  rounded-lg border-danger"  placeholder="{{ $message }}" @enderror type="text" class="form-input  bg-gray-50 rounded-lg hover:border-blue-700"  >
+                
                       </div>
-                    <div class="mb-3">
-                        <label for="text-empresa" class="form-label">Empresa</label>
-                        <input wire:model='empresa' type="text" class="form-control" id="name-empresa">
-                        @error('empresa') <span class="error">{{ $message }}</span> @enderror
+                      <div class="pt-2">
+                        <label for="proveedor" class="">Proveedor</label>
+                        <select wire:model="idprov" @error('idprov')  class=" bg-gray-50  rounded-lg border-danger"  @enderror  name="" id="" style="width: 83%" class="form-select bg-gray-50 rounded-lg hover:border-blue-700">
+                          <option value="" selected>seleccionar</option>
+                          @foreach ($listP as $data)
+                          <option value="{{ $data->id }}" >{{ $data->empresa }}</option>
+                          @endforeach
+                      </select>
+                      </div>
+                      <div class="pt-2">
+                        <label for="precio" class="form-label">Precio</label>
+                        <input wire:model='precio' @error('precio')  class=" bg-gray-50  rounded-lg border-danger"  placeholder="{{ $message }}" @enderror type="text" class="form-input  bg-gray-50 rounded-lg hover:border-blue-700" >
+            
+                      </div>
+                      <div class="pt-2">
+                        <label for="empaque" class="">Empaque</label>
+                        <select wire:model="empaque" @error('empaque')  class=" bg-gray-50  rounded-lg border-danger"  placeholder="{{ $message }}" @enderror  name="" id="" style="width: 83%" class="form-select bg-gray-50 rounded-lg hover:border-blue-700">
+                          <option value="" selected>seleccionar</option>
+                          <option value="Caja" >Caja</option>
+                          <option value="Paquete" >Paquete</option>
+                          <option value="Unidad" >Unidad</option>
+                          
+                      </select>
+                      </div>
                     </div>
-                        <div class="mb-3">
-                          <label for="text-area-direccion" class="form-label">Dirección</label>
-                          <textarea wire:model='direccion' class="form-control" id="direccion" rows="3"></textarea>
-                          @error('direccion') <span class="error">{{ $message }}</span> @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="tetx-email" class="form-label">Email</label>
-                            <input wire:model='email' type="email" class="form-control" id="email" placeholder="name@example.com">
-                            @error('email') <span class="error">{{ $message }}</span> @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="tetx-" class="form-label">Telefono</label>
-                            <input wire:model='telefono' type="tel" class="form-control" id="tel">
-                            @error('telefono') <span class="error">{{ $message }}</span> @enderror
+                    <div class="">
+                      <div>
+                        <label for="producto" class="form-label">Producto</label>
+                        <input wire:model='producto' @error('producto')  class=" bg-gray-50  rounded-lg border-danger"  placeholder="{{ $message }}" @enderror type="text" class="form-input  bg-gray-50 rounded-lg hover:border-blue-700" >
+                        
                       </div>
+                      <div class="pt-2">
+                        <label for="marca" class="form-label">Marca</label>
+                        <input wire:model='marca' @error('marca')  class=" bg-gray-50  rounded-lg border-danger"  placeholder="{{ $message }}" @enderror type="text" class="form-input  bg-gray-50 rounded-lg hover:border-blue-700" >
+                        
+                      </div>
+                      <div class="pt-2">
+                        <label for="categoria" class="">Categoria</label>
+                        <select wire:model="categoria" @error('categoria')  class=" bg-gray-50  rounded-lg border-danger"  placeholder="{{ $message }}" @enderror name="" id="" style="width: 97%" class="form-select bg-gray-50 rounded-lg hover:border-blue-700">
+                          <option value="" selected>seleccionar</option>
+                          <option value="Papeleria" >Papeleria</option>
+                          <option value="Laboratorio" >Laboratorio Aguas</option>
+                         
+                        </select>
+                      </div>
+                      <div class="pt-2">
+                        <label for="contenido" class="form-label">Contenido</label>
+                        <input wire:model='contenido' @error('contenido')  class=" bg-gray-50  rounded-lg border-danger"  placeholder="{{ $message }}" @enderror type="text" class="form-input  bg-gray-50 rounded-lg hover:border-blue-700" >
+                       
+                      </div>
+                    </div>
+                  </div>
+                  <div class="pt-2">
+                    <label for="descripcion" class="">Descripción</label>
+                    <textarea wire:model="des" @error('des') cols="15" rows="5"  class=" bg-gray-50 w-full px-4  rounded-lg border-danger"  placeholder="{{ $message }}"  @enderror  cols="15" rows="5" class="form-input w-full px-4 bg-gray-50 rounded-lg hover:border-blue-700"></textarea>
+                    
+                  </div>
                 </div>
-                {{-- <-- Fin cuerpo modal --> --}}
+                        {{-- <-- Fin cuerpo modal --> --}}
 
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  <button type="button" class="px-3 py-2 bg-gray-500 rounded-md border text-white hover:border-blue-700" data-dismiss="modal">Cancelar</button>
                   <span x-on:click="on = false">
-                  <button wire:click.prevent="saveProveedor" type="button" class="btn btn-primary">Guardar</button>
+                  <button wire:click="createp" type="button" class="px-3 py-2 rounded-md text-white bg-blue ">Guardar</button>
                   </span>
                 </div>
-
               </div>
             </div>
-          </div>
+      </div>
           {{-- <----- Fin fragmento de código modal -----> --}}
 </div>
