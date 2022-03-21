@@ -56,27 +56,17 @@
                             <input wire:model="rfc" type="text" class="form-input w-full px-4 bg-gray-50 rounded-lg hover:border-blue-700">
                             @error('rfc') <span class="error text-red-600">{{ $message }}</span> @enderror
                         </div>
-                        <div class=" mx-4 w-full">
-                            <label for="" class="flex">SSN:</label>
-                            <input wire:model="nss" type="text" class="form-input w-full px-4 bg-gray-50 rounded-lg hover:border-blue-700">
-                            @error('nss') <span class="error text-red-600">{{ $message }}</span> @enderror
-                        </div>
-                        <div class="  w-full">
-                            <label for="" class="flex">fecha de nacimiento:</label>
-                            <input wire:model="fecha" type="date" class="form-input w-full px-4 bg-gray-50 rounded-lg hover:border-blue-700">
-                            @error('fecha') <span class="error text-red-600">{{ $message }}</span> @enderror
+                        <div class=" ml-4 w-full">
+                                    <label for="" class="flex">Cargo:</label>
+                                    <input wire:model="cargo" type="text" class="form-input w-full px-4 bg-gray-50 rounded-lg hover:border-blue-700">
+                                    @error('cargo') <span class="error text-red-600">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <div>
-                        <div class="  w-full">
-                            <label for="" class="flex pt-3">Direccion:</label>
-                            <textarea wire:model="dir"  cols="15" rows="5" class="form-input w-full px-4 bg-gray-50 rounded-lg hover:border-blue-700"></textarea>
-                            @error('dir') <span class="error text-red-600">{{ $message }}</span> @enderror
-                        </div>
                         <div>
                             <div class="flex flex-row pt-3" wire:ignore>
-                                <div class="  w-full">
-                                    <label for="" class="flex">Area departamental:</label>
+                                <div class="  w-full ">
+                                    <label for="" class="flex">Departamento:</label>
                                     <select wire:model="idarea" name="" id="" class="form-select w-full px-4 bg-gray-50 rounded-lg hover:border-blue-700">
                                         <option value="" selected>seleccionar</option>
                                         @foreach($list as $item)  
@@ -86,10 +76,16 @@
                                     @error('idarea') <span class="error text-red-600">{{ $message }}</span> @enderror
                                 </div>
                                 <div class=" ml-4 w-full">
-                                    <label for="" class="flex">Cargo:</label>
-                                    <input wire:model="cargo" type="text" class="form-input w-full px-4 bg-gray-50 rounded-lg hover:border-blue-700">
-                                    @error('cargo') <span class="error text-red-600">{{ $message }}</span> @enderror
+                                    <label for="" class="flex">Area correspondiente:</label>
+                                    <select wire:model="idarea" name="" id="" class="form-select w-full px-4 bg-gray-50 rounded-lg hover:border-blue-700">
+                                        <option value="" selected>seleccionar</option>
+                                        @foreach($list as $item)  
+                                        <option value="{{ $item->id }}" >{{ $item->area }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('idarea') <span class="error text-red-600">{{ $message }}</span> @enderror
                                 </div>
+                                
                             </div>
                         </div>
                     </div>

@@ -24,7 +24,7 @@ class SolicitudController extends Controller
 
         $date = Carbon::now();
         $fecha = $date->format('Y-m-d');
-        $year = $date->format('Y');
+        $year = $date->format('y');
         $week = $date->format('m');
         $day = $date->format('d');
 

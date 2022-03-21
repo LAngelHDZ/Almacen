@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class=" pr-4">
-                    <h3 class="font-weight-bolder  h5">Feha: <span class="font-weight-normal h6"> {{ $fecha }}</span> </h3>
+                    <h3 class="font-weight-bolder  h5">Fecha: <span class="font-weight-normal h6"> {{ $fecha }}</span> </h3>
                     {{-- <p class="ms-3 h5"></p> --}}
                 </div>
             </div>

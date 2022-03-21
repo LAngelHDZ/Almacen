@@ -45,7 +45,7 @@
             
                       </div>
                       <div class="pt-2">
-                        <label for="empaque" class="">Empaque</label>
+                        <label for="empaque" class="">Presentación</label>
                         <select wire:model="empaque" @error('empaque')  class=" bg-gray-50  rounded-lg border-danger"  placeholder="{{ $message }}" @enderror  name="" id="" style="width: 83%" class="form-select bg-gray-50 rounded-lg hover:border-blue-700">
                           <option value="" selected>seleccionar</option>
                           <option value="Caja" >Caja</option>
@@ -58,27 +58,37 @@
                     <div class="">
                       <div>
                         <label for="producto" class="form-label">Producto</label>
-                        <input wire:model='producto' @error('producto')  class=" bg-gray-50  rounded-lg border-danger"  placeholder="{{ $message }}" @enderror type="text" class="form-input  bg-gray-50 rounded-lg hover:border-blue-700" >
+                        <input wire:model='producto' @error('producto')  class="  bg-gray-50  rounded-lg border-danger"  placeholder="{{ $message }}" @enderror type="text" class="form-input w-100 bg-gray-50 rounded-lg hover:border-blue-700" >
                         
                       </div>
                       <div class="pt-2">
                         <label for="marca" class="form-label">Marca</label>
-                        <input wire:model='marca' @error('marca')  class=" bg-gray-50  rounded-lg border-danger"  placeholder="{{ $message }}" @enderror type="text" class="form-input  bg-gray-50 rounded-lg hover:border-blue-700" >
+                        <input wire:model='marca' @error('marca')  class=" bg-gray-50  rounded-lg border-danger"  placeholder="{{ $message }}" @enderror type="text" class="form-input w-100  bg-gray-50 rounded-lg hover:border-blue-700" >
                         
                       </div>
                       <div class="pt-2">
                         <label for="categoria" class="">Categoria</label>
-                        <select wire:model="categoria" @error('categoria')  class=" bg-gray-50  rounded-lg border-danger"  placeholder="{{ $message }}" @enderror name="" id="" style="width: 97%" class="form-select bg-gray-50 rounded-lg hover:border-blue-700">
+                        <select wire:model="categoria" @error('categoria')  class=" bg-gray-50  rounded-lg border-danger"  placeholder="{{ $message }}" @enderror name="" id="" style="width: 100%" class="form-select bg-gray-50 rounded-lg hover:border-blue-700">
                           <option value="" selected>seleccionar</option>
                           <option value="Papeleria" >Papeleria</option>
-                          <option value="Laboratorio" >Laboratorio Aguas</option>
+                          <option value="Reactivo" >Reactivo</option>
+                          <option value="Insumo general" >Insumo General</option>
                          
                         </select>
                       </div>
                       <div class="pt-2">
                         <label for="contenido" class="form-label">Contenido</label>
-                        <input wire:model='contenido' @error('contenido')  class=" bg-gray-50  rounded-lg border-danger"  placeholder="{{ $message }}" @enderror type="text" class="form-input  bg-gray-50 rounded-lg hover:border-blue-700" >
-                       
+
+                        <input wire:model='contenido' @error('contenido')  class=" bg-gray-50  rounded-lg border-danger"  placeholder="{{ $message }}" @enderror type="text" style="width: 67%" class=" text-left border-end-0 position-relative  form-input  bg-gray-50 rounded-lg hover:border-blue-700" >
+                        <select wire:model="" @error('categoria')  class=" bg-gray-50  rounded-lg border-danger"  placeholder="{{ $message }}" @enderror name="" id="" style="" class="border-start-0 position-absolute top-50 start-50 translate-middle form-select bg-gray-50 rounded-lg hover:border-blue-700">
+                          <option value="" selected>  </option>
+                          <option value="Kg" >kg</option>
+                          <option value="gr" >gr</option>
+                          <option value="L" >L</option>
+                          <option value="pz" >Pz</option>
+                          <option value="ml" >ml</option>
+                         
+                        </select>
                       </div>
                     </div>
                   </div>
