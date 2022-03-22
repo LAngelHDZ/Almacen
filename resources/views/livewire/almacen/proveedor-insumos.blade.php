@@ -82,7 +82,13 @@
           $int=1;
         @endphp
         @foreach ($proveedor as $item )
-          
+        @if($proveedor->count()==0 )
+
+        <tr>
+          <td ><span class="text-center text-gray">No hay registros</span> </td>
+        </tr>
+          @endif
+        @if($item->active ==1)
         <tr class="">
           <th class="pt-3 font-weight-normal text-decoration-underline text-center">{{ $int++ }}</th>
           <th class="pt-3 font-weight-normal text-center">{{ $item->rfc }}</th>
@@ -90,7 +96,7 @@
           <th class="pt-3 font-weight-normal ">{{ $item->direccion }}</th>
           <th class="pt-3 font-weight-normal ">{{ $item->email }}</th>
           <th class="pt-3 font-weight-normal text-center">{{ $item->telefono }}</th>
-         
+          
           <td class="text-center">
             <button  wire:click='edit({{$item->id}})' type="button" class="btn btn-outline-primary">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -98,7 +104,7 @@
                 <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
               </svg>
             </button>
-
+            
             <button wire:click='delete({{ $item->id }})' type="button" class="btn btn-outline-danger" >
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square " viewBox="0 0 16 16">
                 <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
@@ -107,6 +113,7 @@
             </button>
           </td>
         </tr>
+        @endif
         @endforeach
       </tbody>
 

@@ -70,7 +70,11 @@ class ProveedorInsumos extends Component
     }
 
     public function delete($id){
-        Proveedor::destroy($id);
+        $updatepro = array(
+            'active'=>0,
+        );
+        DB::table('proveedors')->where('id',$id)->update($updatepro);
+     
         $this->emit('alert');
     }
 

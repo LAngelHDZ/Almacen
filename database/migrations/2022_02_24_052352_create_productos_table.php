@@ -18,10 +18,11 @@ class CreateProductosTable extends Migration
             $table->integer('clave_producto')->unique();
             $table->string('producto',60);
             $table->string('marca',50);
-            $table->text('descripcion',150);
+            $table->text('descripcion',80);
             $table->string('categoria',50);
-            $table->string('empaque');
+            $table->string('presentacion');
             $table->integer('contenido');
+            $table->string('unidad');
             $table->timestamps();
         });
     }
