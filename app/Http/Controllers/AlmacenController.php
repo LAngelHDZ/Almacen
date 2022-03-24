@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Productos;
 
 class AlmacenController extends Controller
 {
@@ -17,7 +18,16 @@ class AlmacenController extends Controller
     }
 
     public function producto(){
+        $view=false;
+        return view('almacen.producto',compact('view'));
+    }
 
-        return view('almacen.producto');
+    public function precios($id){
+
+        $view=true;
+        $producto= Productos::where('id',$id)->get();
+
+        return view('almacen.producto',compact('view','producto'));
+
     }
 }

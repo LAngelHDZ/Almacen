@@ -9,18 +9,17 @@ use Livewire\Component;
 
 class CreateProducto extends Component
 {
-    public $idprod, $clave, $listP,$precio,$idprov,$empaque;
-    public $producto,$marca,$categoria,$contenido,$des;
+    public $idprod, $clave,$presentacion;
+    public $producto,$marca,$categoria,$contenido,$des,$unidad;
 
     protected $rules=[
         'clave' => 'required',
         'marca' => 'required',
-        'precio' => 'required',
         'producto' => 'required|min:4|max:30',
-        'idprov' => 'required',
-        'empaque' => 'required',
+        'presentacion' => 'required',
         'categoria' => 'required',
         'contenido' => 'required',
+        'unidad' => 'required',
         'des' => 'required',
     ];
 
@@ -37,10 +36,10 @@ class CreateProducto extends Component
                 'marca' => $this->marca,
                 'descripcion' => $this->des,
                 'categoria' => $this->categoria,
-                'empaque' => $this->empaque,
+                'presentacion' => $this->presentacion,
                 'contenido' => $this->contenido,
-                // 'precio' => 'required',
-                // 'prov' => 'required',
+                'unidad' => $this->unidad,
+                                
              ]
          );
     }
@@ -61,7 +60,6 @@ class CreateProducto extends Component
     public function createp(){
         $validatedData = $this->validate();
        $this->insertpro();
-       $this->insertcat();
         $this->closemodal();
          $this->emitevent();
         $this->resetdatos();
@@ -78,10 +76,10 @@ class CreateProducto extends Component
          $this->dispatchBrowserEvent('show-form');
     }
 
-    public function proveedores(){
-        $listprove = Proveedor::all();
-        $this->listP=$listprove;
-    }
+    // public function proveedores(){
+    //     $listprove = Proveedor::all();
+    //     $this->listP=$listprove;
+    // }
 
      //metodo que manda eventos 
      public function emitevent(){
@@ -95,12 +93,11 @@ class CreateProducto extends Component
         $this->reset([
             'clave',   
             'marca', 
-            'precio' ,
-            'producto',
-            'idprov', 
-            'empaque', 
+            'producto', 
+            'presentacion', 
             'categoria' ,
             'contenido', 
+            'unidad', 
             'des', 
         ]);
     }
@@ -108,7 +105,7 @@ class CreateProducto extends Component
     public function render()
     {
 
-        $this->proveedores();
+        // $this->proveedores();
         return view('livewire.almacen.producto.create-producto');
     }
 }

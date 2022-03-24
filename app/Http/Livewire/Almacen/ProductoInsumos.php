@@ -8,18 +8,19 @@ use Livewire\Component;
 
 class ProductoInsumos extends Component
 {
-    public $idprod, $clave, $listP,$precio,$idprov,$empaque;
-    public $producto,$marca,$categoria,$contenido,$des;
+    public $idprod, $clave, $listP,$precio,$idprov,$presentacion;
+    public $producto,$marca,$categoria,$contenido,$des,$unidad,$view;
     protected $listeners = ['datatable' => 'render'];
 
     protected $rules=[
         'clave' => 'required',
         'marca' => 'required',
         'producto' => 'required|min:4|max:30',
-        'empaque' => 'required',
+        'presentacion' => 'required',
         'categoria' => 'required',
         'contenido' => 'required',
         'des' => 'required',
+        'unidad' => 'required',
     ];
     public function updated($propertyName)
     {
@@ -34,8 +35,9 @@ class ProductoInsumos extends Component
             'marca'=>$this->marca,
             'descripcion'=>$this->des,
             'categoria'=>$this->categoria,
-            'empaque'=>$this->empaque,
+            'presentacion'=>$this->presentacion,
             'contenido'=>$this->contenido,
+            'unidad'=>$this->unidad,
         );
 
         DB::table('productos')->where('id',$this->idprod)->update($update);
@@ -45,11 +47,15 @@ class ProductoInsumos extends Component
         
 
         
-    }
-
-    public function delete(){
+    
 
     }
+
+    public function addprecio($id){
+
+        redirect()->route('precios-producto',$id);
+    }
+
     public function closemodal(){
         $this->dispatchBrowserEvent('close-formedit');
     }
@@ -61,10 +67,11 @@ class ProductoInsumos extends Component
             'precio' ,
             'producto',
             'idprov', 
-            'empaque', 
+            'presentacion', 
             'categoria' ,
             'contenido', 
             'des', 
+            'unidad', 
         ]);
     }
 
@@ -80,8 +87,9 @@ class ProductoInsumos extends Component
         $this->marca=$idproducto->marca;
         $this->des=$idproducto->descripcion;
         $this->categoria=$idproducto->categoria;
-        $this->empaque=$idproducto->empaque;
+        $this->presentacion=$idproducto->presentacion;
         $this->contenido=$idproducto->contenido;
+        $this->unidad=$idproducto->unidad;
         $this->showmodal();
     }
 

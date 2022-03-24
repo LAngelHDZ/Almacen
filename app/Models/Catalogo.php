@@ -13,6 +13,5 @@ class Catalogo extends Model
         'idproveedor',
         'idproducto',
         'precio',
-        
     ];
 }

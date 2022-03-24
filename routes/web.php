@@ -30,6 +30,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::get('/catalogo',[AlmacenController::class,'catalogo'])->name('catalogo');
 Route::get('/proveedor',[AlmacenController::class,'proveedor'])->name('proveedor');
 Route::get('/producto',[AlmacenController::class,'producto'])->name('producto');
+Route::get('/producto/precios/{id}/',[AlmacenController::class,'precios'])->name('precios-producto');
 
 Route::get('/solictud-requicision',[SolicitudController::class,'prerequicision'])->name('solicitud');
 

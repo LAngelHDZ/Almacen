@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Proveedores')
+@section('title', 'Productos')
 
 @section('content_header')
     <p class="text-blue fw-bold ">Producto</p>
@@ -8,15 +8,37 @@
 @livewireStyles
 @section('content')
 <div class=" w-auto mx-5">
+@if(!$view)
+<div class="mt-5">
+    @livewire('almacen.producto.create-producto')
+</div>
+<div class="mt-2">
+    @livewire('almacen.producto-insumos')
+</div>
+@else
+<div class="bg-white">
+    <div class=" pt-2 px-4 flex justify-between">
+        <div class="flex ">
+            <h3 class="h4 text-bold mr-3">Material: </h3>
+            <h4 class="h4">{{$producto[0]->producto}}</h4>
+        </div>
+        <div class="flex">
+            <h3 class="h4 text-bold mr-3">Referencia: </h3>
+            <h4 class="h4">{{$producto[0]->clave_producto}}</h4>
+        </div>
+    </div>
+    <div class=" mt-5 flex justify-center">
+        <h3 class="h3">Listado de proveedores y precios</h3>
+    </div>
+    
+    @livewire('almacen.producto.precio-producto',['idpro' => $producto[0]->id])
+    <div>
 
-    <div class="mt-5">
-    
-        @livewire('almacen.producto.create-producto')
+        
     </div>
-    <div class="mt-2">
-    
-        @livewire('almacen.producto-insumos')
-    </div>
+</div>
+@endif
+
 </div>
 @stop
 
