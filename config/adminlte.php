@@ -239,27 +239,31 @@ return [
         // Sidebar items:
         [
             'type' => 'sidebar-menu-search',
-            'text' => 'search',
+            'text' => 'buscar',
         ],
         // ['header' => 'USUARIO'],
 
         [
             'text'    => 'GENERAL',
-            'icon'    => 'fas fa-fw fa-user',
+            'icon'    => 'fas fa-fw fa-user-tie',
             'submenu' => [
                 [
+                    'icon'    => 'fas fa-ms fa-file-alt',
                     'text' => 'requisicion',
                     'route'  => 'solicitud', 
                 ],
                 [
+                    'icon'    => 'fas fa-clipboard-list',
                     'text' => 'solicitudes',
                     'url'  => 'admin/blog', 
                 ],
                 [
+                    'icon'    => 'fas fa-sm fa-vials',
                     'text' => 'materiales',
                     'url'  => 'admin/blog', 
                 ],
                 [
+                    'icon'    => 'fas fa-list-ul',
                     'text' => 'historial',
                     'url'  => 'admin/blog', 
                 ],
@@ -268,7 +272,7 @@ return [
 
         [
             'text'    => 'ALMACEN',
-            'icon'    => 'fas fa-fw fa-user',
+            'icon'    => 'fas fa-fw fa-archive',
             'submenu' => [
                 [
                     'text' => 'opcion 1',
@@ -289,32 +293,36 @@ return [
             ],
         ],
         
-        [
-            'text'    => 'RECURSOS',
-            'icon'    => 'fas fa-fw fa-user',
-            'submenu' => [
-                [
-                    'text' => 'opcion 1',
-                    'url'  => 'admin/blog', 
-                ],
-                [
-                    'text' => 'opcion 2',
-                    'url'  => 'admin/blog', 
-                ],
-                [
-                    'text' => 'opcion 3',
-                    'url'  => 'admin/blog', 
-                ],
-                [
-                    'text' => 'opcion 4',
-                    'url'  => 'admin/blog', 
+        
+            [
+                'text'    => 'RECURSOS',
+                'icon'    => 'fas fa-fw fa-boxes',
+                'submenu' => [
+                    [
+                        'icon'    => 'fas ffa-sm fa-file-invoice-dollar',
+                        'text' => 'Cotización',
+                        'route' => 'catalogo',
+                    ],
+                    ['header' => 'ALTAS y CONSULTAS'],
+                    [
+                        'icon'    => 'fas fa-sm fa-truck',
+                        'text' => 'Proveedores',
+                        'route' => 'proveedor',
+                    ],
+                    
+                    [
+                        'icon'    => 'fas fa-sm fa-prescription-bottle',
+                        'text' => 'Producto',
+                        'route' => 'producto',
+                    ],
+    
+                    
                 ],
             ],
-        ],
 
         [
             'text'    => 'ADMINISTRACIÓN',
-            'icon'    => 'fas fa-fw fa-user',
+            'icon'    => 'fas fa-fw fa-globe',
             'submenu' => [
                 [
                     'text' => 'Administrador',
@@ -338,21 +346,21 @@ return [
                 ],
 
                 [
-                    'text' => 'Recursos materiales',
+                    'text' => 'Director',
                     'url'  => 'admin/blog',
                     'submenu' => [
                         [
-                            'text' => 'Catalogo',
-                            'route' => 'catalogo',
+                            'text' => 'opcion 1',
+                            'url' => '#',
                         ],
                         [
-                            'text' => 'Proveedores',
-                            'route' => 'proveedor',
+                            'text' => 'opcion 2',
+                            'url' => '#',
                         ],
 
                         [
-                            'text' => 'Producto',
-                            'route' => 'producto',
+                            'text' => 'opcion 3',
+                            'url' => '#',
                         ],
 
                     ], 
@@ -364,10 +372,11 @@ return [
 
         [
             'text'    => 'ROOT',
-            'icon'    => 'fas fa-fw fa-user',
+            'icon'    => 'fas fa-fw fa-user-cog',
             'submenu' => [
                 [
-                    'text' => 'user',
+                    'icon'    => 'fas fa-sm fa-users',
+                    'text' => 'usuarios',
                     'route'  => 'users', 
                 ],
                 [
@@ -396,7 +405,7 @@ return [
         [
             'text' => 'profile',
             'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-address-card',
         ],
        
 

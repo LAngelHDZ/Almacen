@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Almacen\Root;
 
 use Livewire\Component;
 use App\Models\area;
+use App\Models\departamento;
 use App\Models\empleado;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -13,8 +14,8 @@ class FormUsers extends Component
 {
 
     // ----> Variables globales que se ocupan dentro de la clase <----
-    public $clave,$id_user,$email,$nss,$rfc,$nombre,$apaterno,$amaterno;
-    public $fecha,$dir,$idarea,$area,$cargo,$pass,$repeatpass;
+    public $clave,$id_user,$email,$rfc,$nombre,$apaterno,$amaterno;
+    public $idarea,$listarea,$listdep,$idep,$cargo,$pass,$repeatpass;
     public $viewer,$iduser, $ren=true;
 
     // ---->Metodo que contiene las Reglas de validación del formulario vista registro de usuario ovista actualización de usuario <----
@@ -25,9 +26,6 @@ class FormUsers extends Component
                 'email' => 'required|email',
                 'nombre' => 'required|max:60|min:4',
                 'rfc' => 'required|max:13|min:13',
-                'nss' => 'required|max:11|min:11',
-                'fecha' => 'required|',
-                'dir' => 'required|max:100',
                 'idarea' => 'required',
                 'cargo' => 'required',
             ];
@@ -41,9 +39,6 @@ class FormUsers extends Component
                 'amaterno' => 'required|max:30|min:4',
                 'nombre' => 'required|max:60|min:4',
                 'rfc' => 'required|max:13|min:13',
-                'nss' => 'required|max:11|min:11',
-                'fecha' => 'required|',
-                'dir' => 'required|max:100',
                 'idarea' => 'required',
                 'cargo' => 'required',
             ];
@@ -66,10 +61,8 @@ class FormUsers extends Component
             'apaterno',
             'amaterno',
             'rfc',
-            'nss',
-            'fecha',
-            'dir',
             'idarea',
+            'idep',
             'cargo',
         ]);
     }
@@ -82,10 +75,7 @@ class FormUsers extends Component
             empleado::create([
             'clave' => $this->clave,
             'id_user' => $userid->id,
-            'nss' => $validatedData['nss'],
             'rfc' => $validatedData['rfc'],
-            'fecha_nac' => $validatedData['fecha'],
-            'direccion' => $validatedData['dir'],
             'area' => $this->idarea,
             'cargo' => $validatedData['cargo'],
         ]);
@@ -130,10 +120,7 @@ class FormUsers extends Component
         $validatedData = $this->validate();
         $updatempleado = array(
             'id_user' => $this->id_user,
-            'nss' => $validatedData['nss'],
             'rfc' => $validatedData['rfc'],
-            'fecha_nac' => $validatedData['fecha'],
-            'direccion' => $validatedData['dir'],
             'area' => $this->idarea,
             'cargo' => $validatedData['cargo'],   
         );
@@ -154,19 +141,16 @@ class FormUsers extends Component
         $users= User::join('empleados','users.id','=','empleados.id_user')
             ->join('areas','empleados.area','=','areas.id')
             ->select('users.id','users.name','users.email','empleados.id as id_empleado',
-                     'empleados.clave','empleados.rfc','empleados.nss','empleados.fecha_nac',
-                     'empleados.direccion','empleados.cargo',
-                     'areas.area','areas.id as idarea')
+                     'empleados.clave','empleados.rfc','empleados.cargo',
+                     'areas.area','areas.id as idarea','areas.id_departamento as idep')
             ->where('users.id',$this->id_user)->get();
 
             $this->clave=$users[0]->clave;
             $this->email=$users[0]->email;
             $this->nombre=$users[0]->name;
             $this->rfc=$users[0]->rfc;
-            $this->nss=$users[0]->nss;
-            $this->fecha=$users[0]->fecha_nac;
-            $this->dir=$users[0]->direccion;
             $this->idarea=$users[0]->idarea;
+            $this->idep=$users[0]->idep;
             $this->cargo=$users[0]->cargo;  
     }
 
@@ -181,14 +165,16 @@ class FormUsers extends Component
     }
 
     // ----> Metodod que renderiza la vista donde se mostrara un formulario u otro dependiendo del valor de la variabl viewer <----
+    public function selectDeparea(){
+        $this->listdep =departamento::select('id','clave','departamentos')->get();
+            $this->listarea =area::select('id','clave','area','id_departamento as id_dep')->get();
+    }
     public function render()
     {
         if($this->ren){
             $this->views();
         }
-
-        return view('livewire.almacen.root.form-users',[
-            'list' => area::select('id','clave','area')->get()
-        ]);
+        $this->selectDeparea();
+        return view('livewire.almacen.root.form-users');
     }
 }

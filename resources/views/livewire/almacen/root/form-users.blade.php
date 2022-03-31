@@ -64,23 +64,26 @@
                     </div>
                     <div>
                         <div>
-                            <div class="flex flex-row pt-3" wire:ignore>
+                            <div class="flex flex-row pt-3" >
                                 <div class="  w-full ">
                                     <label for="" class="flex">Departamento:</label>
-                                    <select wire:model="idarea" name="" id="" class="form-select w-full px-4 bg-gray-50 rounded-lg hover:border-blue-700">
+                                    <select wire:model="idep" name="" id="" class="form-select w-full px-4 bg-gray-50 rounded-lg hover:border-blue-700">
                                         <option value="" selected>seleccionar</option>
-                                        @foreach($list as $item)  
-                                        <option value="{{ $item->id }}" >{{ $item->area }}</option>
+                                        @foreach($listdep as $data)  
+                                        <option value="{{ $data->id }}" >{{ $data->departamentos }}</option>
                                         @endforeach
                                     </select>
                                     @error('idarea') <span class="error text-red-600">{{ $message }}</span> @enderror
                                 </div>
                                 <div class=" ml-4 w-full">
+                                    
                                     <label for="" class="flex">Area correspondiente:</label>
                                     <select wire:model="idarea" name="" id="" class="form-select w-full px-4 bg-gray-50 rounded-lg hover:border-blue-700">
                                         <option value="" selected>seleccionar</option>
-                                        @foreach($list as $item)  
-                                        <option value="{{ $item->id }}" >{{ $item->area }}</option>
+                                        @foreach($listarea as $data)
+                                        @if ($idep==$data->id_dep)  
+                                        <option value="{{ $data->id }}" >{{ $data->clave.' / '.$data->area }}</option>
+                                         @endif   
                                         @endforeach
                                     </select>
                                     @error('idarea') <span class="error text-red-600">{{ $message }}</span> @enderror

@@ -89,7 +89,34 @@
       </div>
 </div>
     {{-- <----- Fin fragmento de código modal -----> --}}
-
+    <div>
+      <h5 class="h5 text-bold">Filtros de busqueda:</h5>
+      <div class="mb-2 d-flex justify-content-between">
+        <div class=" ml-2 d-flex justify-content-between">
+          <div>
+            <select wire:model="filtercategory" name="" id="" class="form-select  w-64 rounded-lg hover:border-blue-700">
+              <option value="0">Seleccione una categoria</option>
+              <option value="1">Papeleria</option>
+              <option value="2">Reactivo</option>
+              <option value="3">Insumo general</option>
+            </select>
+          </div>
+          <div class=" mx-4">
+            <select wire:model="campo" name="" id="" class="form-select  w-60 rounded-lg hover:border-blue-700">
+              <option value="clave_producto">Clave</option>
+              <option value="producto">Producto</option>
+            </select>
+          </div>
+          <div>
+            <i class="fa fa-search "> </i>
+            <input wire:model="search" type="text" class=" ml-1 w-64 form-input rounded-lg hover:border-blue-700"  placeholder="Buscar">
+          </div>
+        </div> 
+        <div class="">
+          @livewire('almacen.producto.create-producto')
+        </div>
+      </div>
+  </div>
   {{-- <--- Data table de poveedores ---> --}}
     
     <table class="table bg-white border shadow-sm rounded-2">

@@ -12,6 +12,7 @@ class ProveedorInsumos extends Component
     use WithPagination;
     public $editprove;
     public $idpro,$rfc, $empresa, $direccion, $email, $telefono;
+    public $search,$campo='empresa';
 
 
     protected $listeners = ['datatable' => 'render'];
@@ -22,6 +23,10 @@ class ProveedorInsumos extends Component
 
      public function showeditmodal(){
         $this->dispatchBrowserEvent('show-formedit');
+    }
+
+    public function updatingSearch(){
+        $this->resetPage();
     }
 
       public function edit($idprovedor){
@@ -93,7 +98,8 @@ class ProveedorInsumos extends Component
     public function render()
     {
         return view('livewire.almacen.proveedor-insumos',[
-            'proveedor' => Proveedor::paginate(10)
+            'proveedor' => Proveedor::where($this->campo,'like','%'.$this->search.'%')
+            ->paginate(1)
         ]);
     }
 }

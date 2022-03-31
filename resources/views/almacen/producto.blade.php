@@ -9,9 +9,6 @@
 @section('content')
 <div class=" w-auto mx-5">
 @if(!$view)
-<div class="mt-5">
-    @livewire('almacen.producto.create-producto')
-</div>
 <div class="mt-2">
     @livewire('almacen.producto-insumos')
 </div>
@@ -28,7 +25,7 @@
         </div>
     </div>
     <div class=" mt-5 flex justify-center">
-        <h3 class="h3">Listado de proveedores y precios</h3>
+        <h3 class="h3">Alta de proveedores y precios</h3>
     </div>
     
     @livewire('almacen.producto.precio-producto',['idpro' => $producto[0]->id])

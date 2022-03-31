@@ -22,7 +22,6 @@
                 <p class="font-weight-bolder mb-0">Empleado: <span class="font-weight-normal"> {{ $nombre}} </span></p>
                 <p class="font-weight-bolder mb-0 ">email: <span class="font-weight-normal"> {{ $email}}</span></p>
                 <p class="font-weight-bolder mb-0 ">RFC: <span class="font-weight-normal"> {{ $rfc}}</span></p>
-                <p class="font-weight-bolder mb-0 ">SSN: <span class="font-weight-normal"> {{ $nss}}</span></p>
                 <div class="flex">
                   <p class="font-weight-bolder mb-0 ">Departamento: <span class="font-weight-normal"> {{ $dep}}</span></p>
                   <p class="font-weight-bolder mb-0 ml-3 ">clave: <span class="font-weight-normal"> {{ $cl_dep}}</span></p>
@@ -30,9 +29,7 @@
                 <div class="flex">
                   <p class="font-weight-bolder mb-0 ">Area: <span class="font-weight-normal"> {{ $area}}</span></p>
                   <p class="font-weight-bolder mb-0 ml-3 ">clave: <span class="font-weight-normal"> {{ $cl_area}}</span></p>
-                </div>
-                <p class="font-weight-bolder mb-0 ">Dirección: <span class="font-weight-normal"> {{ $dir}}</span></p>
-                
+                </div>                
               </div>
           </div>
            </div>
@@ -50,8 +47,22 @@
     </div>
   </div>
   {{-- <----- Fin fragmento de código modal -----> --}}
-
-
+  
+  <div class=" d-flex justify-content-between mb-2">
+    <div class=" ml-2">
+      <label for="" class="h5 pr-2">Filtro de busqueda:</label>
+      <select wire:model="campo" name="" id="" class="form-select mr-4 w-64 rounded-lg hover:border-blue-700">
+        <option value="users.name">Nombre</option>
+        <option value="empleados.clave">Clave</option>
+        <option value="areas.area">Area</option>
+      </select>
+         <i class="fa fa-search mr-2 hover:text-blue-700"> </i>
+         <input wire:model="search" type="text" class=" w-64 form-input rounded-lg hover:border-blue-700"  placeholder="Buscar">
+    </div> 
+    <div class="p-1 border border-success rounded-md">
+        <a href="{{route('formusers')}}" class="btn btn-success"> <i class="fas fa-user-plus mr-1"></i></i>Nuevo usuario</a>
+    </div>
+</div>
 <table class="table bg-white border shadow-sm rounded-2">
     <thead class="">
       <div class="bg-primary bg-gradient p-1  " style="--bs-bg-opacity: .5;">
@@ -111,8 +122,7 @@
           </td>
         </tr>
         @endforeach  
-        
       </tbody>
-
     </table>
+    {{ $listuser->links() }}
 </div>

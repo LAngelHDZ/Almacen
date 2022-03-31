@@ -9,11 +9,8 @@
 @section('content')
 <div class=" w-auto mx-5">
 
-    <div class="mt-5">
     
-        @livewire('almacen.proveedor.create-proveedor')
-    </div>
-    <div class="mt-2">
+    <div class="mt-5">
     
         @livewire('almacen.proveedor-insumos')
     </div>
@@ -22,7 +19,7 @@
 
 @section('css')
     {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
-    {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     
 @stop
 

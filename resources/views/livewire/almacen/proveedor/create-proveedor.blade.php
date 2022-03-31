@@ -1,10 +1,10 @@
 <div>   
             {{-- Este boton abre un modal donde está el formulario para dar de alta un proveedor --}}
            
-                 <div class="d-flex justify-content-end">
-                    <button wire:click.prevent='showmodal' type="button" class="btn btn-outline-primary ">
-                         <i class="fa fa-plus-circle"></i> Nuevo 
-                    </button>
+                 <div class=" p-1 border border-success rounded-md ">
+                    <a wire:click.prevent='showmodal'  class="btn btn-success ">
+                         <i class="fas fa-plus-circle"></i> Nuevo 
+                    </a>
                  </div>
               
         {{-- <----- Este fragmento de código es el modal -----> --}}
@@ -21,41 +21,41 @@
                 {{-- <--- Fin cabecera modal ---> --}}
 
                 {{-- <-- Inicio Cuerpo del modal donde estan los controles de formulario --> --}}
-                <div class="modal-body">
+                <div class="modal-body bg-gray-50">
                     <div class="mb-3">
                       {{-- {{ $infoproveedor }} --}}
                         <label for="text-rfc" class="form-label">RFC</label>
-                        <input wire:model='rfc' type="text" class="form-control" id="rfc">
+                        <input wire:model='rfc' type="text" class="form-input w-100 rounded-lg hover:border-blue-700" id="rfc">
                         @error('rfc') <span class="error">{{ $message }}</span> @enderror
                         {{$rfc}}
                       </div>
                     <div class="mb-3">
                         <label for="text-empresa" class="form-label">Empresa</label>
-                        <input wire:model='empresa' type="text" class="form-control" id="name-empresa">
+                        <input wire:model='empresa' type="text" class="form-input w-100 rounded-lg hover:border-blue-700" id="name-empresa">
                         @error('empresa') <span class="error">{{ $message }}</span> @enderror
                     </div>
                         <div class="mb-3">
                           <label for="text-area-direccion" class="form-label">Dirección</label>
-                          <textarea wire:model='direccion' class="form-control" id="direccion" rows="3"></textarea>
+                          <textarea wire:model='direccion' class="form-input w-100 rounded-lg hover:border-blue-700" id="direccion" rows="3"></textarea>
                           @error('direccion') <span class="error">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
                             <label for="tetx-email" class="form-label">Email</label>
-                            <input wire:model='email' type="email" class="form-control" id="email" placeholder="name@example.com">
+                            <input wire:model='email' type="email" class="form-input w-100 rounded-lg hover:border-blue-700" id="email" placeholder="name@example.com">
                             @error('email') <span class="error">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
                             <label for="tetx-" class="form-label">Telefono</label>
-                            <input wire:model='telefono' type="tel" class="form-control" id="tel">
+                            <input wire:model='telefono' type="tel" class="form-input w-100 rounded-lg  hover:border-blue-700" id="tel">
                             @error('telefono') <span class="error">{{ $message }}</span> @enderror
                       </div>
                 </div>
                 {{-- <-- Fin cuerpo modal --> --}}
 
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  <a class="btn btn-secondary" data-dismiss="modal">Cancelar</a>
                   <span x-on:click="on = false">
-                  <button wire:click.prevent="saveProveedor" type="button" class="btn btn-primary">Guardar</button>
+                  <a wire:click.prevent="saveProveedor"  class="btn btn-primary">Guardar</a>
                   </span>
                 </div>
 
