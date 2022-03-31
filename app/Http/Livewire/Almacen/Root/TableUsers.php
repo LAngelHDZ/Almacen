@@ -41,9 +41,9 @@ class TableUsers extends Component
         ->select('users.id','users.name','users.email','empleados.id as id_empleado',
                  'empleados.clave','empleados.rfc','empleados.cargo',
                  'areas.area','areas.id as idarea','areas.clave as cl_area',
-                 'departamentos.clave as cl_dep','departamentos.departamentos as dep')
+                 'departamentos.clave as cl_dep','departamentos.departamento as dep')
         ->where('users.id',$iduser)->get();
-        
+
         $this->clave=$users[0]->clave;
         $this->email=$users[0]->email;
         $this->nombre=$users[0]->name;
@@ -52,9 +52,9 @@ class TableUsers extends Component
         $this->cl_area=$users[0]->cl_area;
         $this->dep=$users[0]->dep;
         $this->cl_dep=$users[0]->cl_dep;
-        $this->cargo=$users[0]->cargo; 
+        $this->cargo=$users[0]->cargo;
 
-        
+
     }
 
     public function viewinfo($id){

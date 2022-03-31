@@ -84,7 +84,7 @@ class FormUsers extends Component
     // ----> metodo que guarda la información de usuario los controles del formulario  en la tabla users que va enlazada a la tabla empleados de la base de datos <----
     public function insertuser(){
         if(!$this->viewer){
-            $validatedData = $this->validate();       
+            $validatedData = $this->validate();
             $data =array(
                 'name' => $validatedData['nombre'].' '.$validatedData['apaterno'].' '.$validatedData['apaterno'],
                 'email' =>$validatedData['email'],
@@ -111,7 +111,7 @@ class FormUsers extends Component
         $validatedData = $this->validate();
         $updateuser = array(
             'name' => $validatedData['nombre'],
-            'email' =>$validatedData['email'],    
+            'email' =>$validatedData['email'],
         );
         DB::table('users')->where('id',$this->id_user)->update($updateuser);
     }
@@ -122,12 +122,12 @@ class FormUsers extends Component
             'id_user' => $this->id_user,
             'rfc' => $validatedData['rfc'],
             'area' => $this->idarea,
-            'cargo' => $validatedData['cargo'],   
+            'cargo' => $validatedData['cargo'],
         );
         DB::table('empleados')->where('id_user',$this->id_user)->update($updatempleado);
     }
-    
-    // ----> Metodo que se ejecutará cuando se de clic en actualizar en la vista actualizar usuario 
+
+    // ----> Metodo que se ejecutará cuando se de clic en actualizar en la vista actualizar usuario
     //  actualizara los cambios de los datos mostrados  en los controles <----
     public function update(){
         $this->updateuser();
@@ -151,7 +151,7 @@ class FormUsers extends Component
             $this->rfc=$users[0]->rfc;
             $this->idarea=$users[0]->idarea;
             $this->idep=$users[0]->idep;
-            $this->cargo=$users[0]->cargo;  
+            $this->cargo=$users[0]->cargo;
     }
 
     // ----> Metodo que verifica  que si la variable viewer es verdadera para ejecutar el método infouser() escrito arriba
@@ -166,7 +166,7 @@ class FormUsers extends Component
 
     // ----> Metodod que renderiza la vista donde se mostrara un formulario u otro dependiendo del valor de la variabl viewer <----
     public function selectDeparea(){
-        $this->listdep =departamento::select('id','clave','departamentos')->get();
+        $this->listdep =departamento::select('id','clave','departamento')->get();
             $this->listarea =area::select('id','clave','area','id_departamento as id_dep')->get();
     }
     public function render()
