@@ -89,20 +89,7 @@
                                     @error('idarea') <span class="error text-red-600">{{ $message }}</span> @enderror
                                 </div>
                                 <div>
-                        <div class="mb-3">
-                            <label for="text-empresa" class="form-label">Proveedor</label>
-                            <select wire:model="proveedor" @error('proveedor')  class="rounded-lg bg-gray-50 border-danger"  @enderror name="" id="" style="" class="rounded-lg w-100 form-select bg-gray-50 hover:border-blue-700">
-                               <option value="" selected>  </option>
-                               @foreach($listProve as $data)
-                               <option value="{{$data->id}}">{{$data->empresa}}</option>
-                               @endforeach
-                           </select>
-                       </div>
-                       <div class="mb-3">
-                           <label for="text-precio" class="form-label">Precio</label>
-                           <input wire:model='precio' type="text" class="rounded-lg form-input w-100 bg-gray-50 hover:border-blue-700" id="name-empresa">
-                           @error('precio') <span class="error">{{ $message }}</span> @enderror
-                       </div>
+                        
                     </div>
                             </div>
                         </div>
