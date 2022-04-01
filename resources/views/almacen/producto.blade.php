@@ -27,11 +27,11 @@
     <div class=" mt-5 flex justify-center">
         <h3 class="h3">Alta de proveedores y precios</h3>
     </div>
-    
+
     @livewire('almacen.producto.precio-producto',['idpro' => $producto[0]->id])
     <div>
 
-        
+
     </div>
 </div>
 @endif
@@ -42,7 +42,7 @@
 @section('css')
     {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    
+
 @stop
 
 @section('js')
@@ -73,7 +73,18 @@
         timer: 1700
 })
     })
+
+    function myFunction() {
+    var x = document.getElementById("myDIV");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
 </script>
+<script defer src="https://unpkg.com/alpinejs@3.9.5/dist/cdn.min.js"></script>
 @livewireScripts
-   
+
 @stop
