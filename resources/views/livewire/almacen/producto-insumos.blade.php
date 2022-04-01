@@ -6,9 +6,9 @@
 
           {{-- <--- Cabecera del modal donde aparece el titulo del modal ---> --}}
           <div class="modal-header">
-            
+
             <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo producto</h5>
-          
+
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           {{-- <--- Fin cabecera modal ---> --}}
@@ -20,13 +20,13 @@
                       <div>
                         <label for="clave" class="form-label">CLave producto</label>
                         <input wire:model='clave' @error('clave')  class=" bg-gray-50  rounded-lg border-danger"  placeholder="{{ $message }}" @enderror type="text" class="form-input  bg-gray-50 rounded-lg hover:border-blue-700"  >
-                
+
                       </div>
                       <div class="pt-2">
                         <label for="marca" class="form-label">Marca</label>
                         <input wire:model='marca' @error('marca')  class=" bg-gray-50  rounded-lg border-danger"  placeholder="{{ $message }}" @enderror type="text" class="form-input   bg-gray-50 rounded-lg hover:border-blue-700" >
                       </div>
-                    
+
                       <div class="pt-2">
                         <label for="presentacion" class="">Presentación</label>
                         <select wire:model="presentacion" @error('empaque')  class=" bg-gray-50  rounded-lg border-danger"  placeholder="{{ $message }}" @enderror  name="" id="" style="width: 83%" class="form-select bg-gray-50 rounded-lg hover:border-blue-700">
@@ -34,7 +34,7 @@
                           <option value="Caja" >Caja</option>
                           <option value="Paquete" >Paquete</option>
                           <option value="Unidad" >Unidad</option>
-                          
+
                       </select>
                       </div>
                     </div>
@@ -42,9 +42,9 @@
                       <div>
                         <label for="producto" class="form-label">Producto</label>
                         <input wire:model='producto' @error('producto')  class="  bg-gray-50  rounded-lg border-danger"  placeholder="{{ $message }}" @enderror type="text" class="form-input w-100 bg-gray-50 rounded-lg hover:border-blue-700" >
-                        
+
                       </div>
-                      
+
                       <div class="pt-2">
                         <label for="categoria" class="">Categoria</label>
                         <select wire:model="categoria" @error('categoria')  class=" bg-gray-50  rounded-lg border-danger"   @enderror name="" id="" style="width: 100%" class="form-select bg-gray-50 rounded-lg hover:border-blue-700">
@@ -66,7 +66,7 @@
                           <option value="pz" >Pz</option>
                           <option value="ml" >ml</option>
                           <option value="Pqt" >Pqt</option>
-                         
+
                         </select>
                       </div>
                     </div>
@@ -74,7 +74,7 @@
                   <div class="pt-2">
                     <label for="descripcion" class="">Descripción</label>
                     <textarea wire:model="des" @error('des') cols="15" rows="5"  class=" bg-gray-50 w-full px-4  rounded-lg border-danger"  placeholder="{{ $message }}"  @enderror  cols="15" rows="5" class="form-input w-full px-4 bg-gray-50 rounded-lg hover:border-blue-700"></textarea>
-                    
+
                   </div>
                 </div>
                         {{-- <-- Fin cuerpo modal --> --}}
@@ -111,14 +111,14 @@
             <i class="fa fa-search "> </i>
             <input wire:model="search" type="text" class=" ml-1 w-64 form-input rounded-lg hover:border-blue-700"  placeholder="Buscar">
           </div>
-        </div> 
+        </div>
         <div class="">
           @livewire('almacen.producto.create-producto')
         </div>
       </div>
   </div>
   {{-- <--- Data table de poveedores ---> --}}
-    
+
     <table class="table bg-white border shadow-sm rounded-2">
       <div class="bg-primary bg-gradient p-1  ">
         <thead class="">
@@ -135,8 +135,8 @@
         </thead>
       </div>
       <tbody>
-        
-          
+
+
         @foreach ($products as $data)
         <tr class="">
           <th class="pt-3 font-weight-normal text-decoration-underline text-center">{{ $data->clave_producto }}</th>
@@ -146,16 +146,16 @@
           <th class="pt-3 font-weight-normal ">{{ $data->categoria }}</th>
           <th class="pt-3 font-weight-normal text-center">{{ $data->presentacion }}</th>
           <th class="pt-3 font-weight-normal text-center">{{ $data->contenido.''.$data->unidad }}</th>
-          
+
           <td class="text-center">
             <button  wire:click.prevent='modalupdate({{$data->id}})' type="button" class="pr-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square text-blue" viewBox="0 0 16 16">
                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                 <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
               </svg>
-              
+
             </button>
-            
+
             <button wire:click.prevent='addprecio({{$data->id}})' type="button" class="hover:bg-gray" >
               <div class="flex border border-success border-lg">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-currency-dollar text-green" viewBox="0 0 16 16">
@@ -169,9 +169,10 @@
           </td>
 
         </tr>
+        <div>hola</div>
         @endforeach
       </tbody>
     </table>
     {{ $products->links() }}
-    
+
 </div>

@@ -11,6 +11,7 @@ class CreateProducto extends Component
 {
     public $idprod, $clave,$presentacion;
     public $producto,$marca,$categoria,$contenido,$des,$unidad;
+    public $precio,$proveedor;
 
     protected $rules=[
         'clave' => 'required',
@@ -21,6 +22,8 @@ class CreateProducto extends Component
         'contenido' => 'required',
         'unidad' => 'required',
         'des' => 'required',
+        'precio' => 'required',
+        'proveedor' => 'required',
     ];
 
     public function updated($propertyName)
@@ -39,7 +42,7 @@ class CreateProducto extends Component
                 'presentacion' => $this->presentacion,
                 'contenido' => $this->contenido,
                 'unidad' => $this->unidad,
-                                
+
              ]
          );
     }
@@ -76,12 +79,12 @@ class CreateProducto extends Component
          $this->dispatchBrowserEvent('show-form');
     }
 
-    // public function proveedores(){
-    //     $listprove = Proveedor::all();
-    //     $this->listP=$listprove;
-    // }
+     public function proveedores(){
+         $listprove = Proveedor::all();
+         return $listprove;
+     }
 
-     //metodo que manda eventos 
+     //metodo que manda eventos
      public function emitevent(){
         //manda a refrescar el la vista y componente producto-insumos que muestra los datos en la tabla
         $this->emit('datatable');
@@ -91,21 +94,21 @@ class CreateProducto extends Component
 
     public function resetdatos(){
         $this->reset([
-            'clave',   
-            'marca', 
-            'producto', 
-            'presentacion', 
+            'clave',
+            'marca',
+            'producto',
+            'presentacion',
             'categoria' ,
-            'contenido', 
-            'unidad', 
-            'des', 
+            'contenido',
+            'unidad',
+            'des',
         ]);
     }
-    
+
     public function render()
     {
 
-        // $this->proveedores();
-        return view('livewire.almacen.producto.create-producto');
+
+        return view('livewire.almacen.producto.create-producto',['listProve'=> $this->proveedores()]);
     }
 }

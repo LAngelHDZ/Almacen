@@ -11,7 +11,7 @@
                       Historial de precios
                   @else
                       @if ($view)
-                      Precios y proveedores   
+                      Precios y proveedores
                       @else
                       Editar precio
                       @endif
@@ -43,7 +43,7 @@
                         </div>
                     @endforeach
                 </div>
-                @else   
+                @else
                     <div>
                         <div class="mb-3">
                             <label for="text-empresa" class="form-label">Proveedor</label>
@@ -67,7 +67,7 @@
             <div class="modal-footer">
                 <button wire:click.prevent='resetdatos' type="button" class="px-4 py-2 rounded-md bg-gray hover:border-black" data-dismiss="modal">Cerrar</button>
                 @if($viewinfo)
-                @else    
+                @else
                 <span x-on:click="on = false">
                     @if($view)
                     <button wire:click.prevent="create" type="button" class="btn btn-outline-primary">guardar</button>
