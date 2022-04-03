@@ -12,7 +12,7 @@ class CreateProducto extends Component
     public $idprod, $clave,$presentacion;
     public $producto,$marca,$categoria,$contenido,$des,$unidad;
     public $precio,$proveedor;
-
+    public $arrayCats=[];
     protected $rules=[
         'clave' => 'required',
         'marca' => 'required',
@@ -22,8 +22,6 @@ class CreateProducto extends Component
         'contenido' => 'required',
         'unidad' => 'required',
         'des' => 'required',
-        'precio' => 'required',
-        'proveedor' => 'required',
     ];
 
     public function updated($propertyName)
@@ -31,8 +29,27 @@ class CreateProducto extends Component
         $this->validateOnly($propertyName);
     }
 
+    public function mount()
+    {
+        
+        $this->arrayCats = [
+        ['idproducto'=>'','idproveedor' => '', 'precio' => 0]
+        ];
+    }
+
+    public function addProveedor()
+    {
+        $this->arrayCats[] = ['idproducto'=>'','idproveedor' => '', 'precio' => 0];
+    }
+
+    public function removeProveedor($index)
+    {
+        unset($this->arrayCats[$index]);
+        $this->arrayCats = array_values($this->arrayCats);
+    }
+
     public function insertpro(){
-        Productos::create(
+        $catalogo=Productos::create(
             [
                 'clave_producto' => $this->clave,
                 'producto' => $this->producto,
@@ -45,6 +62,16 @@ class CreateProducto extends Component
 
              ]
          );
+         $proid = Productos::select('id')->latest('id')->first();
+         
+         foreach ($this->arrayCats as $cat) {
+              Catalogo::create(
+                  ['idproducto'=>$proid->id,
+                  'idproveedor' => $cat['idproveedor'],
+                  'precio' => $cat['precio'],
+                  ]
+              );
+        }
     }
 
     public function insertcat(){

@@ -15,8 +15,8 @@ class CreateCatalogosTable extends Migration
     {
         Schema::create('catalogos', function (Blueprint $table) {
             $table->id();
-            $table->integer('idproveedor')->references('id')->on('proveedors');
             $table->integer('idproducto')->references('clave_producto')->on('producto');
+            $table->integer('idproveedor')->references('id')->on('proveedors');
             $table->decimal('precio');
             $table->timestamps();
         });

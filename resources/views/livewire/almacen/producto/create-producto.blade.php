@@ -23,15 +23,23 @@
 
                 {{-- <-- Inicio Cuerpo del modal donde estan los controles de formulario --> --}}
                 <div  class="modal-body">
-                    <div x-data="{open:true, close:false}">
-                        <div class="border-bottom border-primary">
-                            <button x-on:click="open = ! open, close = ! close">
-                                <i x-show="close" class="fas fa-chevron-right text-blue"></i>
-                                <i x-show="open" class="fas fa-chevron-down text-blue"></i>
+                    <div x-data="togg()">
+                        <div class="border-bottom border-primary flex">
+                            <button @click="show(open)"  class="mr-2">
+                                <i x-bind:class="{'fas fa-chevron-right text-blue':!open, 'fas fa-chevron-down text-blue':open}"></i>
+                                {{-- <i x-show="open" class=""></i> --}}
                             </button>
+                            <p>Informacion del producto</p>
                         </div>
 
-                    <div x-show="open" x-transition id="myDIV" class="mt-2">
+                    <div x-show="setOpen()" 
+                    x-transition:enter="transition ease-out duration-600"
+                    x-transition:enter-start="opacity-0 scale-90"
+                    x-transition:enter-end="opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-600"
+                    x-transition:leave-start="opacity-100 scale-100"
+                    x-transition:leave-end="opacity-0 scale-90" 
+                    id="myDIV" class="mt-2">
 
                         <div class="d-flex justify-content-between">
                             <div class=" pr-2 ">
@@ -95,22 +103,69 @@
             </div>
 
         </div>
-        <div class="d-flex justify-content-between my-2">
-            <div class="">
-                <label for="text-empresa" class="form-label">Proveedor</label>
-                <select wire:model="proveedor" @error('proveedor')  class="rounded-lg bg-gray-50 border-danger"  @enderror name="" id="" style="" class="rounded-lg w-100 form-select bg-gray-50 hover:border-blue-700">
-                    <option value="" selected>Seleccionar</option>
-                    @foreach($listProve as $data)
-                    <option value="{{$data->id}}">{{$data->empresa}}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="ml-2">
-                <label for="text-precio" class="form-label">Precio</label>
-                <input wire:model='precio' type="text" class="rounded-lg form-input w-100 bg-gray-50 hover:border-blue-700" id="name-empresa">
-                @error('precio') <span class="error">{{ $message }}</span> @enderror
-            </div>
-        </div>
+          <div class="mt-3">
+            <div class="border-bottom border-primary flex">
+              <button @click="show2(open2)" class="mr-2">
+                <i class="text-blue" x-bind:class="{'fas fa-chevron-right':!open2, 'fas fa-chevron-down':open2}"></i>
+              </button>
+              <p>Precio/Proveedor</p>
+          </div>
+          <div x-show="setOpen2()" 
+          x-transition:enter="transition ease-out duration-600"
+          x-transition:enter-start="opacity-0 scale-90"
+          x-transition:enter-end="opacity-100 scale-100"
+          x-transition:leave="transition ease-in duration-600"
+          x-transition:leave-start="opacity-100 scale-100"
+          x-transition:leave-end="opacity-0 scale-90" 
+          >
+
+        <div class="shadow-sm  bg-body rounded bg-white mt-2 pb-2">
+          <div class="d-flex justify-content-end pr-2 my-2">
+            <button class="btn btn-sm btn-success"
+            wire:click.prevent="addProveedor">+ Add proveedor</button>
+          </div>
+          <table class="table" id="products_table">
+            <thead>
+            <tr>
+                <th>Proveedor</th>
+                <th>Precio</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+              @foreach($arrayCats as $index=>$arrayCat )
+              <tr>
+                <td>
+                    <select 
+                    wire:model="arrayCats.{{ $index }}.idproveedor"
+                    class="rounded-lg w-100 form-select bg-gray-50 hover:border-blue-700">
+                            <option value="" selected>Seleccionar</option>
+                            @foreach($listProve as $data)
+                            <option value="{{$data->id}}">{{$data->empresa}}</option>
+                            @endforeach
+                    </select>
+                </td>
+                <td>
+                    <input type="text"
+                           class="rounded-lg form-input bg-gray-50 hover:border-blue-700"
+                           wire:model='arrayCats.{{ $index }}.precio'
+                    />
+                </td>
+                <td>
+                  <div class="p-2">
+
+                    <a  href="#" wire:click.prevent="removeProveedor({{$index}})">Delete</a>
+                  </div>
+                </td>
+            </tr>
+            @endforeach
+            </tbody>
+        </table>
+      </div>
+
+          </div>
+            
+          </div>
     </div>
     </div>
                         {{-- <-- Fin cuerpo modal --> --}}
@@ -125,4 +180,34 @@
             </div>
       </div>
           {{-- <----- Fin fragmento de código modal -----> --}}
+
+      <script>
+          function togg(){
+              return{
+                open:true,
+                open2:false,
+                
+                show:function(open){
+                  if(open){
+                    this.open=false;
+                  }else{
+                    this.open=true;
+                  }
+                },
+                setOpen(){return this.open===true},
+
+                show2:function(open2){
+                  if(!open2){
+                    this.open2=true;
+                  }else{
+                    this.open2=false;
+                  }
+                },
+                setOpen2(){return this.open2===true}
+
+              }
+
+              
+          }
+      </script>
 </div>

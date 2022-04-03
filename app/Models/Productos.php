@@ -19,4 +19,9 @@ class Productos extends Model
         'contenido',
         'unidad',
     ];
+
+    public function proveedors()
+    {
+    	return $this->belongsToMany(Proveedor::class);
+    }
 }

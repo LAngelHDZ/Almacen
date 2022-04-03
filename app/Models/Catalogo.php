@@ -10,8 +10,8 @@ class Catalogo extends Model
     use HasFactory;
 
     protected $fillable = [
-        'idproveedor',
         'idproducto',
+        'idproveedor',
         'precio',
     ];
 }
