@@ -58,6 +58,7 @@
 
     window.addEventListener('show-formedit', event =>{
         $('#pro-update').modal('show');
+        
     })
 
     window.addEventListener('close-formedit', event =>{

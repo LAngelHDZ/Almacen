@@ -13,7 +13,6 @@ class ProveedorInsumos extends Component
     public $editprove;
     public $idpro,$rfc, $empresa, $direccion, $email, $telefono;
     public $search,$campo='empresa';
-    public $arrayCats=[];
 
     protected $listeners = ['datatable' => 'render'];
 
@@ -29,18 +28,7 @@ class ProveedorInsumos extends Component
         $this->resetPage();
     }
 
-    public function mount()
-    {
-        
-        $this->arrayCats = [
-        ['idproducto'=>'','idproveedor' => '', 'precio' => 0]
-        ];
-    }
-
-    public function addProveedor()
-    {
-        $this->arrayCats[] = ['idproducto'=>'','idproveedor' => '', 'precio' => 0];
-    }
+   
 
       public function edit($idprovedor){
        $oneprovedor= Proveedor::find($idprovedor);

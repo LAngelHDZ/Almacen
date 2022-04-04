@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Almacen;
 
 use App\Models\Productos;
+use App\Models\Proveedor;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -13,6 +14,7 @@ class ProductoInsumos extends Component
     public $idprod, $clave, $listP,$precio,$idprov,$presentacion;
     public $producto,$marca,$categoria,$contenido,$des,$unidad,$view;
     public $search,$filtercategory=0,$campo='clave_producto';
+    public $arrayCats=[];
     protected $listeners = ['datatable' => 'render'];
 
     protected $rules=[
@@ -53,13 +55,52 @@ class ProductoInsumos extends Component
         $this->emit('alert');
     }
 
+    public function proveedores(){
+        $listprove = Proveedor::all();
+        return $listprove;
+    }
+
+    // public function mount()
+    // {
+        
+    //     $this->arrayCats = [
+    //     ['idproveedor' => '', 'precio' => 0]
+    //     ];
+    // }
+
+    public function addProveedor()
+    {
+        $this->arrayCats[] = ['idproveedor' => '', 'precio' => 0];
+    }
+
     public function addprecio($id){
 
         redirect()->route('precios-producto',$id);
     }
 
+    public function removeProveedor($index)
+    {
+        unset($this->arrayCats[$index]);
+        $this->arrayCats = array_values($this->arrayCats);
+    }
+
+    public function showinfoP($id){
+        $list = Proveedor::join('catalogos','proveedors.id','=','catalogos.idproveedor')
+        ->join('productos','productos.id','=','catalogos.idproducto')
+         ->select('proveedors.id','catalogos.precio')
+         ->where('catalogos.idproducto',$id)
+         ->get();
+
+        // $this->arrayCats[]=$list;
+        foreach ($list as $data) {
+            # code...
+            $this->arrayCats[] = ['idproveedor' => $data->id, 'precio' => $data->precio];
+        }
+    }
+
     public function closemodal(){
         $this->dispatchBrowserEvent('close-formedit');
+        $this->resetdatos();
     }
 
     public function resetdatos(){
@@ -73,7 +114,8 @@ class ProductoInsumos extends Component
             'categoria' ,
             'contenido', 
             'des', 
-            'unidad', 
+            'unidad',
+            'arrayCats', 
         ]);
     }
 
@@ -92,6 +134,8 @@ class ProductoInsumos extends Component
         $this->presentacion=$idproducto->presentacion;
         $this->contenido=$idproducto->contenido;
         $this->unidad=$idproducto->unidad;
+
+        $this->showinfoP($id);
         $this->showmodal();
     }
 
@@ -116,7 +160,8 @@ class ProductoInsumos extends Component
     public function render()
     {
         return view('livewire.almacen.producto-insumos',[
-            'products' => $this->consultaPro()
+            'products' => $this->consultaPro(),
+             'listProve' => $this->proveedores(),
         ]);
     }
 }

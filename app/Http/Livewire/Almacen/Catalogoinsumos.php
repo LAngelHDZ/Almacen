@@ -11,7 +11,7 @@ class CatalogoInsumos extends Component
     use WithPagination;
     public $search,$filtercat,$filterpro,$campo='productos.clave_producto';
 
-    public function updatingSearch(){
+    public function updating(){
         $this->resetPage();
     }
 

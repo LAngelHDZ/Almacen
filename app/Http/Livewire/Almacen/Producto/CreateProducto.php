@@ -30,8 +30,7 @@ class CreateProducto extends Component
     }
 
     public function mount()
-    {
-        
+    { 
         $this->arrayCats = [
         ['idproducto'=>'','idproveedor' => '', 'precio' => 0]
         ];
@@ -59,37 +58,28 @@ class CreateProducto extends Component
                 'presentacion' => $this->presentacion,
                 'contenido' => $this->contenido,
                 'unidad' => $this->unidad,
-
              ]
-         );
-         $proid = Productos::select('id')->latest('id')->first();
-         
-         foreach ($this->arrayCats as $cat) {
-              Catalogo::create(
-                  ['idproducto'=>$proid->id,
-                  'idproveedor' => $cat['idproveedor'],
-                  'precio' => $cat['precio'],
-                  ]
-              );
-        }
+         );   
     }
 
     public function insertcat(){
         $validatedData = $this->validate();
         $proid = Productos::select('id')->latest('id')->first();
 
-        Catalogo::create(
-           [
-               'idproveedor' => $this->idprov,
-               'idproducto' =>$proid->id,
-               'precio' => $this->precio,
-            ]
-        );
+        foreach ($this->arrayCats as $cat) {
+            Catalogo::create(
+                ['idproducto'=>$proid->id,
+                'idproveedor' => $cat['idproveedor'],
+                'precio' => $cat['precio'],
+                ]
+            );
+      }
     }
 
     public function createp(){
         $validatedData = $this->validate();
        $this->insertpro();
+       $this->insertcat();
         $this->closemodal();
          $this->emitevent();
         $this->resetdatos();

@@ -1,14 +1,8 @@
 <div>
-     {{-- Este boton abre un modal donde está el formulario para dar de alta un proveedor --}}
-
-     <div class=" p-1 border border-success rounded-lg">
-      <a wire:click.prevent='showmodal'  class="btn btn-success ">
-           <i class="fa fa-plus-circle"></i> Nuevo
-      </a>
-   </div>
+     
 
 {{-- <----- Este fragmento de código es el modal -----> --}}
-<div wire:ignore.self  class="modal fade" id="pro-create" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div wire:ignore.self  class="modal fade" id="pro-update"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
 <div class="modal-dialog">
 <div class="modal-content">
 
@@ -147,6 +141,7 @@ wire:click.prevent="addProveedor">+ Add proveedor</button>
   </td>
   <td>
       <input type="text"
+      value=""
              class="rounded-lg form-input bg-gray-50 hover:border-blue-700"
              wire:model='arrayCats.{{ $index }}.precio'
       />
@@ -154,13 +149,17 @@ wire:click.prevent="addProveedor">+ Add proveedor</button>
   <td>
     <div class="p-2">
 
-      <a  href="#" wire:click.prevent="removeProveedor({{$index}})">Delete</a>
+      {{-- <a  href="#" wire:click.prevent="removeProveedor({{$index}})">
+        Delete
+        <i class="fas fa-trash text-red"></i>
+      </a> --}}
     </div>
   </td>
 </tr>
 @endforeach
 </tbody>
 </table>
+
 </div>
 
 </div>
@@ -171,7 +170,7 @@ wire:click.prevent="addProveedor">+ Add proveedor</button>
           {{-- <-- Fin cuerpo modal --> --}}
 
   <div class="modal-footer">
-    <button type="button" class="px-3 py-2 bg-gray-500 rounded-md border text-white hover:border-blue-700" data-dismiss="modal">Cancelar</button>
+    <button wire:click="closemodal" type="button" class="px-3 py-2 bg-gray-500 rounded-md border text-white hover:border-blue-700" data-dismiss="modal">Cancelar</button>
     <span x-on:click="on = false">
     <button wire:click="createp" type="button" class="px-3 py-2 rounded-md text-white bg-blue ">Guardar</button>
     </span>
@@ -181,36 +180,38 @@ wire:click.prevent="addProveedor">+ Add proveedor</button>
 </div>
 {{-- <----- Fin fragmento de código modal -----> --}}
 
-<script>
-function togg(){
-return{
-  open:true,
-  open2:false,
-  
-  show:function(open){
-    if(open){
-      this.open=false;
-    }else{
-      this.open=true;
-    }
-  },
-  setOpen(){return this.open===true},
-
-  show2:function(open2){
-    if(!open2){
-      this.open2=true;
-    }else{
-      this.open2=false;
-    }
-  },
-  setOpen2(){return this.open2===true}
-
-}
 
 
-}
-</script>
+<div>
+  <h5 class="h5 text-bold">Filtros de busqueda:</h5>
+  <div class="mb-2 d-flex justify-content-between">
+    <div class=" ml-2 d-flex justify-content-between">
+      <div>
+        <select wire:model="filtercategory" name="" id="" class="form-select  w-64 rounded-lg hover:border-blue-700">
+          <option value="0">Seleccione una categoria</option>
+          <option value="1">Papeleria</option>
+          <option value="2">Reactivo</option>
+          <option value="3">Insumo general</option>
+        </select>
+      </div>
+      <div class=" mx-4">
+        <select wire:model="campo" name="" id="" class="form-select  w-60 rounded-lg hover:border-blue-700">
+          <option value="clave_producto">Clave</option>
+          <option value="producto">Producto</option>
+        </select>
+      </div>
+      <div>
+        <i class="fa fa-search "> </i>
+        <input wire:model="search" type="text" class=" ml-1 w-64 form-input rounded-lg hover:border-blue-700"  placeholder="Buscar">
+      </div>
+    </div> 
+    <div class="">
+      @livewire('almacen.producto.create-producto')
+    </div>
+  </div>
+</div>
   {{-- <--- Data table de poveedores ---> --}}
+
 
     <table class="table bg-white border shadow-sm rounded-2">
       <div class="bg-primary bg-gradient p-1  ">
@@ -262,10 +263,40 @@ return{
           </td>
 
         </tr>
-        <div>hola</div>
+      
         @endforeach
       </tbody>
     </table>
     {{ $products->links() }}
+
+    <script>
+      function togg(){
+      return{
+        open:true,
+        open2:false,
+        
+        show:function(open){
+          if(open){
+            this.open=false;
+          }else{
+            this.open=true;
+          }
+        },
+        setOpen(){return this.open===true},
+      
+        show2:function(open2){
+          if(!open2){
+            this.open2=true;
+          }else{
+            this.open2=false;
+          }
+        },
+        setOpen2(){return this.open2===true}
+      
+      }
+      
+      
+      }
+      </script>
 
 </div>
