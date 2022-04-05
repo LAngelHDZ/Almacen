@@ -32,7 +32,7 @@ class CreateProducto extends Component
     public function mount()
     {
         $this->arrayCats = [
-        ['idproducto'=>'','idproveedor' => 1, 'precio' => 0]
+        ['idproducto'=>'','idproveedor' => '', 'precio' => 0]
         ];
     }
 
