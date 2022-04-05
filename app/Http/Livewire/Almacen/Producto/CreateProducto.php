@@ -30,15 +30,15 @@ class CreateProducto extends Component
     }
 
     public function mount()
-    { 
+    {
         $this->arrayCats = [
-        ['idproducto'=>'','idproveedor' => '', 'precio' => 0]
+        ['idproducto'=>'','idproveedor' => 1, 'precio' => 0]
         ];
     }
 
     public function addProveedor()
     {
-        $this->arrayCats[] = ['idproducto'=>'','idproveedor' => '', 'precio' => 0];
+        $this->arrayCats[] = ['idproducto'=>'','idproveedor' => 2, 'precio' => 0];
     }
 
     public function removeProveedor($index)
@@ -59,7 +59,7 @@ class CreateProducto extends Component
                 'contenido' => $this->contenido,
                 'unidad' => $this->unidad,
              ]
-         );   
+         );
     }
 
     public function insertcat(){
@@ -87,6 +87,7 @@ class CreateProducto extends Component
     }
 
     public function closemodal(){
+        $this->resetdatos();
         $this->dispatchBrowserEvent('close-form');
     }
 
@@ -119,6 +120,7 @@ class CreateProducto extends Component
             'contenido',
             'unidad',
             'des',
+            'arrayCats',
         ]);
     }
 

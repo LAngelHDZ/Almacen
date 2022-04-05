@@ -25,7 +25,7 @@ class FormUsers extends Component
                 'clave' => 'required',
                 'email' => 'required|email',
                 'nombre' => 'required|max:60|min:4',
-                'rfc' => 'required|max:13|min:13',
+                'rfc' => 'required|max:13|min:14',
                 'idarea' => 'required',
                 'cargo' => 'required',
             ];

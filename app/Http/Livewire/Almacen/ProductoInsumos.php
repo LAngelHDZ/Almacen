@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Almacen;
 
+use App\Models\Catalogo;
 use App\Models\Productos;
 use App\Models\Proveedor;
 use Illuminate\Support\Facades\DB;
@@ -50,6 +51,8 @@ class ProductoInsumos extends Component
         );
 
         DB::table('productos')->where('id',$this->idprod)->update($update);
+
+        $this->queryproveedor();
         $this->closemodal();
         $this->resetdatos();
         $this->emit('alert');
@@ -60,17 +63,31 @@ class ProductoInsumos extends Component
         return $listprove;
     }
 
-    // public function mount()
-    // {
-        
-    //     $this->arrayCats = [
-    //     ['idproveedor' => '', 'precio' => 0]
-    //     ];
-    // }
+    public function queryproveedor()
+    {
+        foreach($this->arrayCats as $data){
+            if($data['idcatalogo'] !=0){
+                    $consulta= Catalogo::find($data['idcatalogo']);
+                    if($data['precio'] != $consulta->precio){
+                    DB::table('catalogos')->where('id',$data['idcatalogo'])->update([
+                        'precio' => $data['precio'],
+                        ]
+                    );
+                    }
+                }else{
+                    Catalogo::create([
+                        'idproducto'=>$this->idprod,
+                        'idproveedor' => $data['idproveedor'],
+                        'precio' => $data['precio'],
+                        ]
+                    );
+             }
+        }
+     }
 
     public function addProveedor()
     {
-        $this->arrayCats[] = ['idproveedor' => '', 'precio' => 0];
+        $this->arrayCats[] = ['idcatalogo' =>0,'idproveedor' => '', 'precio' => 0];
     }
 
     public function addprecio($id){
@@ -87,14 +104,14 @@ class ProductoInsumos extends Component
     public function showinfoP($id){
         $list = Proveedor::join('catalogos','proveedors.id','=','catalogos.idproveedor')
         ->join('productos','productos.id','=','catalogos.idproducto')
-         ->select('proveedors.id','catalogos.precio')
+         ->select('proveedors.id','catalogos.precio','catalogos.id as idcat')
          ->where('catalogos.idproducto',$id)
          ->get();
 
-        // $this->arrayCats[]=$list;
+        //  $this->arrayCats[]=$list;
         foreach ($list as $data) {
             # code...
-            $this->arrayCats[] = ['idproveedor' => $data->id, 'precio' => $data->precio];
+            $this->arrayCats[] = ['idcatalogo'=>$data->idcat,'idproveedor' => $data->id, 'precio' => $data->precio];
         }
     }
 
@@ -105,17 +122,17 @@ class ProductoInsumos extends Component
 
     public function resetdatos(){
         $this->reset([
-            'clave',   
-            'marca', 
+            'clave',
+            'marca',
             'precio' ,
             'producto',
-            'idprov', 
-            'presentacion', 
+            'idprov',
+            'presentacion',
             'categoria' ,
-            'contenido', 
-            'des', 
+            'contenido',
+            'des',
             'unidad',
-            'arrayCats', 
+            'arrayCats',
         ]);
     }
 

@@ -15,5 +15,6 @@ class Proveedor extends Model
         'direccion',
         'email',
         'telefono',
+        'active',
     ];
 }

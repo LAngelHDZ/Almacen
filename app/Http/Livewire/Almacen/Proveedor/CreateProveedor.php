@@ -10,10 +10,10 @@ class CreateProveedor extends Component
     // ---- Variables globales tabla proveedores------
     public $rfc, $empresa, $direccion, $email, $telefono;
 
-   
+
 //---- reglas de validación para el formulario
     protected $rules = [
-        'rfc' => 'required|min:10|max:10',
+        'rfc' => 'required|min:12|max:14',
         'empresa' => 'required',
         'direccion' => 'required|max:100',
         'email' => 'required|email',
@@ -25,20 +25,20 @@ class CreateProveedor extends Component
     {
         $this->validateOnly($propertyName);
     }
- 
+
     // metododo que se ejecuta desde el boton guardar del formulario
     //realiza la operacion de guardar datos en la BD
     public function saveProveedor()
     {
         $validatedData = $this->validate();
- 
+
         Proveedor::create($validatedData);
         $this->closemodal();
         $this->emitevent();
         $this->resetdatos();
     }
 
-    //metodo que manda eventos 
+    //metodo que manda eventos
     public function emitevent(){
         //manda a refrescar el la vista y componente producto-insumos que muestra los datos en la tabla
         $this->emit('datatable');
