@@ -91,6 +91,9 @@ class FormUsers extends Component
                 'password' => Hash::make($validatedData['pass'])
             );
             User::create($data);
+        }else{
+
+
         }
     }
 

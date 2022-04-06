@@ -33,7 +33,7 @@ class ProductoInsumos extends Component
         $this->validateOnly($propertyName);
     }
 
-    public function updatingSearch(){
+    public function updating(){
         $this->resetPage();
     }
 
@@ -157,10 +157,11 @@ class ProductoInsumos extends Component
     }
 
     public function consultaPro(){
+        $paginate=4;
         $cat='';
         if($this->filtercategory==0){
             $producto= Productos::where($this->campo,'like','%'.$this->search.'%')
-            ->paginate(2);
+            ->paginate($paginate);
         }else{
             switch($this->filtercategory){
                 case '1': $cat='Papeleria'; break;
@@ -169,7 +170,7 @@ class ProductoInsumos extends Component
             }
             $producto= Productos::where('categoria',$cat)
             ->where($this->campo,'like','%'.$this->search.'%')
-            ->paginate(2);
+            ->paginate($paginate);
         }
         return $producto;
     }

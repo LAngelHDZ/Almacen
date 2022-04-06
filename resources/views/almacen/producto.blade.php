@@ -7,24 +7,24 @@
 @stop
 @livewireStyles
 @section('content')
-<div class=" w-auto mx-5">
+<div class="w-auto mx-5 ">
 @if(!$view)
-<div class="mt-2">
+<div class="pt-2">
     @livewire('almacen.producto-insumos')
 </div>
 @else
 <div class="bg-white">
-    <div class=" pt-2 px-4 flex justify-between">
+    <div class="flex justify-between px-4 pt-2 ">
         <div class="flex ">
-            <h3 class="h4 text-bold mr-3">Material: </h3>
+            <h3 class="mr-3 h4 text-bold">Material: </h3>
             <h4 class="h4">{{$producto[0]->producto}}</h4>
         </div>
         <div class="flex">
-            <h3 class="h4 text-bold mr-3">Referencia: </h3>
+            <h3 class="mr-3 h4 text-bold">Referencia: </h3>
             <h4 class="h4">{{$producto[0]->clave_producto}}</h4>
         </div>
     </div>
-    <div class=" mt-5 flex justify-center">
+    <div class="flex justify-center mt-5 ">
         <h3 class="h3">Alta de proveedores y precios</h3>
     </div>
 
@@ -58,7 +58,7 @@
 
     window.addEventListener('show-formedit', event =>{
         $('#pro-update').modal('show');
-        
+
     })
 
     window.addEventListener('close-formedit', event =>{
