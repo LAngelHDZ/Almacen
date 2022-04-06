@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCotizacionsTable extends Migration
+class CreateCotizacionCatsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateCotizacionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('cotizacions', function (Blueprint $table) {
+        Schema::create('cotizacion-cats', function (Blueprint $table) {
             $table->id();
-            $table->string('descripcion')->default('cotizacion');
+            $table->integer('idcotizacion')->references('cotizacion')->on('id');
+            $table->integer('idcatalogo')->references('catalogos')->on('id');
+            $table->integer('cantidad')->default(0);
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateCotizacionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cotizacions');
+        Schema::dropIfExists('cotizacion-cats');
     }
 }

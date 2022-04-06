@@ -86,7 +86,7 @@ class FormUsers extends Component
         if(!$this->viewer){
             $validatedData = $this->validate();
             $data =array(
-                'name' => $validatedData['nombre'].' '.$validatedData['apaterno'].' '.$validatedData['apaterno'],
+                'name' => $validatedData['nombre'].' '.$validatedData['apaterno'].' '.$validatedData['amaterno'],
                 'email' =>$validatedData['email'],
                 'password' => Hash::make($validatedData['pass'])
             );

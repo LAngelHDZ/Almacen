@@ -250,25 +250,25 @@ return [
                 [
                     'icon'    => 'fas fa-ms fa-file-alt',
                     'text' => 'requisicion',
-                    'route'  => 'solicitud', 
+                    'route'  => 'solicitud',
                 ],
                 [
                     'icon'    => 'fas fa-clipboard-list',
                     'text' => 'solicitudes',
-                    'url'  => 'admin/blog', 
+                    'url'  => 'admin/blog',
                 ],
                 [
                     'icon'    => 'fas fa-sm fa-vials',
                     'text' => 'materiales',
-                    'url'  => 'admin/blog', 
+                    'url'  => 'admin/blog',
                 ],
                 [
                     'icon'    => 'fas fa-list-ul',
                     'text' => 'historial',
-                    'url'  => 'admin/blog', 
+                    'url'  => 'admin/blog',
                 ],
             ],
-        ],        
+        ],
 
         [
             'text'    => 'ALMACEN',
@@ -276,47 +276,54 @@ return [
             'submenu' => [
                 [
                     'text' => 'opcion 1',
-                    'url'  => 'admin/blog', 
+                    'url'  => 'admin/blog',
                 ],
                 [
                     'text' => 'opcion 2',
-                    'url'  => 'admin/blog', 
+                    'url'  => 'admin/blog',
                 ],
                 [
                     'text' => 'opcion 3',
-                    'url'  => 'admin/blog', 
+                    'url'  => 'admin/blog',
                 ],
                 [
                     'text' => 'opcion 4',
-                    'url'  => 'admin/blog', 
+                    'url'  => 'admin/blog',
                 ],
             ],
         ],
-        
-        
+
+
             [
-                'text'    => 'RECURSOS',
+                'text'    => 'RECURSOS MATERIALES',
                 'icon'    => 'fas fa-fw fa-boxes',
                 'submenu' => [
+                    ['header' => 'COTIZACIONES'],
+
                     [
-                        'icon'    => 'fas ffa-sm fa-file-invoice-dollar',
+                        'icon'    => 'fas fa-sm fa-file-invoice-dollar',
                         'text' => 'Cotización',
                         'route' => 'catalogo',
                     ],
-                    ['header' => 'ALTAS y CONSULTAS'],
+                    [
+                        'icon'    => 'fas fa-sm fa-list',
+                        'text' => 'Historial',
+                        'route' => 'catalogo',
+                    ],
+                    ['header' => 'ALTAS y ACTUALZACIONES'],
                     [
                         'icon'    => 'fas fa-sm fa-truck',
                         'text' => 'Proveedores',
                         'route' => 'proveedor',
                     ],
-                    
+
                     [
                         'icon'    => 'fas fa-sm fa-prescription-bottle',
                         'text' => 'Producto',
                         'route' => 'producto',
                     ],
-    
-                    
+
+
                 ],
             ],
 
@@ -342,7 +349,7 @@ return [
                         'url' => '#',
                         ],
 
-                    ], 
+                    ],
                 ],
 
                 [
@@ -363,10 +370,10 @@ return [
                             'url' => '#',
                         ],
 
-                    ], 
+                    ],
                 ],
 
-                
+
             ],
         ],
 
@@ -377,23 +384,23 @@ return [
                 [
                     'icon'    => 'fas fa-sm fa-users',
                     'text' => 'usuarios',
-                    'route'  => 'users', 
+                    'route'  => 'users',
                 ],
                 [
                     'text' => 'permisos',
-                    'url'  => 'admin/blog', 
+                    'url'  => 'admin/blog',
                 ],
                 [
                     'text' => 'auditoria',
-                    'url'  => 'admin/blog', 
+                    'url'  => 'admin/blog',
                 ],
                 [
                     'text' => 'opcion 4',
-                    'url'  => 'admin/blog', 
+                    'url'  => 'admin/blog',
                 ],
             ],
         ],
-        
+
         // [
         //     'text'        => 'pages',
         //     'url'         => 'admin/pages',
@@ -401,13 +408,13 @@ return [
         //     'label'       => 4,
         //     'label_color' => 'success',
         // ],
-      
+
         [
             'text' => 'profile',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-address-card',
         ],
-       
+
 
         // ['header' => 'labels'],
         // [

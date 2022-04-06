@@ -32,13 +32,13 @@ class CreateProducto extends Component
     public function mount()
     {
         $this->arrayCats = [
-        ['idproducto'=>'','idproveedor' => '', 'precio' => 0]
+        ['idproveedor' => '', 'precio' => 0]
         ];
     }
 
     public function addProveedor()
     {
-        $this->arrayCats[] = ['idproducto'=>'','idproveedor' => 2, 'precio' => 0];
+        $this->arrayCats[] = ['idproveedor' => '', 'precio' => 0];
     }
 
     public function removeProveedor($index)

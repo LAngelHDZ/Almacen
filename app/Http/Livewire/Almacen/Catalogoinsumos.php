@@ -16,13 +16,14 @@ class CatalogoInsumos extends Component
     }
 
     public function showcatalogo(){
+        $paginate=2;
         if($this->filtercat==0 && $this->filterpro==0){
             $catalogo = Catalogo::join('productos','catalogos.idproducto','=','productos.id')
              ->join('proveedors','catalogos.idproveedor','=','proveedors.id')
              ->select('productos.clave_producto as clave','productos.producto','productos.descripcion'
-                      ,'proveedors.empresa','productos.marca','catalogos.precio')
+                      ,'proveedors.empresa','productos.marca','catalogos.precio','catalogos.id as idcat')
              ->where($this->campo,'like','%'.$this->search.'%')
-             ->paginate(2);
+             ->paginate($paginate);
         }else{
             $cat='';
             switch($this->filtercat){
@@ -34,30 +35,30 @@ class CatalogoInsumos extends Component
                 $catalogo = Catalogo::join('productos','catalogos.idproducto','=','productos.id')
                  ->join('proveedors','catalogos.idproveedor','=','proveedors.id')
                  ->select('productos.clave_producto as clave','productos.producto','productos.descripcion'
-                          ,'proveedors.empresa','proveedors.id as idpro','productos.marca','catalogos.precio')
+                          ,'proveedors.empresa','proveedors.id as idpro','productos.marca','catalogos.precio','catalogos.id as idcat')
                  ->where($this->campo,'like','%'.$this->search.'%')
                  ->where('proveedors.id',$this->filterpro)
-                 ->paginate(2);
+                 ->paginate($paginate);
             }
             else if($this->filterpro==0 && $this->filtercat!=0){
-               
+
                 $catalogo = Catalogo::join('productos','catalogos.idproducto','=','productos.id')
                  ->join('proveedors','catalogos.idproveedor','=','proveedors.id')
                  ->select('productos.clave_producto as clave','productos.producto','productos.descripcion'
-                          ,'proveedors.empresa','productos.marca','catalogos.precio')
+                          ,'proveedors.empresa','productos.marca','catalogos.precio','catalogos.id as idcat')
                  ->where($this->campo,'like','%'.$this->search.'%')
                  ->where('productos.categoria',$cat)
-                 ->paginate(2);
+                 ->paginate($paginate);
             }
             else{
                 $catalogo = Catalogo::join('productos','catalogos.idproducto','=','productos.id')
                  ->join('proveedors','catalogos.idproveedor','=','proveedors.id')
                  ->select('productos.clave_producto as clave','productos.producto','productos.descripcion'
-                          ,'proveedors.empresa','productos.marca','catalogos.precio')
+                          ,'proveedors.empresa','productos.marca','catalogos.precio','catalogos.id as idcat')
                  ->where($this->campo,'like','%'.$this->search.'%')
                  ->where('proveedors.id',$this->filterpro)
                  ->where('productos.categoria',$cat)
-                 ->paginate(2);
+                 ->paginate($paginate);
             }
 
         }
@@ -69,6 +70,10 @@ class CatalogoInsumos extends Component
         $this->filtercat='0';
         $this->filterpro='0';
         $this->campo='productos.clave_producto';
+    }
+
+    public function cotizacion(){
+
     }
 
     public function proveedores(){

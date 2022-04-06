@@ -1,10 +1,10 @@
-<div>
-  <div>
+<div x-data="togg()">
+  <div >
     <h5 class="h5 text-bold">Filtros de busqueda:</h5>
-    <div class="mb-2 d-flex">
+    <div class="mb-2 d-flex justify-content-between">
       <div class="ml-2 d-flex justify-content-between">
         <div>
-          <select wire:model="filterpro" name="" id="" class="w-64 rounded-lg form-select hover:border-blue-700">
+          <select wire:model="filterpro" name="" id="" class="rounded-lg form-select hover:border-blue-700">
             <option value="0">Seleccione un proveedor</option>
             @foreach ($proveedor as $data )
             <option value="{{ $data->id }}">{{ $data->empresa }}</option>
@@ -12,7 +12,7 @@
           </select>
         </div>
         <div class="mx-2">
-          <select wire:model="filtercat" name="" id="" class="w-64 rounded-lg form-select hover:border-blue-700">
+          <select wire:model="filtercat" name="" id="" class="rounded-lg form-select hover:border-blue-700">
             <option value="0">Seleccione una categoria</option>
             <option value="1">Papeleria</option>
             <option value="2">Reactivo</option>
@@ -20,7 +20,7 @@
           </select>
         </div>
         <div class="">
-          <select wire:model="campo" name="" id="" class="w-40 rounded-lg form-select hover:border-blue-700">
+          <select wire:model="campo" name="" id="" class="rounded-lg form-select hover:border-blue-700">
             <option value="productos.clave_producto">Clave</option>
             <option value="productos.producto">Producto</option>
           </select>
@@ -29,11 +29,17 @@
           <div class="px-2 pt-1 bg-blue rounded-left">
             <i class="mx-1 mt-2 fa fa-search"> </i>
           </div>
-          <input wire:model="search" type="text" class="w-64 border-0 rounded-right form-input hover:border-blue-700"  placeholder="Buscar">
+          <div>
+              <input wire:model="search" type="text" class="border-0 rounded-right form-input hover:border-blue-700"  placeholder="Buscar">
+            </div>
         </div>
-        <div class="">
-          <a wire:click.prevent='resetfilter' class="text-white btn btn-danger"><i class="fas fa-filter"></i> <p class="inline-block mb-1">Borrar filtros</p> </a>
+        <div class="pt-1">
+          <a wire:click.prevent='resetfilter' class="text-white btn btn-danger"><i class="fas fa-filter"></i> <span class="mb-1">Borrar</span> </a>
         </div>
+      </div>
+      <div  class="pt-1">
+        <button @click="show(open)"  class="text-white btn btn-success"><i class="fas fa-plus"></i> <span class="mb-1">Cotización</span>
+        </button>
       </div>
     </div>
 </div>
@@ -64,23 +70,32 @@
         <th class="pt-3 font-weight-normal ">{{ $data->empresa }}</th>
         <th class="pt-3 font-weight-normal ">{{ $data->marca }}</th>
         <th class="pt-3 font-weight-normal ">{{ $data->precio}}</th>
-
         <td class="text-center">
-            
-          <button  wire:click.prevent='modalupdate({{$data->id}})' type="button" class="btn btn-outline-primary">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-              <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-              <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-            </svg>
-          </button>
-         
-
-         
-        </td> 
+            <div x-show="isOpen()">
+                <button   wire:click.prevent='cotizacion({{$data->idcat}})' type="button" class="btn btn-outline-primary">
+                    <i class="fas fa-cart-plus"></i>
+                </button>
+            </div>
+        </td>
       </tr>
       @endforeach
     </tbody>
   </table>
   {{ $catalogo->links() }}
 
+  <script>
+    function togg(){
+    return{
+      open:false,
+      show:function(open){
+        if(open){
+          this.open=false;
+        }else{
+          this.open=true;
+        }
+      },
+      isOpen(){return this.open===true},
+    }
+    }
+    </script>
 </div>
