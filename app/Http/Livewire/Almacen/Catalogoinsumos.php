@@ -16,7 +16,7 @@ class CatalogoInsumos extends Component
     }
 
     public function showcatalogo(){
-        $paginate=2;
+        $paginate=10;
         if($this->filtercat==0 && $this->filterpro==0){
             $catalogo = Catalogo::join('productos','catalogos.idproducto','=','productos.id')
              ->join('proveedors','catalogos.idproveedor','=','proveedors.id')

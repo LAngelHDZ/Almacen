@@ -19,7 +19,7 @@ class SolicitudController extends Controller
         ->join('areas','empleados.area','=','areas.id')
         ->join('departamentos','areas.id_departamento','=','departamentos.id')
         ->select('users.id','users.name','empleados.id as idempl','empleados.clave'
-        ,'areas.area','areas.clave as cl_area','departamentos.departamentos','departamentos.clave as cl_dep')
+        ,'areas.area','areas.clave as cl_area','departamentos.departamento','departamentos.clave as cl_dep')
         ->where('users.id',$userid)->get();
 
         $date = Carbon::now();
@@ -28,10 +28,10 @@ class SolicitudController extends Controller
         $week = $date->format('m');
         $day = $date->format('d');
 
-        
-    
+
+
             $prefolio = $year.''.$week.''.$day.''.$usuario[0]->cl_area;
-        
+
         return view('almacen.solicitudes.prerequisicion',compact('usuario','fecha','prefolio'));
 
     }

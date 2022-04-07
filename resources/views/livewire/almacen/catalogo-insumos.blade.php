@@ -49,11 +49,11 @@
     <div class="p-1 bg-primary bg-gradient ">
       <thead class="">
         <tr>
-          <th scope="col" class="text-center text-uppercase">Clave</th>
-          <th scope="col" class="text-center text-uppercase">Material</th>
-          <th scope="col" class=" text-uppercase">Descripción</th>
-          <th scope="col" class="text-uppercase">Proveedor</th>
-          <th scope="col" class=" text-uppercase">Marca</th>
+            <th scope="col" class="text-center text-uppercase">Clave</th>
+            <th scope="col" class="text-center text-uppercase">Material</th>
+            <th scope="col" class=" text-uppercase">Descripción</th>
+            <th scope="col" class=" text-uppercase">Marca</th>
+            <th scope="col" class="text-uppercase">Proveedor</th>
           <th scope="col" class=" text-uppercase">Precio</th>
           <th scope="col" class="text-center text-uppercase">acciones</th>
         </tr>
@@ -64,11 +64,11 @@
 
       @foreach ($catalogo as $data)
       <tr class="">
-        <th class="pt-3 text-center font-weight-normal text-decoration-underline">{{ $data->clave}}</th>
-        <th class="pt-3 text-center font-weight-normal ">{{ $data->producto }}</th>
-        <th class="pt-3 font-weight-normal ">{{ $data->descripcion }}</th>
-        <th class="pt-3 font-weight-normal ">{{ $data->empresa }}</th>
-        <th class="pt-3 font-weight-normal ">{{ $data->marca }}</th>
+          <th class="pt-3 text-center font-weight-normal text-decoration-underline">{{ $data->clave}}</th>
+          <th class="pt-3 text-center font-weight-normal ">{{ $data->producto }}</th>
+          <th class="pt-3 font-weight-normal ">{{ $data->descripcion }}</th>
+          <th class="pt-3 font-weight-normal ">{{ $data->marca }}</th>
+          <th class="pt-3 font-weight-normal ">{{ $data->empresa }}</th>
         <th class="pt-3 font-weight-normal ">{{ $data->precio}}</th>
         <td class="text-center">
             <div x-show="isOpen()">
