@@ -100,7 +100,7 @@ class ProveedorInsumos extends Component
     {
         return view('livewire.almacen.proveedor-insumos',[
             'proveedor' => Proveedor::where($this->campo,'like','%'.$this->search.'%')
-            ->paginate(1)
+            ->paginate(10)
         ]);
     }
 }

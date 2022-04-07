@@ -157,7 +157,7 @@ class ProductoInsumos extends Component
     }
 
     public function consultaPro(){
-        $paginate=4;
+        $paginate=10;
         $cat='';
         if($this->filtercategory==0){
             $producto= Productos::where($this->campo,'like','%'.$this->search.'%')
