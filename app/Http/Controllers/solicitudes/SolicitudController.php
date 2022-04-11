@@ -29,7 +29,6 @@ class SolicitudController extends Controller
         $day = $date->format('d');
 
 
-
             $prefolio = $year.''.$week.''.$day.''.$usuario[0]->cl_area;
 
         return view('almacen.solicitudes.prerequisicion',compact('usuario','fecha','prefolio'));
