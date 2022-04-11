@@ -3,14 +3,18 @@
 namespace App\Http\Livewire\Almacen;
 
 use App\Models\Catalogo;
+use App\Models\cotizacion;
+use App\Models\Cotizacion_cat;
 use App\Models\Proveedor;
+use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 class CatalogoInsumos extends Component
 {
     use WithPagination;
     public $search,$filtercat,$filterpro,$campo='productos.clave_producto';
-
+    public $cotizacion, $arraycat=[];
+    
     public function updating(){
         $this->resetPage();
     }
@@ -60,7 +64,6 @@ class CatalogoInsumos extends Component
                  ->where('productos.categoria',$cat)
                  ->paginate($paginate);
             }
-
         }
         return $catalogo;
     }
@@ -73,12 +76,55 @@ class CatalogoInsumos extends Component
     }
 
     public function cotizacion(){
+        $this->cotizacion=false;
+        // $this->arraycat[]=['idcatalogo'=>0];
 
+    }
+
+    public function savecotizacion(){
+        $date = Carbon::now();
+        $fecha = $date->format('Y-m-d');
+        cotizacion::create([
+            'descripcion'=>'Nueva cotización',
+            'fecha'=>$fecha,
+        ]);
+
+        $cotid = cotizacion::select('id')->latest('id')->first();
+
+        foreach($this->arraycat as $data){
+            Cotizacion_cat::create([
+                'idcotizacion' =>$cotid->id, 
+                'idcatalogo'=> $data['idcatalogo'],
+            ]);
+        }
+        $this->cotizacion=true;
+        $this->resetdatos();
+    }
+
+    public function resetdatos(){
+        $this->reset([
+            'arraycat',
+        ]);
+    }
+
+    public function addproducto($idcat){
+        $this->arraycat[]=['idcatalogo'=>$idcat];
+
+    }
+
+    public function removeCat($index)
+    {
+        unset($this->arraycat[$index]);
+        $this->arraycat = array_values($this->arraycat);
     }
 
     public function proveedores(){
         $listprov = Proveedor::all();
         return $listprov;
+   }
+
+   public function mount(){
+    $this->cotizacion=true;
    }
 
     public function render()

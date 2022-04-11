@@ -13,7 +13,7 @@ class CreateCotizacionCatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('cotizacion-cats', function (Blueprint $table) {
+        Schema::create('cotizacion_cats', function (Blueprint $table) {
             $table->id();
             $table->integer('idcotizacion')->references('cotizacion')->on('id');
             $table->integer('idcatalogo')->references('catalogos')->on('id');
@@ -29,6 +29,6 @@ class CreateCotizacionCatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cotizacion-cats');
+        Schema::dropIfExists('cotizacion_cats');
     }
 }

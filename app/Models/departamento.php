@@ -9,7 +9,7 @@ class departamento extends Model
 {
     use HasFactory;
 
-    protected $filleable =[
+    protected $fillable =[
         'clave',
         'departamento',
         'descripcion',

@@ -121,7 +121,11 @@
 
         <div class="pb-2 mt-2 bg-white rounded shadow-sm bg-body">
           <div class="pr-2 my-2 d-flex justify-content-end">
-            <button class="btn btn-sm btn-success"
+            <button 
+            @if($increment==$numberPro)
+            disabled
+          @endif
+            class="btn btn-sm btn-success"
             wire:click.prevent="addProveedor">+ Add proveedor</button>
           </div>
           <table class="table" id="products_table">
@@ -141,7 +145,9 @@
                     class="rounded-lg w-100 form-select bg-gray-50 hover:border-blue-700">
                             <option value="" selected>Seleccionar</option>
                             @foreach($listProve as $data)
-                            <option value="{{$data->id}}">{{$data->empresa}}</option>
+                            
+                                <option  value="{{$data->id}}">{{$data->empresa}}</option>
+                        
                             @endforeach
                     </select>
                 </td>

@@ -25,7 +25,7 @@
             <option value="productos.producto">Producto</option>
           </select>
         </div>
-        <div class="mx-2 border rounded-lg d-flex border-secondary hover:border-blue-700">
+        <div class="mx-2 border rounded-lg flex border-secondary hover:border-blue-700">
           <div class="px-2 pt-1 bg-blue rounded-left">
             <i class="mx-1 mt-2 fa fa-search"> </i>
           </div>
@@ -34,12 +34,32 @@
             </div>
         </div>
         <div class="pt-1">
-          <a wire:click.prevent='resetfilter' class="text-white btn btn-danger"><i class="fas fa-filter"></i> <span class="mb-1">Borrar</span> </a>
+          <a wire:click.prevent='resetfilter' class="text-white btn btn-danger flex">
+            <i class="fas fa-filter mt-1 mr-1"></i> 
+            <span class="mb-1">Borrar</span> </a>
         </div>
       </div>
-      <div  class="pt-1">
-        <button @click="show(open)"  class="text-white btn btn-success"><i class="fas fa-plus"></i> <span class="mb-1">Cotización</span>
+      <div  class=" ml-2 pt-1">
+        @if($cotizacion)
+        <button @click="show(open)" wire:click.prevent='cotizacion' class="text-white btn btn-success flex">
+          <i class="fas fa-plus mt-1 mr-1"></i> 
+          <span class="mb-1">Cotización</span>
         </button>
+        @else
+        <div class="flex">
+          <div class="mr-1 ">
+            <a href="" class="btn btn-danger pt-2">
+              <i class="fas fa-lg fa-times-circle mb-1"></i></a>
+          </div>
+          <div>
+            <button @click="show(open)" wire:click.prevent='savecotizacion' class="text-white btn btn-success flex">
+              <i class="fas fa-save mt-1 mr-1"></i> 
+              <span class="mb-1">Guardar</span>
+            </button>
+          </div>
+        </div>
+        @endif
+        
       </div>
     </div>
 </div>
@@ -71,10 +91,25 @@
           <th class="pt-3 font-weight-normal ">{{ $data->empresa }}</th>
         <th class="pt-3 font-weight-normal ">{{ $data->precio}}</th>
         <td class="text-center">
-            <div x-show="isOpen()">
-                <button   wire:click.prevent='cotizacion({{$data->idcat}})' type="button" class="btn btn-outline-primary">
-                    <i class="fas fa-cart-plus"></i>
-                </button>
+            <div x-show="isOpen()" class="flex">
+              <button 
+                @foreach ($arraycat as $id )
+                  @if($id['idcatalogo']==$data->idcat)
+                  disabled
+                  @endif
+                @endforeach
+                wire:click.prevent='addproducto({{$data->idcat}})'
+                class="btn btn-primary">
+                <i class="fas fa-cart-plus"></i>
+              </button>
+
+              @foreach ($arraycat as $index => $id )
+              @if($id['idcatalogo']==$data->idcat)
+              <a wire:click.prevent='removeCat({{$index}})' class="btn btn-danger ml-1">
+                  <i class="fas fa-trash"></i>
+              </a>
+                @endif
+                @endforeach
             </div>
         </td>
       </tr>

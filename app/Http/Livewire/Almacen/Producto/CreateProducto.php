@@ -11,7 +11,7 @@ class CreateProducto extends Component
 {
     public $idprod, $clave,$presentacion;
     public $producto,$marca,$categoria,$contenido,$des,$unidad;
-    public $precio,$proveedor;
+    public $precio,$proveedor,$numberPro,$increment=1;
     public $arrayCats=[];
     protected $rules=[
         'clave' => 'required',
@@ -31,6 +31,9 @@ class CreateProducto extends Component
 
     public function mount()
     {
+
+        $listprove = Proveedor::count();
+        $this->numberPro=$listprove;
         $this->arrayCats = [
         ['idproveedor' => '', 'precio' => 0]
         ];
@@ -39,10 +42,12 @@ class CreateProducto extends Component
     public function addProveedor()
     {
         $this->arrayCats[] = ['idproveedor' => '', 'precio' => 0];
+        $this->increment+=1;
     }
 
     public function removeProveedor($index)
     {
+        $this->increment-=1;
         unset($this->arrayCats[$index]);
         $this->arrayCats = array_values($this->arrayCats);
     }
@@ -83,11 +88,11 @@ class CreateProducto extends Component
         $this->closemodal();
          $this->emitevent();
         $this->resetdatos();
-
     }
 
     public function closemodal(){
         $this->resetdatos();
+        $this->mount();
         $this->dispatchBrowserEvent('close-form');
     }
 
@@ -99,6 +104,8 @@ class CreateProducto extends Component
 
      public function proveedores(){
          $listprove = Proveedor::all();
+
+         $this->proveedor=$listprove;
          return $listprove;
      }
 
@@ -123,10 +130,20 @@ class CreateProducto extends Component
             'arrayCats',
         ]);
     }
+    
+    public function eerror(){
+        foreach($this->arrayCat as $key =>$data){
+            foreach ($this->proveedor as $pro) {
+                if(){
+                    
+                }
+            }
+
+        }
+    }
 
     public function render()
     {
-
 
         return view('livewire.almacen.producto.create-producto',['listProve'=> $this->proveedores()]);
     }

@@ -15,7 +15,8 @@ class CreateCotizacionsTable extends Migration
     {
         Schema::create('cotizacions', function (Blueprint $table) {
             $table->id();
-            $table->string('descripcion')->default('cotizacion');
+            $table->string('descripcion');
+            $table->date('fecha');
             $table->timestamps();
         });
     }
