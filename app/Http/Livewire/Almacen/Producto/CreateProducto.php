@@ -11,7 +11,7 @@ class CreateProducto extends Component
 {
     public $idprod, $clave,$presentacion;
     public $producto,$marca,$categoria,$contenido,$des,$unidad;
-    public $precio,$proveedor,$numberPro,$increment=1;
+    public $precio,$proveedor,$numberPro,$increment=1, $flag_Prove=false,$auxiliar=[],$int;
     public $arrayCats=[];
     protected $rules=[
         'clave' => 'required',
@@ -130,21 +130,38 @@ class CreateProducto extends Component
             'arrayCats',
         ]);
     }
-    
-    public function eerror(){
-        foreach($this->arrayCat as $key =>$data){
-            foreach ($this->proveedor as $pro) {
-                if(){
-                    
-                }
-            }
 
+    public function eerror(){
+        $vacio=false;
+        $into=0;
+        foreach($this->arrayCats as $key =>$data){
+            if($key>0){
+                foreach($this->auxiliar as $dat){
+                    if($data['idproveedor']==$dat['id']){
+                        $this->int+=1;
+                    }
+                }
+                // $this->auxiliar=$data['idproveedor'];
+            }else{
+            }
+            if($this->arrayCats[$key]==$into){
+                $into++;
+                    if($this->arrayCats[$key]['idproveedor']!=0){
+
+                        $this->auxiliar[]=['id'=>$this->arrayCats[$key]['idproveedor']];
+                    }
+            }
+        }
+
+        if($this->int>0){
+            $this->flag_Prove=true
+            ;
         }
     }
 
     public function render()
     {
-
+        $this->eerror();
         return view('livewire.almacen.producto.create-producto',['listProve'=> $this->proveedores()]);
     }
 }
