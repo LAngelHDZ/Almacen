@@ -1,10 +1,11 @@
 <div>
             {{-- Este boton abre un modal donde está el formulario para dar de alta un proveedor --}}
 
-                 <div class="p-1 border rounded-lg border-success">
-                    <a wire:click.prevent='showmodal'  class="btn btn-success ">
-                         <i class="fa fa-plus-circle"></i> Nuevo
-                    </a>
+                 <div class="">
+                    <button wire:click.prevent='showmodal'  class="btn btn-success flex ">
+                      <i class="fas fa-plus-circle mt-1 mr-1"></i> 
+                      <span class="mb-1">Nuevo</span>  
+                    </button>
                  </div>
 
         {{-- <----- Este fragmento de código es el modal -----> --}}
@@ -120,13 +121,20 @@
           >
 
         <div class="pb-2 mt-2 bg-white rounded shadow-sm bg-body">
-          <div class="pr-2 my-2 d-flex justify-content-end">
-            <button
-            @if($increment==$numberPro)
-            disabled
-          @endif
-            class="btn btn-sm btn-success"
-            wire:click.prevent="addProveedor">+ Add proveedor</button>
+          <div class="pr-2 my-2 d-flex justify-content-between">
+            <div class="py-1 px-2">
+              @if ($flag_Prove)
+              <span class="text-red text-sm">No puedes elegir el mismo proveedor dos veces</span>
+              @endif
+            </div>
+            <div>
+              <button
+              @if($increment>=$numberPro)
+              disabled
+              @endif
+              class="btn btn-sm btn-success"
+              wire:click.prevent="addProveedor">+ Add proveedor</button>
+            </div>
           </div>
           <table class="table" id="products_table">
             <thead>
@@ -179,14 +187,14 @@
                         {{-- <-- Fin cuerpo modal --> --}}
 
                 <div class="modal-footer">
-                    <button wire:click="closemodal" type="button" class="px-3 py-2 text-white bg-gray-500 border rounded-md hover:border-blue-700" data-dismiss="modal">Cancelar</button>
+                    <button wire:click="closemodal"  class="px-3 py-2 text-white bg-gray-500 border rounded-md hover:border-blue-700" data-dismiss="modal">Cancelar</button>
 
                 <button
                 @if($flag_Prove)
                 disabled
-                class="border-red"
+                class="border btn btn-danger"
                 @endif
-                 wire:click="createp" type="button" class="px-3 py-2 text-white rounded-md bg-blue ">Guardar</button>
+                 wire:click="createp" class="px-3 py-2 btn btn-primary ">Guardar</button>
 
                 </div>
               </div>

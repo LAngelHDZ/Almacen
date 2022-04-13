@@ -1,10 +1,11 @@
 <div>   
             {{-- Este boton abre un modal donde está el formulario para dar de alta un proveedor --}}
            
-                 <div class=" p-1 border border-success rounded-md ">
-                    <a wire:click.prevent='showmodal'  class="btn btn-success ">
-                         <i class="fas fa-plus-circle"></i> Nuevo 
-                    </a>
+                 <div class=" ">
+                    <button wire:click.prevent='showmodal'  class="btn btn-success flex ">
+                         <i class="fas fa-plus-circle mt-1 mr-1"></i> 
+                         <span class="mb-1">Nuevo</span>  
+                    </button>
                  </div>
               
         {{-- <----- Este fragmento de código es el modal -----> --}}

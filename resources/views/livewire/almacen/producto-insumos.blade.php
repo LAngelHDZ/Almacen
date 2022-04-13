@@ -115,8 +115,20 @@ x-transition:leave-end="opacity-0 scale-90"
 
 <div class="pb-2 mt-2 bg-white rounded shadow-sm bg-body">
 <div class="pr-2 my-2 d-flex justify-content-end">
-<button class="btn btn-sm btn-success"
-wire:click.prevent="addProveedor">+ Add proveedor</button>
+  <div class="py-1 px-2">
+    @if ($flag_Prove)
+    <span class="text-red text-sm">No puedes elegir el mismo proveedor dos veces</span>
+    @endif
+  </div>
+  <div>
+
+    <button 
+    @if($increment>=$numberPro)
+    disabled
+    @endif
+    class="btn btn-sm btn-success"
+    wire:click.prevent="addProveedor">+ Add proveedor</button>
+  </div>
 </div>
 <table class="table" id="products_table">
 <thead>
@@ -170,10 +182,15 @@ wire:click.prevent="addProveedor">+ Add proveedor</button>
           {{-- <-- Fin cuerpo modal --> --}}
 
   <div class="modal-footer">
-    <button @click="togg('open=true','open2=false')" wire:click="closemodal" type="button" class="px-3 py-2 text-white bg-gray-500 border rounded-md hover:border-blue-700" data-dismiss="modal">Cancelar</button>
-    <span x-on:click="on = false">
-    <button wire:click="update" type="button" class="px-3 py-2 text-white rounded-md bg-blue ">Guardar</button>
-    </span>
+    <button wire:click="closemodal"  class="px-3 py-2  btn btn-secondary" data-dismiss="modal">Cancelar</button>
+    
+    <button 
+    @if($flag_Prove)
+                disabled
+                class="border btn btn-danger"
+                @endif
+    wire:click="update"  class="px-3 py-2 btn btn-primary ">Guardar</button>
+    
   </div>
 </div>
 </div>
@@ -200,9 +217,13 @@ wire:click.prevent="addProveedor">+ Add proveedor</button>
           <option value="producto">Producto</option>
         </select>
       </div>
-      <div>
-        <i class="fa fa-search "> </i>
-        <input wire:model="search" type="text" class="w-64 ml-1 rounded-lg form-input hover:border-blue-700"  placeholder="Buscar">
+      <div class="mx-2 pb-0 border rounded-lg flex border-secondary hover:border-blue-700">
+        <div class="bg-blue rounded-left pb-0 pt-1 px-1">
+          <i class="mx-1 mt-2 mb-0 fa fa-lg fa-search"></i>
+        </div>
+        <div class="mb-0 pb-0">
+            <input wire:model="search" type="text" class="border-0 rounded-right form-input hover:border-blue-700"  placeholder="Buscar">
+          </div>
       </div>
     </div>
     <div class="">

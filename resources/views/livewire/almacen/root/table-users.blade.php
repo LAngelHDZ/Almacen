@@ -47,22 +47,34 @@
     </div>
   </div>
   {{-- <----- Fin fragmento de código modal -----> --}}
-  
-  <div class=" d-flex justify-content-between mb-2">
-    <div class=" ml-2">
-      <label for="" class="h5 pr-2">Filtro de busqueda:</label>
-      <select wire:model="campo" name="" id="" class="form-select mr-4 w-64 rounded-lg hover:border-blue-700">
-        <option value="users.name">Nombre</option>
-        <option value="empleados.clave">Clave</option>
-        <option value="areas.area">Area</option>
-      </select>
-         <i class="fa fa-search mr-2 hover:text-blue-700"> </i>
-         <input wire:model="search" type="text" class=" w-64 form-input rounded-lg hover:border-blue-700"  placeholder="Buscar">
+  <div>
+    <h5 class="h5 text-bold">Filtros de busqueda:</h5>
+    <div class=" d-flex justify-content-between mb-2">
+      <div class=" ml-2 d-flex justify-content-between">
+      <div>
+        <select wire:model="campo" name="" id="" class="form-select mr-4 w-64 rounded-lg hover:border-blue-700">
+          <option value="users.name">Nombre</option>
+          <option value="empleados.clave">Clave</option>
+          <option value="areas.area">Area</option>
+        </select>
+      </div>
+      <div class="mx-2 pb-0 border rounded-lg flex border-secondary hover:border-blue-700">
+        <div class="bg-blue rounded-left pb-0 pt-1 px-1">
+          <i class="mx-1 mt-2 mb-0 fa fa-lg fa-search"></i>
+        </div>
+        <div class="mb-0 pb-0">
+            <input wire:model="search" type="text" class="border-0 rounded-right form-input hover:border-blue-700"  placeholder="Buscar">
+          </div>
+      </div>
     </div> 
-    <div class="p-1 border border-success rounded-md">
-        <a href="{{route('formusers')}}" class="btn btn-success"> <i class="fas fa-user-plus mr-1"></i></i>Nuevo usuario</a>
+    <div class="">
+      <a href="{{route('formusers')}}" class="btn btn-success flex">
+        <i class="fas fa-user-plus mt-1 mr-1"></i>
+        <span class="mb-1">Nuevo</span>
+      </a>
+      </div>
     </div>
-</div>
+  </div>
 <table class="table bg-white border shadow-sm rounded-2">
     <thead class="">
       <div class="bg-primary bg-gradient p-1  " style="--bs-bg-opacity: .5;">

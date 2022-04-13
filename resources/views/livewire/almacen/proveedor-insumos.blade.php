@@ -55,20 +55,30 @@
   </div>
   {{-- <----- Fin fragmento de código modal -----> --}}
 
-  <div class="mb-2 d-flex justify-content-between">
-    <div class=" ml-2">
-      <label for="" class="h5 pr-2">Filtro de busqueda:</label>
-      <select wire:model="campo" name="" id="" class="form-select mr-4 w-64 rounded-lg hover:border-blue-700">
-        <option value="empresa">Empresa</option>
-        <option value="rfc">RFC</option>
-      </select>
-         <i class="fa fa-search mr-2"> </i>
-         <input wire:model="search" type="text" class=" w-64 form-input rounded-lg hover:border-blue-700"  placeholder="Buscar">
-    </div> 
-    <div class="">
-      @livewire('almacen.proveedor.create-proveedor')
+  <div>
+    <h5 class="h5 text-bold">Filtros de busqueda:</h5>
+    <div class="mb-2 d-flex justify-content-between">
+      <div class=" ml-2 d-flex justify-content-between">
+        <div class="">
+          <select wire:model="campo" name="" id="" class="form-select mr-4 w-64 rounded-lg hover:border-blue-700">
+            <option value="empresa">Empresa</option>
+            <option value="rfc">RFC</option>
+          </select>
+        </div>
+        <div class="mx-2 pb-0 border rounded-lg flex border-secondary hover:border-blue-700">
+          <div class="bg-blue rounded-left pb-0 pt-1 px-1">
+            <i class="mx-1 mt-2 mb-0 fa fa-lg fa-search"></i>
+          </div>
+          <div class="mb-0 pb-0">
+            <input wire:model="search" type="text" class="border-0 rounded-right form-input hover:border-blue-700"  placeholder="Buscar">
+          </div>
+        </div>
+      </div> 
+      <div class="">
+        @livewire('almacen.proveedor.create-proveedor')
+      </div>
     </div>
-</div>
+  </div>
   {{-- <--- Data table de poveedores ---> --}}
   <table class="table bg-white border shadow-sm rounded-2">
     <thead class="">

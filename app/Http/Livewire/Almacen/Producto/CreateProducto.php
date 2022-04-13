@@ -10,9 +10,10 @@ use Livewire\Component;
 class CreateProducto extends Component
 {
     public $idprod, $clave,$presentacion;
-    public $producto,$marca,$categoria,$contenido,$des,$unidad;
-    public $precio,$proveedor,$numberPro,$increment=1, $flag_Prove=false,$auxiliar=[],$int;
-    public $arrayCats=[];
+    public $producto,$marca,$categoria,$contenido,$des,$unidad,$precio,$proveedor;
+    // Variables para usar en agregar proveedor
+    public $numberPro,$increment, $flag_Prove=false,$repeat;
+    public $arrayCats=[],$auxiliar=[],  $into=0,$validad=false,$indiceA,$indiceB;
     protected $rules=[
         'clave' => 'required',
         'marca' => 'required',
@@ -31,25 +32,36 @@ class CreateProducto extends Component
 
     public function mount()
     {
-
+        $this->increment=1;
         $listprove = Proveedor::count();
         $this->numberPro=$listprove;
         $this->arrayCats = [
         ['idproveedor' => '', 'precio' => 0]
         ];
+       
     }
 
     public function addProveedor()
     {
         $this->arrayCats[] = ['idproveedor' => '', 'precio' => 0];
         $this->increment+=1;
+        $this->validad=false;
     }
 
     public function removeProveedor($index)
     {
-        $this->increment-=1;
+            $this->increment-=1;
         unset($this->arrayCats[$index]);
         $this->arrayCats = array_values($this->arrayCats);
+
+        $this->reset([
+            'auxiliar',
+            'into',
+            'flag_Prove',
+            'validad',
+            'repeat',
+            'increment',
+        ]);
     }
 
     public function insertpro(){
@@ -128,40 +140,47 @@ class CreateProducto extends Component
             'unidad',
             'des',
             'arrayCats',
+            'auxiliar',
+            'into',
+            'flag_Prove',
+            'validad',
+            'repeat',
+            'increment',
         ]);
     }
-
+       
     public function eerror(){
-        $vacio=false;
-        $into=0;
         foreach($this->arrayCats as $key =>$data){
-            if($key>0){
-                foreach($this->auxiliar as $dat){
-                    if($data['idproveedor']==$dat['id']){
-                        $this->int+=1;
+            if($key==$this->into){
+                if($this->arrayCats[$key]['idproveedor']!=0){
+                    $this->auxiliar[]=['idproveedor'=>$this->arrayCats[$key]['idproveedor']];
+                    $this->into++;
+                    $this->validad=true;
+                }   
+            } 
+            if($this->validad){
+                foreach($this->auxiliar as $ind =>$dat){
+                    if($data['idproveedor']!=$dat['idproveedor'] && $key==$ind){
+                        $this->auxiliar[$ind]=['idproveedor'=>$this->arrayCats[$key]['idproveedor']];
+                        $this->indiceB+=1;
+                    }
+                    if($data['idproveedor']==$dat['idproveedor'] && $key!=$ind){
+                        $this->flag_Prove=true;
+                        break;
+                    }else{
+                        $this->flag_Prove=false;
+                        // break;
                     }
                 }
-                // $this->auxiliar=$data['idproveedor'];
-            }else{
             }
-            if($this->arrayCats[$key]==$into){
-                $into++;
-                    if($this->arrayCats[$key]['idproveedor']!=0){
-
-                        $this->auxiliar[]=['id'=>$this->arrayCats[$key]['idproveedor']];
-                    }
-            }
-        }
-
-        if($this->int>0){
-            $this->flag_Prove=true
-            ;
         }
     }
 
     public function render()
     {
-        $this->eerror();
-        return view('livewire.almacen.producto.create-producto',['listProve'=> $this->proveedores()]);
+        return view('livewire.almacen.producto.create-producto',[
+            'listProve'=> $this->proveedores(),
+            $this->eerror()
+        ]);
     }
 }

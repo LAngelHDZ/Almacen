@@ -25,21 +25,21 @@
             <option value="productos.producto">Producto</option>
           </select>
         </div>
-        <div class="mx-2 border rounded-lg flex border-secondary hover:border-blue-700">
-          <div class="px-2 pt-1 bg-blue rounded-left">
-            <i class="mx-1 mt-2 fa fa-search"> </i>
+        <div class="mx-2 pb-0 border rounded-lg flex border-secondary hover:border-blue-700">
+          <div class="bg-blue rounded-left pb-0 pt-1 px-1">
+            <i class="mx-1 mt-2 mb-0 fa fa-lg fa-search"></i>
           </div>
-          <div>
+          <div class="mb-0 pb-0">
               <input wire:model="search" type="text" class="border-0 rounded-right form-input hover:border-blue-700"  placeholder="Buscar">
             </div>
         </div>
-        <div class="pt-1">
+        <div class="">
           <a wire:click.prevent='resetfilter' class="text-white btn btn-danger flex">
             <i class="fas fa-filter mt-1 mr-1"></i> 
             <span class="mb-1">Borrar</span> </a>
         </div>
       </div>
-      <div  class=" ml-2 pt-1">
+      <div  class=" ml-2 ">
         @if($cotizacion)
         <button @click="show(open)" wire:click.prevent='cotizacion' class="text-white btn btn-success flex">
           <i class="fas fa-plus mt-1 mr-1"></i> 
@@ -64,7 +64,6 @@
     </div>
 </div>
 
-
   <table class="table bg-white border shadow-sm rounded-2">
     <div class="p-1 bg-primary bg-gradient ">
       <thead class="">
@@ -80,7 +79,6 @@
       </thead>
     </div>
     <tbody>
-
 
       @foreach ($catalogo as $data)
       <tr class="">
