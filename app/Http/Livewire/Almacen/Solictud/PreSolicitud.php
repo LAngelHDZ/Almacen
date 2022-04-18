@@ -52,7 +52,6 @@ public function removeProduct($index){
 public function folio(){
     $folio=solicitud::join('status_solicituds as status','status.id_solicitud','=','solicituds.id')
     ->where('date',date('Y-m-d'))->count();
-        
     return $this->datas[0]['prefolio'].'-'.$folio+=1;
 }
 
@@ -96,7 +95,7 @@ public function create(){
      }
     public function render()
     {
-       
+
         return view('livewire.almacen.solictud.pre-solicitud',['materiales'=>$this->showProducts(),$this->secureBtn()]);
     }
 }

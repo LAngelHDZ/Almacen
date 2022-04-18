@@ -28,31 +28,31 @@
                 <p class="mb-0 ml-3 h4">Productos a solicitar</p>
             </div>
     </div>
-    <div class="m-2 flex justify-between">
+    <div class="flex justify-between m-2">
            <div class="flex">
-             <div class="flex  w-full">
+             <div class="flex w-full">
                <label for="" class="mt-1 mr-2">Categoria:</label>
-               <select wire:model="cat" name="" id="" class="form-input rounded hover:border-blue-700 w-100">
+               <select wire:model="cat" name="" id="" class="rounded form-input hover:border-blue-700 w-100">
                  <option value="" selected>Seleccionar</option>
                  <option value="Papeleria">Papeleria</option>
                  <option value="Reactivo">Reactivo</option>
                  <option value="Insumo general">Insumo general</option>
-                
+
                </select>
              </div>
-             <div class="mx-4 flex  w-full">
+             <div class="flex w-full mx-4">
               <label for="" class="mt-1 mr-2">Material:</label>
-              <select wire:model="producto" name="" id="" class="form-select rounded hover:border-blue-700 w-100">
+              <select wire:model="producto" name="" id="" class="rounded form-select hover:border-blue-700 w-100">
                 <option value="" selected>Seleccionar</option>
                 @foreach ($materiales as $data)
                 <option value="{{ $data->id }}">{{ strtoupper($data->producto) }}</option>
                 @endforeach
-               
+
               </select>
             </div>
             <div class="flex w-50">
               <label for="" class="mt-1 mr-2">Cantidad:</label>
-              <input wire:model="cantidad" type="text" class="form-input rounded hover:border-blue-700 w-75">
+              <input wire:model="cantidad" type="text" class="rounded form-input hover:border-blue-700 w-75">
             </div>
            </div>
            <div>
@@ -80,7 +80,7 @@
           <p class="text-bold">NOTA:</p>
           <span>Si no encuentra algun material en en la lista, por favor rellene el cuadro detalladamente del material que necesita </span>
         </div>
-        <textarea wire:model="descripcion" name="" id="" cols="" rows="2" class="w-100 form-input rounded hover:border-blue-700"></textarea>
+        <textarea wire:model="descripcion" name="" id="" cols="" rows="2" class="rounded w-100 form-input hover:border-blue-700"></textarea>
       </div>
     </div>
 
@@ -88,7 +88,7 @@
     <table class="table bg-white shadow-sm ">
         <thead class="">
           <tr>
-            <th scope="col" class=" w-40 text-uppercase">Producto</th>
+            <th scope="col" class="w-40 text-uppercase">Producto</th>
             <th scope="col" class=" text-uppercase">Descripcion</th>
             <th scope="col" class=" text-uppercase">Cantidad</th>
             <th scope="col" class="text-center text-uppercase"></th>
@@ -97,8 +97,8 @@
       <tbody>
         @foreach ($arrayProduct as $index=>$data )
         <tr class="">
-          <th class="pt-3 w-40 font-weight-normal text-decoration-underline">{{ $data['producto'] }}</th>
-          <th class="pt-3  font-weight-normal">{{ $data['descripcion'] }}</th>
+          <th class="w-40 pt-3 font-weight-normal text-decoration-underline">{{ $data['producto'] }}</th>
+          <th class="pt-3 font-weight-normal">{{ $data['descripcion'] }}</th>
           <th class="pt-3 text-center font-weight-normal">{{ $data['cantidad'] }}</th>
           <td class="text-center">
             <button wire:click.prevent="removeProduct({{$index}})" class="btn btn-danger" >
@@ -111,7 +111,7 @@
     </table>
     </div>
     <div>
-      
+
       <button wire:click.prevent="create"
        @if(!$activeBtn)
         disabled
@@ -124,7 +124,7 @@
         return{
           open:true,
           text:'Desplegar',
-      
+
           show:function(open){
             if(open){
               this.open=false;
@@ -136,10 +136,6 @@
           },
           setOpen(){return this.open===false},
         }
-
-
     }
-
-    
 </script>
 </div>

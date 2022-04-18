@@ -38,7 +38,7 @@ class CreateProducto extends Component
         $this->arrayCats = [
         ['idproveedor' => '', 'precio' => 0]
         ];
-       
+
     }
 
     public function addProveedor()
@@ -148,7 +148,7 @@ class CreateProducto extends Component
             'increment',
         ]);
     }
-       
+
     public function eerror(){
         foreach($this->arrayCats as $key =>$data){
             if($key==$this->into){
@@ -156,8 +156,8 @@ class CreateProducto extends Component
                     $this->auxiliar[]=['idproveedor'=>$this->arrayCats[$key]['idproveedor']];
                     $this->into++;
                     $this->validad=true;
-                }   
-            } 
+                }
+            }
             if($this->validad){
                 foreach($this->auxiliar as $ind =>$dat){
                     if($data['idproveedor']!=$dat['idproveedor'] && $key==$ind){
