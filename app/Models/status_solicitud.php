@@ -13,5 +13,7 @@ class status_solicitud extends Model
         'id_solicitud',
         'status',
         'descripcion',
+        'date',
+        'time',
     ];
 }

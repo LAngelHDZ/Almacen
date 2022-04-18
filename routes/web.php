@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AlmacenController;
+use App\Http\Controllers\RecursoMController;
+use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\root\UserstController;
 use App\Http\Controllers\solicitudes\SolicitudController;
 
@@ -27,12 +28,13 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::get('/catalogo',[AlmacenController::class,'catalogo'])->name('catalogo');
-Route::get('/proveedor',[AlmacenController::class,'proveedor'])->name('proveedor');
-Route::get('/producto',[AlmacenController::class,'producto'])->name('producto');
-Route::get('/producto/precios/{id}/',[AlmacenController::class,'precios'])->name('precios-producto');
+Route::get('/catalogo',[RecursoMController::class,'catalogo'])->name('catalogo');
+Route::get('/proveedor',[RecursoMController::class,'proveedor'])->name('proveedor');
+Route::get('/producto',[RecursoMController::class,'producto'])->name('producto');
+Route::get('/producto/precios/{id}/',[RecursoMController::class,'precios'])->name('precios-producto');
 
 Route::get('/solictud-requicision',[SolicitudController::class,'prerequicision'])->name('solicitud');
+Route::get('/historial-requicisiones',[GeneralController::class,'historial'])->name('h_requisiciones_gral');
 
 Route::get('/root/users',[UserstController::class,'users'])->name('users');
 Route::get('/root/users/create',[UserstController::class,'create'])->name('formusers');

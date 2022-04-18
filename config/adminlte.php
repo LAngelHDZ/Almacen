@@ -255,7 +255,7 @@ return [
                 [
                     'icon'    => 'fas fa-clipboard-list',
                     'text' => 'solicitudes',
-                    'url'  => 'admin/blog',
+                    'route'  => 'h_requisiciones_gral',
                 ],
                 [
                     'icon'    => 'fas fa-sm fa-vials',
@@ -298,6 +298,14 @@ return [
                 'text'    => 'RECURSOS MATERIALES',
                 'icon'    => 'fas fa-fw fa-boxes',
                 'submenu' => [
+                    ['header' => 'REQUISICIONES'],
+
+                    [
+                        'icon'    => 'fas fa-sm fa-file-invoice-dollar',
+                        'text' => 'Lista de requisiciones',
+                        'route' => 'catalogo',
+                    ],
+
                     ['header' => 'COTIZACIONES'],
 
                     [

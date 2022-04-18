@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Productos;
 
-class AlmacenController extends Controller
+class RecursoMController extends Controller
 {
     public function catalogo(){
 

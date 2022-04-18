@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSolicitudsTable extends Migration
+class CreateSolicitudProductosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateSolicitudsTable extends Migration
      */
     public function up()
     {
-        Schema::create('solicituds', function (Blueprint $table) {
+        Schema::create('solicitud_productos', function (Blueprint $table) {
             $table->id();
-            $table->string('folio')->unique();
-            $table->integer('id_empleado')->references('id')->on('empleados');
-            $table->text('descripcion')->nullable();
+            $table->integer('idsolicitud')->references('id')->on('solicituds');
+            $table->integer('idproducto')->references('id')->on('productos');
+            $table->integer('cantidad');
+            $table->integer('aprobado');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateSolicitudsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('solicituds');
+        Schema::dropIfExists('solicitud_productos');
     }
 }

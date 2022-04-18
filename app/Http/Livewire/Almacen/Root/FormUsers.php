@@ -15,8 +15,8 @@ class FormUsers extends Component
 
     // ----> Variables globales que se ocupan dentro de la clase <----
     public $clave,$id_user,$email,$rfc,$nombre,$apaterno,$amaterno;
-    public $idarea,$listarea,$listdep,$idep,$cargo,$pass,$repeatpass;
-    public $viewer,$iduser, $ren=true;
+    public $idarea,$listdep,$idep,$cargo,$pass,$repeatpass;
+    public $viewer,$iduser,$auxiliar, $ren=true,$mesageerror;
 
     // ---->Metodo que contiene las Reglas de validación del formulario vista registro de usuario ovista actualización de usuario <----
     public function rule(){
@@ -25,7 +25,7 @@ class FormUsers extends Component
                 'clave' => 'required',
                 'email' => 'required|email',
                 'nombre' => 'required|max:60|min:4',
-                'rfc' => 'required|max:13|min:14',
+                'rfc' => 'required|max:13|min:12',
                 'idarea' => 'required',
                 'cargo' => 'required',
             ];
@@ -38,11 +38,15 @@ class FormUsers extends Component
                 'apaterno' => 'required|max:30|min:4',
                 'amaterno' => 'required|max:30|min:4',
                 'nombre' => 'required|max:60|min:4',
-                'rfc' => 'required|max:13|min:13',
+                'rfc' => 'required|max:14|min:12',
                 'idarea' => 'required',
                 'cargo' => 'required',
             ];
         }
+    }
+
+    public function mount(){
+        $this->listdep =departamento::all();
     }
 
     // ----> Metodo que valida los controles del formulario en tiempo real de la vista registro usuario <----
@@ -87,25 +91,37 @@ class FormUsers extends Component
             $validatedData = $this->validate();
             $data =array(
                 'name' => $validatedData['nombre'].' '.$validatedData['apaterno'].' '.$validatedData['amaterno'],
-                'email' =>$validatedData['email'],
+                'email' =>strtolower($validatedData['email']),
                 'password' => Hash::make($validatedData['pass'])
             );
             User::create($data);
-        }else{
-
-
         }
     }
 
-    // ----> Método que se ejecuta cuando se da clic al boton registrar del formulario de la vista registrar usuaruio <----
+    // ----> Método que se ejecuta cuando se da clic al boton registrar del formulario de la vista registrar usuario <----
     public function create(){
         $validatedData = $this->validate();
         if(!$this->viewer){
-            if($validatedData['pass']==$validatedData['repeatpass']){
-                $this->insertuser();
-                $this->insertempleado();
-                $this->resetdatos();
-                redirect()->route('users');
+            $erroractive=false;
+            $count=User::where('email',strtolower($validatedData['email']))->count();
+            if($count==0){
+                if($validatedData['pass']==$validatedData['repeatpass']){
+                    $this->insertuser();
+                    $this->insertempleado();
+                    $this->resetdatos();
+                    redirect()->route('users');
+                }else{
+                    $erroractive=true;
+                    $message="Las contraseñas no coinciden, por favor verifique que sean correctas";
+                    $this->mesageerror=true;
+                }
+            }else{
+                $erroractive=true;
+                $message="Este email ya se encuentra registrado, por favor ingrese otro distitnto";
+                $this->mesageerror=false;
+            }
+            if($erroractive){
+                session()->flash('message', $message);
             }
         }
     }
@@ -168,16 +184,22 @@ class FormUsers extends Component
     }
 
     // ----> Metodod que renderiza la vista donde se mostrara un formulario u otro dependiendo del valor de la variabl viewer <----
-    public function selectDeparea(){
-        $this->listdep =departamento::select('id','clave','departamento')->get();
-            $this->listarea =area::select('id','clave','area','id_departamento as id_dep')->get();
+    public function area(){
+        $area=area::where('id_departamento',$this->idep)->get();
+        if($this->idep != $this->auxiliar){
+            $this->reset(['idarea']);
+        }
+        $this->auxiliar=$this->idep;
+        return $area;
+        
     }
+   
     public function render()
     {
         if($this->ren){
             $this->views();
         }
-        $this->selectDeparea();
-        return view('livewire.almacen.root.form-users');
+
+        return view('livewire.almacen.root.form-users',['listarea' => $this->area()]);
     }
 }

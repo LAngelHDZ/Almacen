@@ -12,13 +12,13 @@
                         <p class="mb-0 font-weight-bolder h4">Prefolio: <span class="font-weight-normal h5"> {{$data['prefolio']}}</span> </p>
                     </div>
                     <div class="ml-5">
-                        <p class="mb-0 font-weight-bolder ">Departamento: <span class="font-weight-normal">{{$data['usuario'][0]->departamento}}</span></p>
-                        <p class="mb-0 font-weight-bolder">Empleado: <span class="font-weight-normal">  {{ auth()->user()->name }}</span></p>
+                      <p class="mb-0 font-weight-bolder ">Departamento: <span class="font-weight-normal">{{$data['departamento']}}</span></p>
+                      <p class="mb-0 font-weight-bolder ">Area: <span class="font-weight-normal">{{$data['area']}}</span></p>
+                      <p class="mb-0 font-weight-bolder">Solicitante: <span class="font-weight-normal">  {{ auth()->user()->name }}</span></p>
                     </div>
                 </div>
                 <div class="pr-4 ">
                     <h3 class="font-weight-bolder h5">Fecha: <span class="font-weight-normal h6"> {{ $data['fecha'] }}</span> </h3>
-                    {{-- <p class="ms-3 h5"></p> --}}
                 </div>
                 @endforeach
             </div>
@@ -28,49 +28,118 @@
                 <p class="mb-0 ml-3 h4">Productos a solicitar</p>
             </div>
     </div>
-    <div class="m-2">
-        <form action="">
-            <label for=""> Producto:</label>
-            <select name="select" style="height:35px" class=" w-25 border-gray form-select">
-                <option value="value1">Value 1</option>
-                <option value="value2" selected>Value 2</option>
-                <option value="value3">Value 3</option>
-            </select>
-            <label for="" class="ml-5"> Cantidad:</label>
-            <input type="text" style="height:35px" class="w-25"   placeholder="0">
-            <button class="px-2 ml-5 border-0 rounded btn btn-primary" style="">Aregar</button>
-        </form>
+    <div class="m-2 flex justify-between">
+           <div class="flex">
+             <div class="flex  w-full">
+               <label for="" class="mt-1 mr-2">Categoria:</label>
+               <select wire:model="cat" name="" id="" class="form-input rounded hover:border-blue-700 w-100">
+                 <option value="" selected>Seleccionar</option>
+                 <option value="Papeleria">Papeleria</option>
+                 <option value="Reactivo">Reactivo</option>
+                 <option value="Insumo general">Insumo general</option>
+                
+               </select>
+             </div>
+             <div class="mx-4 flex  w-full">
+              <label for="" class="mt-1 mr-2">Material:</label>
+              <select wire:model="producto" name="" id="" class="form-select rounded hover:border-blue-700 w-100">
+                <option value="" selected>Seleccionar</option>
+                @foreach ($materiales as $data)
+                <option value="{{ $data->id }}">{{ strtoupper($data->producto) }}</option>
+                @endforeach
+               
+              </select>
+            </div>
+            <div class="flex w-50">
+              <label for="" class="mt-1 mr-2">Cantidad:</label>
+              <input wire:model="cantidad" type="text" class="form-input rounded hover:border-blue-700 w-75">
+            </div>
+           </div>
+           <div>
+             <button wire:click.prevent="addproduct" class="px-2 ml-5 border-0 rounded btn btn-primary" style="">Aregar</button>
+           </div>
+    </div>
+    <div x-data="togg()">
+      <div class="flex border-bottom border-primary">
+        <button @click="show(open)"  class="mr-2">
+            <i x-bind:class="{'fas fa-chevron-right text-blue':open, 'fas fa-chevron-down text-blue':!open}"></i>
+            {{-- <i x-show="open" class=""></i> --}}
+            <span x-text="text" class="hover:text-blue-700"></span>
+        </button>
+    </div>
+      <div x-show="setOpen()"
+      x-transition:enter="transition ease-out duration-600"
+      x-transition:enter-start="opacity-0 scale-90"
+      x-transition:enter-end="opacity-100 scale-100"
+      x-transition:leave="transition ease-in duration-600"
+      x-transition:leave-start="opacity-100 scale-100"
+      x-transition:leave-end="opacity-0 scale-90"
+      id="myDIV" class="mt-2"
+      >
+        <div>
+          <p class="text-bold">NOTA:</p>
+          <span>Si no encuentra algun material en en la lista, por favor rellene el cuadro detalladamente del material que necesita </span>
+        </div>
+        <textarea wire:model="descripcion" name="" id="" cols="" rows="2" class="w-100 form-input rounded hover:border-blue-700"></textarea>
+      </div>
     </div>
 
     <div class="border-white border-top">
     <table class="table bg-white shadow-sm ">
         <thead class="">
           <tr>
-            <th scope="col" class="text-center text-uppercase">Producto</th>
-            <th scope="col" class="text-center text-uppercase">Descripcion</th>
-            <th scope="col" class="text-center text-uppercase">Cantidad</th>
+            <th scope="col" class=" w-40 text-uppercase">Producto</th>
+            <th scope="col" class=" text-uppercase">Descripcion</th>
+            <th scope="col" class=" text-uppercase">Cantidad</th>
             <th scope="col" class="text-center text-uppercase"></th>
           </tr>
         </thead>
       <tbody>
-
-
+        @foreach ($arrayProduct as $index=>$data )
         <tr class="">
-          <th class="pt-3 text-center font-weight-normal text-decoration-underline">Prueba VHI</th>
-          <th class="pt-3 text-center font-weight-normal">Prueba VHI con sintomas a 3 meses</th>
-          <th class="pt-3 text-center font-weight-normal">10</th>
-
+          <th class="pt-3 w-40 font-weight-normal text-decoration-underline">{{ $data['producto'] }}</th>
+          <th class="pt-3  font-weight-normal">{{ $data['descripcion'] }}</th>
+          <th class="pt-3 text-center font-weight-normal">{{ $data['cantidad'] }}</th>
           <td class="text-center">
-            <button type="button" class="btn btn-outline-danger" >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-center bi bi-x-square" viewBox="0 0 16 16">
-                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
+            <button wire:click.prevent="removeProduct({{$index}})" class="btn btn-danger" >
+              <i class="fas fa-trash"></i>
             </button>
           </td>
         </tr>
+        @endforeach
       </tbody>
     </table>
     </div>
+    <div>
+      
+      <button wire:click.prevent="create"
+       @if(!$activeBtn)
+        disabled
+       @endif
+       class="btn btn-success">Solicitar requisición</button>
+  </div>
 
+  <script>
+    function togg(){
+        return{
+          open:true,
+          text:'Desplegar',
+      
+          show:function(open){
+            if(open){
+              this.open=false;
+              this.text='Ocultar'
+            }else{
+              this.text='Desplegar'
+              this.open=true;
+            }
+          },
+          setOpen(){return this.open===false},
+        }
+
+
+    }
+
+    
+</script>
 </div>

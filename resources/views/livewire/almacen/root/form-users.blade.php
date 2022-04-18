@@ -9,20 +9,26 @@
                             @error('clave') <span class="error text-red-600">{{ $message }}</span> @enderror
                         </div>
                         <div class="ml-4  w-full">
-                            <label for="" class="flex ">Correo Electronico:</label>
+                            <label for="" class=" ">Correo Electronico:</label>
+                            @if(session()->has('message') && !$mesageerror)
+                            <span class="ml-2 text-red text-bold">{{ session('message') }}</span>
+                            @endif
                             <input wire:model="email" type="email" class="form-input w-full px-4 bg-gray-50 rounded-lg hover:border-blue-700">
                             @error('email') <span class="error text-red-600">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     @if(!$viewer)
-                        <div class="  flex flex-row  ">
+                        <div class="  flex flex-row  mt-3">
                             <div class=" w-full">
                                 <label for="" class="flex ">Contraseña:</label>
                                 <input wire:model="pass" type="password" class="form-input w-full px-4 bg-gray-50 rounded-lg hover:border-blue-700">
                                 @error('pass') <span class="error text-red-600">{{ $message }}</span> @enderror
                             </div>
                             <div class="ml-4  w-full">
-                                <label for="" class="flex ">Repetir contraseña:</label>
+                                <label for="" class="">Repetir contraseña:</label>
+                                @if(session()->has('message') && $mesageerror)
+                                <span class="ml-2 text-red text-bold">{{ session('message') }}</span>
+                                @endif
                                 <input wire:model="repeatpass" type="password" class="form-input w-full px-4 bg-gray-50  rounded-lg hover:border-blue-700">
                                 @error('repeatpass') <span class="error text-red-600">{{ $message }}</span> @enderror
                             </div>
@@ -67,8 +73,8 @@
                             <div class="flex flex-row pt-3" >
                                 <div class="  w-full ">
                                     <label for="" class="flex">Departamento:</label>
-                                    <select wire:model="idep" name="" id="" class="form-select w-full px-4 bg-gray-50 rounded-lg hover:border-blue-700">
-                                        <option value="" selected>seleccionar</option>
+                                    <select wire:model="idep" name="" id="departamento" class="form-select w-full px-4 bg-gray-50 rounded-lg hover:border-blue-700">
+                                        <option value="0" selected>seleccionar</option>
                                         @foreach($listdep as $data)
                                         <option value="{{ $data->id }}" >{{ $data->departamento }}</option>
                                         @endforeach
@@ -78,12 +84,10 @@
                                 <div class=" ml-4 w-full">
 
                                     <label for="" class="flex">Area correspondiente:</label>
-                                    <select wire:model="idarea" name="" id="" class="form-select w-full px-4 bg-gray-50 rounded-lg hover:border-blue-700">
-                                        <option value="" selected>seleccionar</option>
+                                    <select wire:model="idarea" name="" id="area" class="form-select w-full px-4 bg-gray-50 rounded-lg hover:border-blue-700">
+                                        <option value="0" selected>seleccionar</option>
                                         @foreach($listarea as $data)
-                                        @if ($idep==$data->id_dep)
                                         <option value="{{ $data->id }}" >{{ $data->clave.' / '.$data->area }}</option>
-                                         @endif
                                         @endforeach
                                     </select>
                                     @error('idarea') <span class="error text-red-600">{{ $message }}</span> @enderror
