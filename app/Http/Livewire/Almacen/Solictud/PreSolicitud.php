@@ -65,8 +65,8 @@ public function create(){
     $idsolicitud=solicitud::select('id')->where('id_empleado',$this->idempleado)->latest('id')->first();
     status_solicitud::create([
         'id_solicitud'=>$idsolicitud->id,
-        'status' => 'Pendiente',
-        'descripcion'=>'Solicitud en espera de revisión',
+        'status' => 'Enviada',
+        'descripcion'=>'Solicitud enviada en espera de revisión y aprobación',
         'date'=> date('Y-m-d'),
         'time'=> date('H:i:s'),
     ]);

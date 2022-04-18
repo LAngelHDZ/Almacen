@@ -3,11 +3,11 @@
         {{-- {{$solicitud}} --}}
         @foreach ($solicitud as $index=> $list)
         {{-- {{$list}} --}}
-        <div class="pl-3 my-2 bg-gray-500 border rounded-lg shadow-sm">
+        <div class="pl-3 my-3 bg-gray-500 border rounded-lg shadow-sm">
             <div class="bg-white rounded-sm">
-                <div class="p-4">
-                    <div class="flex py-1 ">
-                        <h3 class="text-bold h5">Numero de seguimiento:</h3>
+                <div class="p-3">
+                    <div class="flex m-0 ">
+                        <h3 class="text-bold h5">Numero de folio:</h3>
                         <span class="ml-2 h5">{{$list['folio']}}</span>
                     </div>
                     <div class="flex justify-between p-3 bg-gray-50">
@@ -22,6 +22,7 @@
                                 <div class="flex text-gray">
                                     <p class="">Fecha de status - </p>
                                     <span class="ml-1">{{$list['date']}}</span>
+                                    <span class="ml-1">{{'/'.$list['time']}}</span>
                                 </div>
                             </div>
                             <div class="ml-4">
