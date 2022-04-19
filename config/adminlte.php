@@ -301,7 +301,7 @@ return [
                     ['header' => 'REQUISICIONES'],
 
                     [
-                        'icon'    => 'fas fa-sm fa-file-invoice-dollar',
+                        'icon'    => 'fas fa-clipboard-list',
                         'text' => 'Lista de requisiciones',
                         'route' => 'catalogo',
                     ],
