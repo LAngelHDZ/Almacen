@@ -1,9 +1,8 @@
 <div>
     <div>
-        {{-- {{$solicitud}} --}}
+
         @foreach ($solicitud as $index=> $list)
-        {{-- {{$list}} --}}
-        <div class="pl-3 my-3 bg-gray-500 border border-gray-500 rounded-lg shadow-sm">
+          <div class="pl-3 my-3 bg-gray-500 border border-gray-500 rounded-lg shadow-sm">
             <div class="bg-white rounded-sm">
                 <div class="p-3">
                     <div class="flex m-0 ">
@@ -21,7 +20,7 @@
                                 </div>
                                 <div class="flex text-gray-700">
                                     <p class=""><span class="ml-1">{{$list['date']}}</span></p>
-                                    
+
                                     {{-- <span class="ml-1">{{'/'.$list['time']}}</span> --}}
                                 </div>
                             </div>

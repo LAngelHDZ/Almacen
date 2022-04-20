@@ -30,4 +30,9 @@ class RecursoMController extends Controller
         return view('almacen.producto',compact('view','producto'));
 
     }
+
+    public function requisicionesP(){
+        return view('almacen.recursosM.requisicionesrm');
+
+    }
 }

@@ -303,7 +303,7 @@ return [
                     [
                         'icon'    => 'fas fa-clipboard-list',
                         'text' => 'Lista de requisiciones',
-                        'route' => 'catalogo',
+                        'route' => 'requisiciones-rm',
                     ],
 
                     ['header' => 'COTIZACIONES'],

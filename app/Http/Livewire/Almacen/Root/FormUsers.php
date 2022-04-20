@@ -16,7 +16,7 @@ class FormUsers extends Component
     // ----> Variables globales que se ocupan dentro de la clase <----
     public $clave,$id_user,$email,$rfc,$nombre,$apaterno,$amaterno;
     public $idarea,$listdep,$idep,$cargo,$pass,$repeatpass;
-    public $viewer,$iduser,$auxiliar, $ren=true,$mesageerror;
+    public $viewer,$iduser,$auxiliar, $ren=true,$mesageerror,$Vupdatearea;
 
     // ---->Metodo que contiene las Reglas de validación del formulario vista registro de usuario ovista actualización de usuario <----
     public function rule(){
@@ -47,6 +47,7 @@ class FormUsers extends Component
 
     public function mount(){
         $this->listdep =departamento::all();
+
     }
 
     // ----> Metodo que valida los controles del formulario en tiempo real de la vista registro usuario <----
@@ -179,6 +180,10 @@ class FormUsers extends Component
         if($this->viewer){
             $this->infouser();
             $this->ren=false;
+        $this->Vupdatearea=false;
+
+        }else{
+            $this->Vupdatearea=true;
         }
         $this->rule();
     }
@@ -186,18 +191,23 @@ class FormUsers extends Component
     // ----> Metodod que renderiza la vista donde se mostrara un formulario u otro dependiendo del valor de la variabl viewer <----
     public function area(){
         $area=area::where('id_departamento',$this->idep)->get();
-        if($this->idep != $this->auxiliar){
-            $this->reset(['idarea']);
+        if($this->Vupdatearea){
+            if($this->idep != $this->auxiliar){
+                $this->reset(['idarea']);
+            }
         }
         $this->auxiliar=$this->idep;
         return $area;
-        
+
     }
-   
+
     public function render()
     {
         if($this->ren){
             $this->views();
+        }else{
+            $this->Vupdatearea=true;
+
         }
 
         return view('livewire.almacen.root.form-users',['listarea' => $this->area()]);
