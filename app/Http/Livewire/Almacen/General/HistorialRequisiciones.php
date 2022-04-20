@@ -7,10 +7,11 @@ use App\Models\solicitud;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class HistorialRequisiciones extends Component
 {
-
+    use WithPagination;
     public $solicitud=[];
     public function mount(){
         $empleado=empleado::where('id_user',auth()->user()->id)->get();
