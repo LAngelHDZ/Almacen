@@ -334,7 +334,6 @@ class ProductoSeeder extends Seeder
                 'unidad'=>'Pz',
 
             ],
-
         ];
     DB::table('productos')->insert($data);
 

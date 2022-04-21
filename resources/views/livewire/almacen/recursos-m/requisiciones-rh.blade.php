@@ -1,23 +1,29 @@
 <div>
     <div class="mx-5">
         @foreach ( $solicitudes as $data )
-        <div class="  my-3  rounded-sm shadow-sm border">
-            <div class="flex">
-                <div class=" p-3 mr-2 flex bg-gray-50 border-right">
+        <div class="my-1 border rounded-sm shadow-sm ">
+            <div class="flex ">
+                <div class="flex w-1/3 py-3 pl-3 mr-2 bg-gray-50 border-right">
                     <div class="">
                         <span class="text-bold">{{ $data->folio }}</span>
                         <p class="text-gray-700">{{ $data->date }}</p>
                     </div>
-                    <div class="ml-4">
+                    <div class="ml-4 ">
                         <p class="text-gray-700">{{ $data->name }}</p>
                     </div>
                 </div>
-                <div class="bg-white">
-                    <button>
-                        dd
-                    </button>
+                <div class="flex justify-between w-2/3">
+                    <div class="w-75">
+                        <p class="text-bold">Seguimiento:</p>
+                        <p>{{$data->descripcion}}</p>
+                    </div>
+                    <div class="p-3 ">
+                        <button class="p-2 mt-1 text-white border rounded-lg bg-blue">
+                            Revisar
+                        </button>
+                    </div>
                 </div>
-                
+
             </div>
         </div>
         @endforeach
@@ -41,7 +47,7 @@
             <th scope="col" class="text-center text-uppercase">acciones</th>
           </tr>
         </thead>
-      </div>    
+      </div>
       <tbody>
 
 
