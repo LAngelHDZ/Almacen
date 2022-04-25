@@ -235,9 +235,9 @@ x-transition:leave-end="opacity-0 scale-90"
 
         <div class="h-50">
 
-            <table class="table bg-white border shadow-sm rounded-2">
+            <table class=" table table-hover table-striped table-light table-sm border shadow-sm rounded-2">
                 <div class="p-1 bg-primary bg-gradient ">
-                    <thead class="">
+                    <thead class=" bg-white">
                         <tr>
                             <th scope="col" class="text-center text-uppercase">Clave</th>
                             <th scope="col" class="text-center text-uppercase">Material</th>
@@ -250,7 +250,7 @@ x-transition:leave-end="opacity-0 scale-90"
           </tr>
         </thead>
       </div>
-      <tbody>
+      <tbody class="">
 
 
         @foreach ($products as $data)

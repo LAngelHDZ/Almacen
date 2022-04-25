@@ -1,4 +1,62 @@
 <div>
+    <div>
+  {{-- <----- Este fragmento de código es el modal -----> --}}
+  <div wire:ignore.self  class="modal fade" id="showreq" tabindex="-1" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        {{-- <--- Cabecera del modal donde aparece el titulo del modal ---> --}}
+        <div class="modal-header">
+          
+          <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo proveedor</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        {{-- <--- Fin cabecera modal ---> --}}
+
+        {{-- <-- Inicio Cuerpo del modal donde estan los controles de formulario --> --}}
+        <div class="modal-body bg-gray-50">
+            <div class="h-50">
+
+                <table class=" table table-hover table-striped table-light table-lg border shadow-sm rounded-2">
+                    <div class="p-1 bg-primary bg-gradient ">
+                        <thead class=" bg-white">
+                            <tr>
+                                <th scope="col" class="text-center text-uppercase">Clave</th>
+                                <th scope="col" class="text-center text-uppercase">Material</th>
+                                <th scope="col" class="text-center text-uppercase">Cantidad</th>
+               
+              </tr>
+            </thead>
+          </div>
+          <tbody class="">
+
+            @foreach ($products as $data)
+            <tr class="">
+              <th class="pt-3 text-center font-weight-normal text-decoration-underline">{{ $data['clave'] }}</th>
+              <th class="pt-3 text-center font-weight-normal"><a href="">{{ $data['producto'] }}</a></th>
+              <th class="pt-3 text-center font-weight-normal">{{ $data['cantidad'] }}</th>
+    </tr>
+    @endforeach
+    </tbody>
+    </table>
+        </div>
+        {{-- <-- Fin cuerpo modal --> --}}
+
+        <div class="modal-footer">
+          <button wire:click.prefetch='closemodal' class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          
+          <button wire:click.prefetch='aceptar' class="btn btn-success" data-dismiss="modal">Aceptar solicitud</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  {{-- <----- Fin fragmento de código modal -----> --}}
+  
+  
+  
+    </div>
+
     <div class="mx-5">
         @foreach ( $solicitudes as $data )
         <div class="my-1 border rounded-sm shadow-sm ">
@@ -8,17 +66,39 @@
                         <span class="text-bold">{{ $data->folio }}</span>
                         <p class="text-gray-700">{{ $data->date }}</p>
                     </div>
-                    <div class="ml-4 ">
+                    <div class="ml-4 flex">
                         <p class="text-gray-700">{{ $data->name }}</p>
                     </div>
                 </div>
                 <div class="flex justify-between w-2/3">
                     <div class="w-75">
-                        <p class="text-bold">Seguimiento:</p>
-                        <p>{{$data->descripcion}}</p>
+                        <div class="mb-2">
+                            <p class="text-bold">Seguimiento:</p>
+                        </div>
+                        <div class="flex">
+                            <div>
+                                <div class=" ml-3 rounded-full border w-4 h-4 bg-gray-50">
+                                    
+                                </div>
+                                <div>
+                                    <p class="text-sm">Revisado</p>
+                                </div>
+                            </div>
+                            <div class=" mx-2 ">
+                                <i class="far fa-lg fa-window-minimize text-gray-100"></i>
+                            </div>
+                            <div class="">
+                                <div class=" ml-3 rounded-full border border-green-700 w-4 h-4 bg-green-700">
+                                    
+                                </div>
+                                <div>
+                                    <p class="text-sm">Revisado</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="p-3 ">
-                        <button class="p-2 mt-1 text-white border rounded-lg bg-blue">
+                        <button wire:click='inforeq({{ $data->id }})' class="p-2 mt-1 btn btn-primary">
                             Revisar
                         </button>
                     </div>

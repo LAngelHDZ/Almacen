@@ -16,6 +16,14 @@
 
 @section('js')
 <script defer src="https://unpkg.com/alpinejs@3.9.5/dist/cdn.min.js"></script>
+<script>
+    window.addEventListener('show-form', event =>{
+        $('#showreq').modal('show');
+    })
 
-    @livewireScripts
+    window.addEventListener('close-form', event =>{
+        $('#showreq').modal('hide');
+    })
+</script>
+    {{-- @livewireScripts --}}
 @stop
