@@ -9,7 +9,6 @@
         <div class="modal-header">
           
           <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo proveedor</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         {{-- <--- Fin cabecera modal ---> --}}
 
@@ -43,9 +42,9 @@
         {{-- <-- Fin cuerpo modal --> --}}
 
         <div class="modal-footer">
-          <button wire:click.prefetch='closemodal' class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button wire:click='closemodal' class="btn btn-secondary" >Cancelar</button>
           
-          <button wire:click.prefetch='aceptar' class="btn btn-success" data-dismiss="modal">Aceptar solicitud</button>
+          <button wire:click='aceptar' class="btn btn-success">Aceptar solicitud</button>
         </div>
 
       </div>
@@ -63,11 +62,11 @@
             <div class="flex ">
                 <div class="flex w-1/3 py-3 pl-3 mr-2 bg-gray-50 border-right">
                     <div class="">
-                        <span class="text-bold">{{ $data->folio }}</span>
-                        <p class="text-gray-700">{{ $data->date }}</p>
+                        <span class="text-bold">{{ $data['folio'] }}</span>
+                        <p class="text-gray-700">{{ $data['date'] }}</p>
                     </div>
                     <div class="ml-4 flex">
-                        <p class="text-gray-700">{{ $data->name }}</p>
+                        <p class="text-gray-700">{{ $data['name'] }}</p>
                     </div>
                 </div>
                 <div class="flex justify-between w-2/3">
@@ -98,7 +97,7 @@
                         </div>
                     </div>
                     <div class="p-3 ">
-                        <button wire:click='inforeq({{ $data->id }})' class="p-2 mt-1 btn btn-primary">
+                        <button wire:click='inforeq({{ $data['id'] }})' class="p-2 mt-1 btn btn-primary">
                             Revisar
                         </button>
                     </div>
@@ -110,7 +109,7 @@
 
         <div class="pb-2">
 
-            {{ $solicitudes->links() }}
+            {{ $solicitud->links() }}
         </div>
 
         {{-- <div class="h-50">

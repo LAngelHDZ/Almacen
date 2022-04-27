@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <p class="text-4xl font-bold text-blue-500">Requisiciones a atender</p>
+    <p class="text-4xl font-bold text-blue-500">Requisiciones por atender</p>
 @stop
 
 @section('content')
@@ -25,5 +25,13 @@
         $('#showreq').modal('hide');
     })
 </script>
+
+{{-- <script>
+    function actualizar(){
+        Livewire.emit('refresh');
+    }
+    setInterval("actualizar()",3000);
+</script> --}}
     {{-- @livewireScripts --}}
+    <script src="{{ asset('js/app.js') }}"></script>
 @stop

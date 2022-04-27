@@ -40,3 +40,4 @@ Route::get('/requisiciones/status',[GeneralController::class,'historial'])->name
 Route::get('/root/users',[UserstController::class,'users'])->name('users');
 Route::get('/root/users/create',[UserstController::class,'create'])->name('formusers');
 Route::get('/root/users/update/{id}/',[UserstController::class,'update'])->name('formupdate');
+Route::get('/adminlte',[GeneralController::class,'adminlte'])->name('adminlte');

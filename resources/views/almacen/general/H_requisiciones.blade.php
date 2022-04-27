@@ -24,5 +24,6 @@
 
 @section('js')
 <script defer src="https://unpkg.com/alpinejs@3.9.5/dist/cdn.min.js"></script>
-    @livewireScripts
+
+<script src="{{ asset('js/app.js') }}"></script>
 @stop

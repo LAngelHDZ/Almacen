@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Almacen\General;
 
 use App\Models\empleado;
 use App\Models\solicitud;
+use App\Models\status_solicitud;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -11,22 +12,57 @@ use Livewire\WithPagination;
 
 class HistorialRequisiciones extends Component
 {
+
+    protected $listeners = ['echo:solicitud,RealtimeEventSolicitud' => 'updateview'];
     use WithPagination;
-    public $solicitud=[];
+    public $solicitud=[],$aux;
+
     public function mount(){
+        
         $empleado=empleado::where('id_user',auth()->user()->id)->get();
-        $list= solicitud::join('status_solicituds as status','solicituds.id','=','status.id_solicitud')
-        ->select('solicituds.id','solicituds.folio','solicituds.id_empleado','status.date','status.time','status.status','status.descripcion')
-        ->where('solicituds.id_empleado',$empleado[0]->id)->Orderby('solicituds.id','desc')->get();
+        $list= solicitud::select('id','folio','id_empleado')
+        ->where('id_empleado',$empleado[0]->id)->Orderby('solicituds.id','desc')->get();
          foreach($list as $data){
              $this->solicitud[]=[
              'folio'=> $data->folio,
-             'date'=>$this->formatdate($data->date),
-             'descripcion'=>$data->descripcion,
-             'status'=>$data->status,
-             'time'=>$data->time];
+             'date'=>$this->formatdate(status_solicitud::select('date')->where('id_solicitud',$data->id)->latest('id')->first()->date),
+             'descripcion'=>status_solicitud::select('descripcion')->where('id_solicitud',$data->id)->latest('id')->first()->descripcion,
+             'status'=>status_solicitud::select('status')->where('id_solicitud',$data->id)->latest('id')->first()->status,
+             'time'=>status_solicitud::select('time')->where('id_solicitud',$data->id)->latest('id')->first()->time,
+             'class'=>$this->classobject(status_solicitud::where('id_solicitud',$data->id)->count(), 'color'),
+             'icon'=>$this->classobject(status_solicitud::where('id_solicitud',$data->id)->count(),'icon')];
          }
+         $this->aux=status_solicitud::count();
     }
+
+    public function updateview(){
+        if(status_solicitud::count()!=$this->aux){
+            $this->reset([
+                'solicitud'
+            ]);
+            $this->mount();
+        }
+    }
+
+public function classobject($count, $type){
+    $object='';
+    if($type=='color'){
+        switch($count){
+            case 1:  $object='bg-gray-500'; break;
+            case 2:  $object='bg-warning'; break;
+            case 3:  $object='bg-green-700'; break;
+            case 4:  $object='bg-blue'; break;
+        }
+    }else{
+        switch($count){
+            case 1:  $object='fas fa-lg fa-paper-plane'; break;
+            case 2:  $object='fas fa-lg fa-clipboard-check'; break;
+            case 3:  $object='bg-green-700'; break;
+            case 4:  $object='bg-blue'; break;
+        }
+    }
+return $object;
+}
 
     public function formatday($day){
         $dia='';

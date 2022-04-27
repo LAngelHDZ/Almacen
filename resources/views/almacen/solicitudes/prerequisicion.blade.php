@@ -35,8 +35,9 @@
         showConfirmButton: false,
         timer: 1700,
 })
-setTimeout( function() {
-         window.location.href = "{{ route('h_requisiciones_gral') }}"; }, 1500 );
+ setTimeout( function() {
+          window.location.href = "{{ route('h_requisiciones_gral') }}"; }, 1500 );
     })    
-      </script>
+     </script>
+      <script src="{{ asset('js/app.js') }}"></script>
 @stop

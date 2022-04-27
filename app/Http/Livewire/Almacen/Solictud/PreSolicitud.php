@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Almacen\Solictud;
 
+use App\Events\RealtimeEventSolicitud;
 use App\Models\Productos;
 use App\Models\solicitud;
 use App\Models\solicitud_producto;
@@ -51,7 +52,7 @@ public function removeProduct($index){
 
 public function folio(){
     $folio=solicitud::join('status_solicituds as status','status.id_solicitud','=','solicituds.id')
-    ->where('date',date('Y-m-d'))->count();
+    ->where('date',date('Y-m-d'))->where('status','Enviada')->count();
     return $this->datas[0]['prefolio'].'-'.$folio+=1;
 }
 
@@ -79,6 +80,7 @@ public function create(){
             'aprobado'=>0,
         ]);
     }
+    event(new RealtimeEventSolicitud);
     $this->emit('alert');
 }
 

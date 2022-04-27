@@ -10,4 +10,7 @@ class GeneralController extends Controller
 
         return view('almacen.general.H_requisiciones');
     }
+    public function adminlte(){
+        return view('almacen.adminlte');
+    }
 }

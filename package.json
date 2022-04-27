@@ -12,16 +12,18 @@
     "devDependencies": {
         "@tailwindcss/forms": "^0.4.1",
         "@tailwindcss/typography": "^0.5.2",
-        "alpinejs": "^3.9.6",
+        "alpinejs": "^3.10.2",
         "axios": "^0.21",
+        "laravel-echo": "^1.11.7",
         "laravel-mix": "^6.0.43",
         "lodash": "^4.17.19",
         "postcss": "^8.4.12",
         "postcss-import": "^14.1.0",
+        "pusher-js": "^7.1.0-beta",
         "tailwindcss": "^3.0.24"
     },
     "dependencies": {
         "bootstrap-icons": "^1.8.1",
-        "sweetalert2": "^11.4.8"
+        "sweetalert2": "^11.4.9"
     }
 }

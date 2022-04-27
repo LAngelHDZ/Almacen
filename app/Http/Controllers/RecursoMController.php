@@ -35,4 +35,6 @@ class RecursoMController extends Controller
         return view('almacen.recursosM.requisicionesrm');
 
     }
+
+    
 }
