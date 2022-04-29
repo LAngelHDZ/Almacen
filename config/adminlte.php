@@ -121,10 +121,10 @@ return [
     |
     */
 
-    'classes_body' => '',
+    'classes_body' => 'bg-light',
     'classes_brand' => '',
     'classes_brand_text' => '',
-    'classes_content_wrapper' => 'bg-white',
+    'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
     'classes_sidebar' => 'sidebar-dark-primary elevation-4',
@@ -194,7 +194,7 @@ return [
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
-    'profile_url' => false,
+    'profile_url' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -478,7 +478,7 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

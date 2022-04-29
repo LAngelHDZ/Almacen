@@ -7,12 +7,8 @@
 @stop
 
 @section('content')
-<div>
-    <div>
-     <div>
-
-     </div>
-    </div>
+<div class="">
+    @livewire('almacen.perfil.perfil-user')
 </div>
 @stop
 
