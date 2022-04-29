@@ -419,7 +419,7 @@ return [
 
         [
             'text' => 'profile',
-            'url'  => 'admin/settings',
+            'route'  => 'profile',
             'icon' => 'fas fa-fw fa-address-card',
         ],
 

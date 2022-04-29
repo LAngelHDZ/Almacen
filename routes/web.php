@@ -3,6 +3,7 @@
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecursoMController;
+use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\root\UserstController;
 use App\Http\Controllers\solicitudes\SolicitudController;
@@ -41,3 +42,5 @@ Route::get('/root/users',[UserstController::class,'users'])->name('users');
 Route::get('/root/users/create',[UserstController::class,'create'])->name('formusers');
 Route::get('/root/users/update/{id}/',[UserstController::class,'update'])->name('formupdate');
 Route::get('/adminlte',[GeneralController::class,'adminlte'])->name('adminlte');
+
+Route::get('/profile',[PerfilController::class,'profile'])->name('profile');
