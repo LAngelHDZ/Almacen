@@ -13,6 +13,17 @@ class PerfilUser extends Component
 {
 
     public $info,$idempleado, $emailModel, $efirmaModel,$efirmaInfo, $emailInfo;
+
+    protected $rules = [
+        'emailModel' => 'required|email',
+        'efirmaModel' => 'required|min:10|max:20',
+    ];
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
     public function showinfo(){
         $userid=Auth::user()->id;
        $this->info= User::join('empleados','users.id','=','empleados.id_user')
@@ -37,6 +48,7 @@ class PerfilUser extends Component
     }
 
     public function generate_efirma(){
+        // $this->validate();
         $this->efirmaInfo= Hash::make($this->efirmaModel,[
             'rounds'=>9,
         ]);
@@ -45,7 +57,7 @@ class PerfilUser extends Component
     public function create_efirma(){
         firma_digital::create([
             'firma'=>$this->efirmaInfo,
-            'id_empleado'=>$this->ide,
+            'id_empleado'=>$this->idempleado,
         ]);
     }
 
