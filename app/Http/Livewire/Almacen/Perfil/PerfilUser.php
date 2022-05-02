@@ -6,13 +6,14 @@ use App\Models\empleado;
 use App\Models\firma_digital;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
 class PerfilUser extends Component
 {
 
     public $info,$idempleado, $emailModel, $efirmaModel,$efirmaInfo, $emailInfo;
-    public function mount(){
+    public function showinfo(){
         $userid=Auth::user()->id;
        $this->info= User::join('empleados','users.id','=','empleados.id_user')
         ->join('areas','areas.id','=','empleados.area')
@@ -29,12 +30,28 @@ class PerfilUser extends Component
     }
 
     public function queryEfirma(){
-        $efirma= firma_digital::where('id_empleado',$this->idempleado);
-        $this->efirmaInfo= $efirma->firma;
+        $efirma= firma_digital::select('firma')->where('id_empleado',$this->idempleado)->first();
+        if($efirma!=null){
+            $this->efirmaInfo= $efirma->firma;
+        }
+    }
+
+    public function generate_efirma(){
+        $this->efirmaInfo= Hash::make($this->efirmaModel,[
+            'rounds'=>9,
+        ]);
+    }
+
+    public function create_efirma(){
+        firma_digital::create([
+            'firma'=>$this->efirmaInfo,
+            'id_empleado'=>$this->ide,
+        ]);
     }
 
     public function render()
     {
+        $this->showinfo();
         return view('livewire.almacen.perfil.perfil-user');
     }
 }
