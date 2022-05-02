@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <p class="text-4xl font-bold text-blue-500">Perfil</p>
+    <p class="text-4xl font-bold  text-blue-500">Perfil</p>
 @stop
 
 @section('content')
