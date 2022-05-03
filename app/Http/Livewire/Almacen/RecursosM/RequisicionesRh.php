@@ -45,6 +45,10 @@ class RequisicionesRh extends Component
         }
     }
 
+    public function filterquery($var){
+
+    }
+
     public function updateview(){
         if(solicitud::count()!=$this->aux){
             $this->reset([
@@ -118,7 +122,7 @@ class RequisicionesRh extends Component
         }
         $this->showmodal();
     }
-     
+
     public function showmodal(){
         $this->dispatchBrowserEvent('show-form');
    }
@@ -140,5 +144,5 @@ public function resetdatos(){
         return view('livewire.almacen.recursos-m.requisiciones-rh',['solicitud'=> $this->QuerySolicitud(), $this->querydate()]);
     }
 
-    
+
 }

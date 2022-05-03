@@ -7,7 +7,7 @@
 
         {{-- <--- Cabecera del modal donde aparece el titulo del modal ---> --}}
         <div class="modal-header">
-          
+
           <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo proveedor</h5>
         </div>
         {{-- <--- Fin cabecera modal ---> --}}
@@ -16,14 +16,14 @@
         <div class="modal-body bg-gray-50">
             <div class="h-50">
 
-                <table class=" table table-hover table-striped table-light table-lg border shadow-sm rounded-2">
+                <table class=" table table-hover table-striped table-light table-sm border shadow-sm rounded-2">
                     <div class="p-1 bg-primary bg-gradient ">
                         <thead class=" bg-white">
                             <tr>
                                 <th scope="col" class="text-center text-uppercase">Clave</th>
                                 <th scope="col" class="text-center text-uppercase">Material</th>
                                 <th scope="col" class="text-center text-uppercase">Cantidad</th>
-               
+
               </tr>
             </thead>
           </div>
@@ -42,8 +42,8 @@
         {{-- <-- Fin cuerpo modal --> --}}
 
         <div class="modal-footer">
-          <button wire:click='closemodal' class="btn btn-secondary" >Cancelar</button>
-          
+          <button wire:click='closemodal' class="btn btn-secondary" >Cerrar</button>
+
           <button wire:click='aceptar' class="btn btn-success">Aceptar solicitud</button>
         </div>
 
@@ -54,9 +54,10 @@
     </div>
     <div class="mx-5 mb-3 ">
         <nav class="block">
-            <a href="" class="px-3 py-2 rounded-lg  border border-warning bg-white">Revisado <i class="far fa-envelope-open text-warning"></i></a>
-            <a href="" class="px-3 py-2 mx-2 rounded-lg border border-success  bg-white">Aprobado <i class="fas fa-clipboard-check text-green-500"></i></a>
-            <a href="" class="px-3 py-2 rounded-lg border border-danger  bg-white">Rechazado  <i class="far fa-file-excel text-red-500"></i></a>
+            <a  class="px-3 py-2 rounded-lg  border border-primary bg-white">Nuevas <i class="fas fa-envelope text-primary"></i></a>
+            <a  class="px-3 py-2 ml-2 rounded-lg  border border-warning bg-white">Revisado <i class="fas fa-envelope-open-text text-warning"></i></a>
+            <a  class="px-3 py-2 mx-2 rounded-lg border border-success  bg-white">Aprobado <i class="fas fa-clipboard-check text-green-500"></i></a>
+            <a  class="px-3 py-2 rounded-lg border border-danger  bg-white">Rechazado  <i class="far fa-file-excel text-red-500"></i></a>
         </nav>
     </div>
     <div class="mx-5">
@@ -71,6 +72,7 @@
                         @foreach ( $solicitudes as $indexb => $dat )
                         @if($indexb == $indexa)
                         <p class="text-gray-700">{{ $dat['date'] }}</p>
+                        <p class="text-gray-700">{{ $dat['time'] }}</p>
                         @break
                         @endif
                         @endforeach
@@ -86,25 +88,62 @@
                             <p class="text-bold">Seguimiento:</p>
                         </div>
                         <div class="flex">
-                            <div>
-                                <div class=" ml-3 rounded-full border w-4 h-4 bg-white">
-                                    
-                                </div>
-                                <div>
-                                    <p class="text-sm">Revisado</p>
+                            <div class="px-3 ">
+                                <div class=" ">
+                                    <p class="text-sm text-bold">Revisado</p>
+                                    <div class="pl-1">
+                                        <i class="fas fa-envelope-open-text mx-3 "></i>
+                                    </div>
                                 </div>
                             </div>
-                            <div class=" mx-2 ">
+                             <div class=" ">
+                                <i class="far fa-lg fa-window-minimize text-gray-500"></i>
+                            </div>
+                            <div class="px-3 ">
+                                <div class=" ">
+                                    <p class="text-sm text-bold">Aprobado</p>
+                                    <div class="pl-1">
+                                        <i class="fas fa-clipboard-check mx-3 "></i>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class=" ">
+                                <i class="far fa-lg fa-window-minimize text-gray-500"></i>
+                            </div>
+                            <div class="px-3 ">
+                                <div class=" ">
+                                    <p class="text-sm text-bold">Transito</p>
+                                    <div class="pl-1">
+                                        {{-- <i class="fas fa-clipboard-check  "></i> --}}
+                                        {{-- <i class="fas fa-archive mx-3"></i> --}}
+                                        <i class="fas fa-shipping-fast mx-3"></i>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class=" ">
+                                <i class="far fa-lg fa-window-minimize text-gray-500"></i>
+                            </div>
+                            <div class="px-3 ">
+                                <div class=" ">
+                                    <p class="text-sm text-bold">Almacen</p>
+                                    <div class="pl-1">
+                                        {{-- <i class="fas fa-clipboard-check  "></i> --}}
+                                        <i class="fas fa-archive mx-3"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- <div class=" px-3 ">
                                 <i class="far fa-lg fa-window-minimize text-gray-500"></i>
                             </div>
                             <div class="">
-                                <div class=" ml-3 rounded-full border border-green-700 w-4 h-4 bg-green-700">
-                                    
-                                </div>
                                 <div>
-                                    <p class="text-sm">Revisado</p>
+                                    <p class="text-sm text-bold">Aprobado</p>
                                 </div>
-                            </div>
+                                <div class=" px-3 ">
+                                    <i class="fas fa-clipboard-check "></i>
+                                </div>
+
+                            </div> --}}
                         </div>
                     </div>
                     <div class="p-3 ">
