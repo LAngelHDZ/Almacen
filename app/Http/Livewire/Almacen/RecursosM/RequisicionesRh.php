@@ -29,13 +29,14 @@ class RequisicionesRh extends Component
      $this->aux=solicitud::count();
     }
 
-    public function mount(){
+    public function querydate(){
+        $this->reset([
+            'solicitudes',
+        ]);
+
         foreach($this->QuerySolicitud() as $data){
             $this->solicitudes[]=[
-            'id'=>$data->id,
-            'folio'=> $data->folio,
             'date'=>$this->formatdate(status_solicitud::select('date')->where('id_solicitud',$data->id)->latest('id')->first()->date),
-            'name'=>$data->name,
             'status'=>status_solicitud::select('status')->where('id_solicitud',$data->id)->latest('id')->first()->status,
             'time'=>status_solicitud::select('time')->where('id_solicitud',$data->id)->latest('id')->first()->time,
             // 'class'=>$this->classobject(status_solicitud::where('id_solicitud',$data->id)->count(), 'color'),
@@ -136,7 +137,7 @@ public function resetdatos(){
 
     public function render()
     {
-        return view('livewire.almacen.recursos-m.requisiciones-rh',['solicitud'=> $this->QuerySolicitud()]);
+        return view('livewire.almacen.recursos-m.requisiciones-rh',['solicitud'=> $this->QuerySolicitud(), $this->querydate()]);
     }
 
     

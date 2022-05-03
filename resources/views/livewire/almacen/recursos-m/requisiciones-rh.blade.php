@@ -51,32 +51,43 @@
     </div>
   </div>
   {{-- <----- Fin fragmento de código modal -----> --}}
-  
-  
-  
     </div>
-
+    <div class="mx-5 mb-3 ">
+        <nav class="block">
+            <a href="" class="px-3 py-2 rounded-lg  border border-warning bg-white">Revisado <i class="far fa-envelope-open text-warning"></i></a>
+            <a href="" class="px-3 py-2 mx-2 rounded-lg border border-success  bg-white">Aprobado <i class="fas fa-clipboard-check text-green-500"></i></a>
+            <a href="" class="px-3 py-2 rounded-lg border border-danger  bg-white">Rechazado  <i class="far fa-file-excel text-red-500"></i></a>
+        </nav>
+    </div>
     <div class="mx-5">
-        @foreach ( $solicitudes as $data )
-        <div class="my-1 border rounded-sm shadow-sm ">
+        @foreach ( $solicitud as $indexa => $data )
+        <div class="my-1 border rounded-sm shadow-sm bg-white ">
             <div class="flex ">
-                <div class="flex w-1/3 py-3 pl-3 mr-2 bg-gray-50 border-right">
+                <div class="flex w-1/3 py-3 pl-3 mr-2 bg-gray-100 border-right">
                     <div class="">
-                        <span class="text-bold">{{ $data['folio'] }}</span>
-                        <p class="text-gray-700">{{ $data['date'] }}</p>
+                        {{-- <span class="text-bold">{{ $data['folio'] }}</span>
+                        <p class="text-gray-700">{{ $data['date'] }}</p> --}}
+                        <span class="text-bold">{{ $data->folio }}</span>
+                        @foreach ( $solicitudes as $indexb => $dat )
+                        @if($indexb == $indexa)
+                        <p class="text-gray-700">{{ $dat['date'] }}</p>
+                        @break
+                        @endif
+                        @endforeach
                     </div>
                     <div class="ml-4 flex">
-                        <p class="text-gray-700">{{ $data['name'] }}</p>
+                        <p class="text-gray-700">{{ $data->name }}</p>
+                        {{-- <p class="text-gray-700">{{ $data['name'] }}</p> --}}
                     </div>
                 </div>
-                <div class="flex justify-between w-2/3">
-                    <div class="w-75">
+                <div class="flex justify-between w-2/3 ">
+                    <div class="w-75 ">
                         <div class="mb-2">
                             <p class="text-bold">Seguimiento:</p>
                         </div>
                         <div class="flex">
                             <div>
-                                <div class=" ml-3 rounded-full border w-4 h-4 bg-gray-50">
+                                <div class=" ml-3 rounded-full border w-4 h-4 bg-white">
                                     
                                 </div>
                                 <div>
@@ -84,7 +95,7 @@
                                 </div>
                             </div>
                             <div class=" mx-2 ">
-                                <i class="far fa-lg fa-window-minimize text-gray-100"></i>
+                                <i class="far fa-lg fa-window-minimize text-gray-500"></i>
                             </div>
                             <div class="">
                                 <div class=" ml-3 rounded-full border border-green-700 w-4 h-4 bg-green-700">
