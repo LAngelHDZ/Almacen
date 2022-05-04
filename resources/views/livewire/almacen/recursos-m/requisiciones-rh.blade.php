@@ -56,10 +56,10 @@
     </div>
     <div class="mx-5 mb-3 ">
         <nav class="block">
-            <a  class="px-3 py-2 rounded-lg  border border-primary bg-white">Nuevas <i class="fas fa-envelope text-primary"></i></a>
-            <a  class="px-3 py-2 ml-2 rounded-lg  border border-warning bg-white">Revisado <i class="fas fa-envelope-open-text text-warning"></i></a>
-            <a  class="px-3 py-2 mx-2 rounded-lg border border-success  bg-white">Aprobado <i class="fas fa-clipboard-check text-green-500"></i></a>
-            <a  class="px-3 py-2 rounded-lg border border-danger  bg-white">Rechazado  <i class="far fa-file-excel text-red-500"></i></a>
+            <button  class="px-3 py-2 rounded-lg  border border-primary bg-white">Nuevas <i class="fas fa-envelope text-primary"></i></button>
+            <button  class="px-3 py-2 ml-2 rounded-lg  border border-warning bg-white">Revisado <i class="fas fa-envelope-open-text text-warning"></i></button>
+            <button  class="px-3 py-2 mx-2 rounded-lg border border-success  bg-white">Aprobado <i class="fas fa-clipboard-check text-green-500"></i></button>
+            <button  class="px-3 py-2 rounded-lg border border-danger  bg-white">Rechazado  <i class="far fa-file-excel text-red-500"></i></button>
         </nav>
     </div>
     <div class="mx-5">
@@ -92,28 +92,28 @@
                         <div class="flex">
                             @foreach ($seguimiento as $indexc => $da )
                                 @if ($indexc == $indexa)
-
-                                <div class="px-3 ">
-                                    <div class=" ">
-                                        @foreach ($da['status'] as $status )
-                                        @if ($status->status=='Revisada')
-                                        <p class="text-sm text-bold">
-                                            Revisado
-                                        </p>
-                                            @endif
+                                <div class="px-3 flex">
+                                    @foreach ($da['status'] as $indexadoa => $status )
+                                    <div class=" mx-3">
+                                        <div>
+                                            <p class="text-sm text-bold">
+                                                {{ $status['status']}}
+                                            </p>
+                                        </div>
+                                        @foreach ($da['icon'] as $indexadob => $icon )
                                         <div class="pl-1">
                                             <i
-                                            @if ($status->status=='Revisada')
-                                            class="fas fa-envelope-open-text mx-3 "
+                                            @if($indexadoa == $indexadob)
+                                            class="{{ $icon['icon']}}"
                                             @endif
-
                                             ></i>
                                         </div>
                                         @endforeach
                                     </div>
-                                </div>
-                                <div class=" ">
-                                    <i class="far fa-lg fa-window-minimize text-gray-500"></i>
+                                    <div class=" ">
+                                        <i class="far fa-lg fa-window-minimize text-gray-500"></i>
+                                    </div>
+                                    @endforeach
                                 </div>
                                 @endif
                             @endforeach

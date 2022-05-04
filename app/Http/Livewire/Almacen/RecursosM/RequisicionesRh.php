@@ -57,24 +57,34 @@ class RequisicionesRh extends Component
         ]);
         foreach($this->QuerySolicitud() as $data){
             $this->seguimiento[]=[
-                'status' => status_solicitud::select('status')->where('id_solicitud',$data->id)->get(),
-                // 'icon' =>$this->status_seguimiento(status_solicitud::select('status')->where('id_solicitud',$data->id)->get(), 'icon'),
+                // 'status' => status_solicitud::select('status')->where('id_solicitud',$data->id)->get(),
+                 'status' =>$this->status_seguimiento(status_solicitud::select('status')->where('id_solicitud',$data->id)->get(), 'status'),
+                 'icon' =>$this->status_seguimiento(status_solicitud::select('status')->where('id_solicitud',$data->id)->get(), 'icon'),
             ];
         }
     }
 
     public function status_seguimiento($array,$object ){
+        $status_array=[];
         foreach($array as $data){
             if($object=='status'){
                 switch($data->status){
-
-
-
+                    case 'Revisada':$status_array[]=['status'=>'Revisado']; break;
+                    case 'Aprobada':$status_array[]=['status'=>'Aprobado']; break;
+                    case 'Transito':$status_array[]=['status'=>'Transito']; break;
+                    case 'Almacen':$status_array[]=['status'=>'Almacen']; break;
                 }
             }else{
-
+                switch($data->status){
+                    case 'Revisada':$status_array[]=['icon'=>'fas fa-envelope-open-text mx-3']; break;
+                    case 'Aprobada':$status_array[]=['icon'=>'fas fa-clipboard-check mx-3']; break;
+                    case 'Transito':$status_array[]=['icon'=>'fas fa-shipping-fast mx-3']; break;
+                    case 'Almacen':$status_array[]=['icon'=>'fas fa-archive mx-3']; break;
+                }
             }
         }
+         return $status_array;
+
     }
 
     public function updateview(){
