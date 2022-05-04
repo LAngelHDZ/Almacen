@@ -17,6 +17,8 @@ class RequisicionesRh extends Component
     public $products=[];
     public $solicitudes=[];
     public $id_solicitud,$aux;
+    public $status;
+    public $seguimiento=[];
     // protected $listeners = ['refresh' => 'updateview'];
     protected $listeners = ['echo:solicitud,RealtimeEventSolicitud' => 'updateview'];
     public function QuerySolicitud(){
@@ -49,6 +51,32 @@ class RequisicionesRh extends Component
 
     }
 
+    public function seguimiento(){
+        $this->reset([
+            'seguimiento',
+        ]);
+        foreach($this->QuerySolicitud() as $data){
+            $this->seguimiento[]=[
+                'status' => status_solicitud::select('status')->where('id_solicitud',$data->id)->get(),
+                // 'icon' =>$this->status_seguimiento(status_solicitud::select('status')->where('id_solicitud',$data->id)->get(), 'icon'),
+            ];
+        }
+    }
+
+    public function status_seguimiento($array,$object ){
+        foreach($array as $data){
+            if($object=='status'){
+                switch($data->status){
+
+
+
+                }
+            }else{
+
+            }
+        }
+    }
+
     public function updateview(){
         if(solicitud::count()!=$this->aux){
             $this->reset([
@@ -71,9 +99,9 @@ class RequisicionesRh extends Component
         }
         return $dia;
     }
-    public function formatmount($mount){
+    public function formatweek($week){
         $mes='';
-        switch($mount){
+        switch($week){
             case 'January':$mes='Enero'; break;
             case 'February':$mes='Febrero'; break;
             case 'March':$mes='Marzo'; break;
@@ -92,7 +120,7 @@ class RequisicionesRh extends Component
 
     public function formatdate($date){
         $dat= new Carbon($date);
-        return $this->formatday(date_format($dat,'l')).' '.date_format($dat,'d').' de '.$this->formatmount(date_format($dat,'F')).' del '.date_format($dat,'Y');
+        return $this->formatday(date_format($dat,'l')).' '.date_format($dat,'d').' de '.$this->formatweek(date_format($dat,'F')).' del '.date_format($dat,'Y');
     }
 
     public function aceptar(){
@@ -106,11 +134,12 @@ class RequisicionesRh extends Component
         event(new RealtimeEventSolicitud);
 
         $this->closemodal();
-
+        $this->resetdatos();
     }
 
     public function inforeq($id){
         $this->id_solicitud=$id;
+        $status='';
        $products = solicitud::
        join('solicitud_productos','solicitud_productos.idsolicitud','=','solicituds.id')
    ->join('productos','solicitud_productos.idproducto','=','productos.id')
@@ -119,6 +148,14 @@ class RequisicionesRh extends Component
         ->get();
         foreach($products as $data){
             $this->products[]=['clave'=>$data->clave,'producto'=>$data->producto,'cantidad'=>$data->cantidad];
+
+        }
+        $status=status_solicitud::select('status')->where('id_solicitud',$id)->latest('id')->first()->status;
+        if($status!='Enviada'){
+                $this->status=true;
+            }else{
+            $this->status=false;
+
         }
         $this->showmodal();
     }
@@ -136,12 +173,13 @@ public function resetdatos(){
     $this->reset([
         'products',
         'id_solicitud',
+        // 'status',
     ]);
 }
 
     public function render()
     {
-        return view('livewire.almacen.recursos-m.requisiciones-rh',['solicitud'=> $this->QuerySolicitud(), $this->querydate()]);
+        return view('livewire.almacen.recursos-m.requisiciones-rh',['solicitud'=> $this->QuerySolicitud(), $this->querydate(),$this->seguimiento()]);
     }
 
 

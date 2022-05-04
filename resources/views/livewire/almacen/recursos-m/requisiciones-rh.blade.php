@@ -44,7 +44,9 @@
         <div class="modal-footer">
           <button wire:click='closemodal' class="btn btn-secondary" >Cerrar</button>
 
-          <button wire:click='aceptar' class="btn btn-success">Aceptar solicitud</button>
+          <button wire:click='aceptar' @if ($status) class="hidden"  @else class="btn btn-success" @endif>Aceptar solicitud</button>
+
+
         </div>
 
       </div>
@@ -88,18 +90,36 @@
                             <p class="text-bold">Seguimiento:</p>
                         </div>
                         <div class="flex">
-                            <div class="px-3 ">
-                                <div class=" ">
-                                    <p class="text-sm text-bold">Revisado</p>
-                                    <div class="pl-1">
-                                        <i class="fas fa-envelope-open-text mx-3 "></i>
+                            @foreach ($seguimiento as $indexc => $da )
+                                @if ($indexc == $indexa)
+
+                                <div class="px-3 ">
+                                    <div class=" ">
+                                        @foreach ($da['status'] as $status )
+                                        @if ($status->status=='Revisada')
+                                        <p class="text-sm text-bold">
+                                            Revisado
+                                        </p>
+                                            @endif
+                                        <div class="pl-1">
+                                            <i
+                                            @if ($status->status=='Revisada')
+                                            class="fas fa-envelope-open-text mx-3 "
+                                            @endif
+
+                                            ></i>
+                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
-                            </div>
-                             <div class=" ">
-                                <i class="far fa-lg fa-window-minimize text-gray-500"></i>
-                            </div>
-                            <div class="px-3 ">
+                                <div class=" ">
+                                    <i class="far fa-lg fa-window-minimize text-gray-500"></i>
+                                </div>
+                                @endif
+                            @endforeach
+
+
+                            {{-- <div class="px-3 ">
                                 <div class=" ">
                                     <p class="text-sm text-bold">Aprobado</p>
                                     <div class="pl-1">
@@ -114,8 +134,8 @@
                                 <div class=" ">
                                     <p class="text-sm text-bold">Transito</p>
                                     <div class="pl-1">
-                                        {{-- <i class="fas fa-clipboard-check  "></i> --}}
-                                        {{-- <i class="fas fa-archive mx-3"></i> --}}
+                                        {{-- <i class="fas fa-clipboard-check  "></i>
+                                        {{-- <i class="fas fa-archive mx-3"></i> -
                                         <i class="fas fa-shipping-fast mx-3"></i>
                                     </div>
                                 </div>
@@ -127,11 +147,11 @@
                                 <div class=" ">
                                     <p class="text-sm text-bold">Almacen</p>
                                     <div class="pl-1">
-                                        {{-- <i class="fas fa-clipboard-check  "></i> --}}
+                                        <i class="fas fa-clipboard-check  "></i>
                                         <i class="fas fa-archive mx-3"></i>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             {{-- <div class=" px-3 ">
                                 <i class="far fa-lg fa-window-minimize text-gray-500"></i>
                             </div>
