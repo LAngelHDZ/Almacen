@@ -105,6 +105,7 @@
                                             <i
                                             @if($indexadoa == $indexadob)
                                             class="{{ $icon['icon']}}"
+
                                             @endif
                                             ></i>
                                         </div>
@@ -113,8 +114,7 @@
                                     <div class=" ">
                                         <i class="far fa-lg fa-window-minimize text-gray-500"></i>
                                     </div>
-                                    @endforeach
-                                </div>
+                                    @endforeach                               </div>
                                 @endif
                             @endforeach
 

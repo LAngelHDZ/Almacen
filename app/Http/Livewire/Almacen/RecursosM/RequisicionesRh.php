@@ -17,15 +17,17 @@ class RequisicionesRh extends Component
     public $products=[];
     public $solicitudes=[];
     public $id_solicitud,$aux;
-    public $status;
+    public $status, $filter_status;
     public $seguimiento=[];
     // protected $listeners = ['refresh' => 'updateview'];
     protected $listeners = ['echo:solicitud,RealtimeEventSolicitud' => 'updateview'];
     public function QuerySolicitud(){
-        // $solicitud=[];
       $list = solicitud::join('empleados','empleados.id','=','solicituds.id_empleado')
         ->join('users','users.id','=','empleados.id_user')
+        // ->join('status_solicituds as status','.id_solicitud','=','solicituds.id')
         ->select('solicituds.id','solicituds.folio','solicituds.descripcion','empleados.id_user','users.name')
+        // ->where('status.status',)
+        // ->where('status.status',)->latest('id')->first()->status
         ->paginate(5);
         return $list;
      $this->aux=solicitud::count();
@@ -48,7 +50,10 @@ class RequisicionesRh extends Component
     }
 
     public function filterquery($var){
-
+        // $this->reset([
+        //     'filter_status',
+        // ]);
+        $this->filter_status=$var;
     }
 
     public function seguimiento(){
