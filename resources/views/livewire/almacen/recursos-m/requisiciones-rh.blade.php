@@ -56,10 +56,10 @@
     </div>
     <div class="mx-5 mb-3 ">
         <nav class="block">
-            <button  class="px-3 py-2 rounded-lg  border border-primary bg-white">Nuevas <i class="fas fa-envelope text-primary"></i></button>
-            <button  class="px-3 py-2 ml-2 rounded-lg  border border-warning bg-white">Revisado <i class="fas fa-envelope-open-text text-warning"></i></button>
-            <button  class="px-3 py-2 mx-2 rounded-lg border border-success  bg-white">Aprobado <i class="fas fa-clipboard-check text-green-500"></i></button>
-            <button  class="px-3 py-2 rounded-lg border border-danger  bg-white">Rechazado  <i class="far fa-file-excel text-red-500"></i></button>
+            <button wire:click='filterquery({{ 1 }})' class="px-3 py-2 rounded-lg  border border-primary bg-white">Nuevas <i class="fas fa-envelope text-primary"></i></button>
+            <button wire:click='filterquery({{ 2 }})' class="px-3 py-2 ml-2 rounded-lg  border border-warning bg-white">Revisado <i class="fas fa-envelope-open-text text-warning"></i></button>
+            <button wire:click='filterquery({{ 3 }})' class="px-3 py-2 mx-2 rounded-lg border border-success  bg-white">Aprobado <i class="fas fa-clipboard-check text-green-500"></i></button>
+            <button wire:click='filterquery({{ 4 }})' class="px-3 py-2 rounded-lg border border-danger  bg-white">Rechazado  <i class="far fa-file-excel text-red-500"></i></button>
         </nav>
     </div>
     <div class="mx-5">

@@ -17,16 +17,16 @@ class RequisicionesRh extends Component
     public $products=[];
     public $solicitudes=[];
     public $id_solicitud,$aux;
-    public $status, $filter_status;
+    public $status, $filter_status='Enviada';
     public $seguimiento=[];
     // protected $listeners = ['refresh' => 'updateview'];
     protected $listeners = ['echo:solicitud,RealtimeEventSolicitud' => 'updateview'];
     public function QuerySolicitud(){
       $list = solicitud::join('empleados','empleados.id','=','solicituds.id_empleado')
         ->join('users','users.id','=','empleados.id_user')
-        // ->join('status_solicituds as status','.id_solicitud','=','solicituds.id')
+        ->join('status_solicituds as status','.id_solicitud','=','solicituds.id')
         ->select('solicituds.id','solicituds.folio','solicituds.descripcion','empleados.id_user','users.name')
-        // ->where('status.status',)
+        ->where('status.status',$this->filter_status)->Orderby('status.date','desc')->Orderby('status.time','desc')
         // ->where('status.status',)->latest('id')->first()->status
         ->paginate(5);
         return $list;
@@ -50,10 +50,19 @@ class RequisicionesRh extends Component
     }
 
     public function filterquery($var){
-        // $this->reset([
-        //     'filter_status',
-        // ]);
-        $this->filter_status=$var;
+        $this->reset([
+            'filter_status',
+        ]);
+
+        switch ($var){
+            case 1: $this->filter_status='Enviada'; break;
+            case 2: $this->filter_status='Revisada'; break;
+            case 3: $this->filter_status='Aprobada'; break;
+            case 4: $this->filter_status='Rechazada'; break;
+            case 5: $this->filter_status='Transito'; break;
+            default: $this->filter_status='Almacen'; break;
+        }
+        
     }
 
     public function seguimiento(){
@@ -76,6 +85,7 @@ class RequisicionesRh extends Component
                 switch($data->status){
                     case 'Revisada':$status_array[]=['status'=>'Revisado']; break;
                     case 'Aprobada':$status_array[]=['status'=>'Aprobado']; break;
+                    case 'Rechazada':$status_array[]=['status'=>'Rechazada']; break;
                     case 'Transito':$status_array[]=['status'=>'Transito']; break;
                     case 'Almacen':$status_array[]=['status'=>'Almacen']; break;
                 }
@@ -83,6 +93,7 @@ class RequisicionesRh extends Component
                 switch($data->status){
                     case 'Revisada':$status_array[]=['icon'=>'fas fa-envelope-open-text mx-3']; break;
                     case 'Aprobada':$status_array[]=['icon'=>'fas fa-clipboard-check mx-3']; break;
+                    case 'Rechazada':$status_array[]=['icon'=>'far fa-file-excel mx-4']; break;
                     case 'Transito':$status_array[]=['icon'=>'fas fa-shipping-fast mx-3']; break;
                     case 'Almacen':$status_array[]=['icon'=>'fas fa-archive mx-3']; break;
                 }
