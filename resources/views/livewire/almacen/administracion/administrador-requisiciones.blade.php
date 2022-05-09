@@ -39,7 +39,7 @@
                   @if($status)
                     {{ $data['aprobado'] }}
                       @else
-                  <input wire:model="products.{{ $index }}.aprobado" class="w-10 rounded-lg hover:border-blue-700" type="text"> 
+                  <input wire:model="products.{{ $index }}.aprobado" class="w-10 rounded-lg hover:border-blue-700" type="text">
                   @endif
                 </th>
     </tr>
@@ -243,4 +243,21 @@
 </tbody>
 </table> --}}
     </div>
+
+    <script>
+        function togg(){
+            return{
+              open:[],
+              show:function(open){
+                if(open){
+                  this.open=false;
+                }else{
+                  this.open=true;
+                }
+              },
+              setOpen(){return this.open===true},
+            }
+        }
+    </script>
+
 </div>

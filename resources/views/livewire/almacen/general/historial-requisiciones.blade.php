@@ -27,7 +27,7 @@
                             <div class="ml-4">
                                 <p class="text-gray-700">{{$list['descripcion']}}</p>
 
-                                
+
                             </div>
                         </div>
                         <div class="">
@@ -36,7 +36,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="mt-2" x>
+                    <div class="mt-2" x-data="togg()">
                         <div class="">
                             <a  href="">Ver detalles</a>
                         </div>
@@ -56,7 +56,7 @@
                                         <i
                                         @if($indexadoa == $indexadob)
                                         class="{{ $icon['icon']}}"
-                                        
+
                                             @endif
                                             ></i>
                                         </div>
@@ -65,7 +65,7 @@
                                     <div class=" ">
                                         <i class="far fa-lg fa-window-minimize text-gray-500"></i>
                                     </div>
-                                    @endforeach                               
+                                    @endforeach
                                 </div>
                                 @endif
                                 @endforeach
@@ -77,5 +77,19 @@
         @endforeach
     </div>
 
-
+    <script>
+        function togg(){
+            return{
+              open:true,
+              show:function(open){
+                if(open){
+                  this.open=false;
+                }else{
+                  this.open=true;
+                }
+              },
+              setOpen(){return this.open===true},
+            }
+        }
+    </script>
 </div>
