@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Administracion\AdminsController;
 use App\Http\Controllers\RecursoMController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\GeneralController;
@@ -44,3 +45,5 @@ Route::get('/root/users/update/{id}/',[UserstController::class,'update'])->name(
 Route::get('/adminlte',[GeneralController::class,'adminlte'])->name('adminlte');
 
 Route::get('/profile',[PerfilController::class,'profile'])->name('profile');
+
+Route::get('/administrador/requisiciones',[AdminsController::class,'requisicionesA'])->name('requisicionesA');

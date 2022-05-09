@@ -344,8 +344,8 @@ return [
                     'url'  => 'admin/blog',
                     'submenu' => [
                         [
-                            'text' => 'opcion 1',
-                        'url' => '#',
+                            'text' => 'Requisiciones ',
+                        'route' => 'requisicionesA',
                         ],
                         [
                             'text' => 'opcion 2',
