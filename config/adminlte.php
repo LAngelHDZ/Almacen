@@ -246,6 +246,7 @@ return [
         [
             'text'    => 'GENERAL',
             'icon'    => 'fas fa-fw fa-user-tie',
+            'can'     => 'root.dashboard.gen',
             'submenu' => [
                 [
                     'icon'    => 'fas fa-ms fa-file-alt',
@@ -273,6 +274,7 @@ return [
         [
             'text'    => 'ALMACEN',
             'icon'    => 'fas fa-fw fa-archive',
+            'can'     => 'root.dashboard.almacen',
             'submenu' => [
                 [
                     'text' => 'opcion 1',
@@ -297,6 +299,8 @@ return [
             [
                 'text'    => 'RECURSOS MATERIALES',
                 'icon'    => 'fas fa-fw fa-boxes',
+                'can'     => 'root.dashboard.rm',
+
                 'submenu' => [
                     ['header' => 'REQUISICIONES'],
 
@@ -338,6 +342,7 @@ return [
         [
             'text'    => 'ADMINISTRACIÓN',
             'icon'    => 'fas fa-fw fa-globe',
+            'can'     => 'root.dashboard.admon',
             'submenu' => [
                 [
                     'text' => 'Administrador',
@@ -388,6 +393,7 @@ return [
         [
             'text'    => 'ROOT',
             'icon'    => 'fas fa-fw fa-user-cog',
+            'can'     => 'root.dashboard.root',
             'submenu' => [
                 [
                     'icon'    => 'fas fa-sm fa-users',
@@ -421,6 +427,7 @@ return [
             'text' => 'profile',
             'route'  => 'profile',
             'icon' => 'fas fa-fw fa-address-card',
+            'can'     => 'root.dashboard.profile',
         ],
 
 
