@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class UserstController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('role:root');
+    }
+    
     public function users(){
         return view('almacen.root.user');
     }

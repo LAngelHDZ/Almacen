@@ -33,8 +33,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::get('/catalogo',[RecursoMController::class,'catalogo'])->name('catalogo');
 Route::get('/proveedor',[RecursoMController::class,'proveedor'])->name('proveedor');
 Route::get('/producto',[RecursoMController::class,'producto'])->name('producto');
-Route::get('/producto/precios/{id}/',[RecursoMController::class,'precios'])->name('precios-producto');
 Route::get('/requisiciones',[RecursoMController::class,'requisicionesP'])->name('requisiciones-rm');
+// Route::get('/producto/precios/{id}/',[RecursoMController::class,'precios'])->name('precios-producto');
 
 Route::get('/solictud/requicision',[SolicitudController::class,'prerequicision'])->name('solicitud');
 Route::get('/requisiciones/status',[GeneralController::class,'historial'])->name('h_requisiciones_gral');

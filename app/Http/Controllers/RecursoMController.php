@@ -7,6 +7,11 @@ use App\Models\Productos;
 
 class RecursoMController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('permission:root.dashboard.rm');
+    }
+    
     public function catalogo(){
 
         return view('almacen.catalogo');
