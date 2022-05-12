@@ -25,12 +25,12 @@ class PermissionUserSeeder extends Seeder
         Permission::create(['name'=>'root.dashboard.almacen'])->syncRoles([$role1]);
         Permission::create(['name'=>'root.dashboard.rm'])->syncRoles([$role1,$role2]);
         Permission::create(['name'=>'root.dashboard.admon'])->syncRoles([$role1]);
-        Permission::create(['name'=>'root.dashboard.profile'])->syncRoles([$role2]);
+        Permission::create(['name'=>'root.dashboard.profile'])->syncRoles([$role3,$role2]);
 
         // Permission::create(['name'=>'rm.dashboard.rm']);
         // Permission::create(['name'=>'rm.dashboard.gen']);
         // Permission::create(['name'=>'root.dashboard.rm']);
         // Permission::create(['name'=>'rm.dashboard.profile']);
-    
+
     }
 }

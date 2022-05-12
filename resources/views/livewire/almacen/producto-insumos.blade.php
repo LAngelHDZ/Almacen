@@ -18,12 +18,12 @@
   {{-- <-- Inicio Cuerpo del modal donde estan los controles de formulario --> --}}
   <div  class="modal-body">
       <div x-data="togg()">
-          <div class="flex border-bottom border-primary">
+          <div class=" border-bottom border-primary">
               <button @click="show(open)"  class="mr-2">
                   <i x-bind:class="{'fas fa-chevron-right text-blue':!open, 'fas fa-chevron-down text-blue':open}"></i>
                   {{-- <i x-show="open" class=""></i> --}}
-              </button>
-              <p>Informacion del producto</p>
+                  Informacion del producto
+                </button>
           </div>
 
       <div x-show="setOpen()"
@@ -101,8 +101,8 @@
 <div class="flex border-bottom border-primary">
 <button @click="show2(open2)" class="mr-2">
   <i class="text-blue" x-bind:class="{'fas fa-chevron-right':!open2, 'fas fa-chevron-down':open2}"></i>
+  Precio/Proveedor
 </button>
-<p>Precio/Proveedor</p>
 </div>
 <div x-show="setOpen2()"
 x-transition:enter="transition ease-out duration-600"
@@ -122,7 +122,7 @@ x-transition:leave-end="opacity-0 scale-90"
   </div>
   <div>
 
-    <button 
+    <button
     @if($increment>=$numberPro)
     disabled
     @endif
@@ -183,14 +183,14 @@ x-transition:leave-end="opacity-0 scale-90"
 
   <div class="modal-footer">
     <button wire:click="closemodal"  class="px-3 py-2  btn btn-secondary" data-dismiss="modal">Cancelar</button>
-    
-    <button 
+
+    <button
     @if($flag_Prove)
                 disabled
                 class="border btn btn-danger"
                 @endif
     wire:click="update"  class="px-3 py-2 btn btn-primary ">Guardar</button>
-    
+
   </div>
 </div>
 </div>

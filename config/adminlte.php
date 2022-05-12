@@ -241,35 +241,42 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'buscar',
         ],
-        // ['header' => 'USUARIO'],
 
-        [
-            'text'    => 'GENERAL',
-            'icon'    => 'fas fa-fw fa-user-tie',
-            'can'     => 'root.dashboard.gen',
-            'submenu' => [
-                [
+         ['header' => 'GENERAL',
+         'icon'    => 'fas fa-fw fa-user-tie',
+        ],
+
+        // [
+        //     'text'    => 'GENERAL',
+        //     'icon'    => 'fas fa-fw fa-user-tie',
+        //     'can'     => 'root.dashboard.gen',
+        //     'submenu' => [
+                 [
                     'icon'    => 'fas fa-ms fa-file-alt',
                     'text' => 'requisicion',
+                    'can'     => 'root.dashboard.gen',
                     'route'  => 'solicitud',
                 ],
                 [
                     'icon'    => 'fas fa-clipboard-list',
                     'text' => 'solicitudes',
+                    'can'     => 'root.dashboard.gen',
                     'route'  => 'h_requisiciones_gral',
                 ],
                 [
                     'icon'    => 'fas fa-sm fa-vials',
                     'text' => 'materiales',
+                    'can'     => 'root.dashboard.gen',
                     'url'  => 'admin/blog',
                 ],
                 [
                     'icon'    => 'fas fa-list-ul',
                     'text' => 'historial',
+                    'can'     => 'root.dashboard.gen',
                     'url'  => 'admin/blog',
                 ],
-            ],
-        ],
+            // ],
+        // ],
 
         [
             'text'    => 'ALMACEN',

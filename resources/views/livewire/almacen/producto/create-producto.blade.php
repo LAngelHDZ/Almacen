@@ -3,8 +3,8 @@
 
                  <div class="">
                     <button wire:click.prevent='showmodal'  class="btn btn-success flex ">
-                      <i class="fas fa-plus-circle mt-1 mr-1"></i> 
-                      <span class="mb-1">Nuevo</span>  
+                      <i class="fas fa-plus-circle mt-1 mr-1"></i>
+                      <span class="mb-1">Nuevo</span>
                     </button>
                  </div>
 
@@ -25,12 +25,12 @@
                 {{-- <-- Inicio Cuerpo del modal donde estan los controles de formulario --> --}}
                 <div  class="modal-body">
                     <div x-data="togg()">
-                        <div class="flex border-bottom border-primary">
+                        <div class=" border-bottom border-primary">
                             <button @click="show(open)"  class="mr-2">
                                 <i x-bind:class="{'fas fa-chevron-right text-blue':!open, 'fas fa-chevron-down text-blue':open}"></i>
                                 {{-- <i x-show="open" class=""></i> --}}
+                                Informacion del producto
                             </button>
-                            <p>Informacion del producto</p>
                         </div>
 
                     <div x-show="setOpen()"
@@ -108,8 +108,8 @@
             <div class="flex border-bottom border-primary">
               <button @click="show2(open2)" class="mr-2">
                 <i class="text-blue" x-bind:class="{'fas fa-chevron-right':!open2, 'fas fa-chevron-down':open2}"></i>
-              </button>
-              <p>Precio/Proveedor</p>
+                Precio/Proveedor
+            </button>
           </div>
           <div x-show="setOpen2()"
           x-transition:enter="transition ease-out duration-600"

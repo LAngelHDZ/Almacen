@@ -12,6 +12,7 @@ class CreateProducto extends Component
     public $idprod, $clave,$presentacion;
     public $producto,$marca,$categoria,$contenido,$des,$unidad,$precio,$proveedor;
     // Variables para usar en agregar proveedor
+    public $openbtn=true;
     public $numberPro,$increment, $flag_Prove=false,$repeat;
     public $arrayCats=[],$auxiliar=[],  $into=0,$validad=false,$indiceA,$indiceB;
     protected $rules=[
@@ -43,9 +44,19 @@ class CreateProducto extends Component
 
     public function addProveedor()
     {
-        $this->arrayCats[] = ['idproveedor' => '', 'precio' => 0];
-        $this->increment+=1;
+        if($this->increment==3){
+            $this->openbtn=false;
+        }
+
+        if($this->openbtn){
+
+            $this->arrayCats[] = ['idproveedor' => '', 'precio' => 0];
+            $this->increment+=1;
+        }
+
         $this->validad=false;
+
+
     }
 
     public function removeProveedor($index)
@@ -61,6 +72,7 @@ class CreateProducto extends Component
             'validad',
             'repeat',
             'increment',
+            'openbtn',
         ]);
     }
 
@@ -146,6 +158,7 @@ class CreateProducto extends Component
             'validad',
             'repeat',
             'increment',
+            'openbtn',
         ]);
     }
 

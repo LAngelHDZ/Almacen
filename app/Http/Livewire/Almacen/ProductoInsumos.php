@@ -17,6 +17,7 @@ class ProductoInsumos extends Component
     public $search,$filtercategory=0,$campo='clave_producto';
     public $numberPro,$increment, $flag_Prove=false,$repeat,$indiceB,$indiceA;
     public $arrayCats=[],$auxiliar=[],  $into=0,$validad=false;
+    public $openbtn=true;
     protected $listeners = ['datatable' => 'render'];
 
     protected $rules=[
@@ -86,19 +87,30 @@ class ProductoInsumos extends Component
         }
      }
 
-    public function addProveedor()
-    {
-        $this->arrayCats[] = ['idcatalogo' =>0,'idproveedor' => '', 'precio' => 0];
-        $this->increment+=1;
-    }
+     public function addProveedor()
+     {
+         if($this->increment==3){
+             $this->openbtn=false;
+         }
+
+         if($this->openbtn){
+
+             $this->arrayCats[] = ['idproveedor' => '', 'precio' => 0];
+             $this->increment+=1;
+         }
+
+         $this->validad=false;
+
+
+     }
 
     public function mount()
     {
-        
-         
+
+
         $listprove = Proveedor::count();
         $this->numberPro=$listprove;
-    }    
+    }
 
     public function addprecio($id){
 
@@ -149,6 +161,7 @@ class ProductoInsumos extends Component
             'validad',
             'repeat',
             'increment',
+            'openbtn',
         ]);
     }
 
@@ -168,7 +181,7 @@ class ProductoInsumos extends Component
         $this->contenido=$idproducto->contenido;
         $this->unidad=$idproducto->unidad;
 
-        
+
         $this->showinfoP($id);
         $this->showmodal();
         if(count($this->arrayCats)==0){
@@ -204,8 +217,8 @@ class ProductoInsumos extends Component
                     $this->auxiliar[]=['idproveedor'=>$this->arrayCats[$key]['idproveedor']];
                     $this->into++;
                     $this->validad=true;
-                }   
-            } 
+                }
+            }
             if($this->validad){
                 foreach($this->auxiliar as $ind =>$dat){
                     if($data['idproveedor']!=$dat['idproveedor'] && $key==$ind){
@@ -227,7 +240,7 @@ class ProductoInsumos extends Component
     public function render()
     {
 
-        
+
         return view('livewire.almacen.producto-insumos',[
             'products' => $this->consultaPro(),
              'listProve' => $this->proveedores(),

@@ -15,6 +15,7 @@ use Livewire\Component;
 class PreSolicitud extends Component
 {
     public $datas=[];
+    public $messageP=false;
     public $usuario,$intfolio;
     public $arrayProduct = [],$producto,$cantidad,$cat,$activeBtn=false,$idempleado,$descripcion;
 
@@ -37,12 +38,22 @@ class PreSolicitud extends Component
 }
 
 public function addproduct(){
-    $product=Productos::select('descripcion','producto')->where('id',$this->producto)->get();
-    $this->arrayProduct[]=['idPro'=>$this->producto,'producto'=>strtoupper($product[0]->producto),'descripcion'=>strtoupper($product[0]->descripcion),'cantidad'=>$this->cantidad];
-    $this->reset([
-        'producto',
-        'cantidad'
-    ]);
+    $active=true;
+    foreach($this->arrayProduct as $data){
+        if($data['idPro']==$this->producto){
+            $this->messageP=true;
+    $active=false;
+        }
+    }
+    if($active){
+        $product=Productos::select('descripcion','producto')->where('id',$this->producto)->get();
+        $this->arrayProduct[]=['idPro'=>$this->producto,'producto'=>strtoupper($product[0]->producto),'descripcion'=>strtoupper($product[0]->descripcion),'cantidad'=>$this->cantidad];
+        $this->reset([
+            'producto',
+            'cantidad',
+            'messageP',
+        ]);
+    }
 }
 
 public function removeProduct($index){

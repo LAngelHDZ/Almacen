@@ -56,8 +56,14 @@
             </div>
            </div>
            <div>
-             <button wire:click.prevent="addproduct" class="px-2 ml-5 border-0 rounded btn btn-primary" style="">Aregar</button>
+             <button wire:click.prevent="addproduct" class="px-2 ml-5 border-0 rounded btn btn-primary" style="">
+                 Aregar</button>
            </div>
+    </div>
+    <div class="ml-2">
+        @if ($messageP)
+        <p class="text-red text-sm ">Ya has seleccionado este material</p>
+        @endif
     </div>
     <div x-data="togg()">
       <div class="flex border-bottom border-primary">

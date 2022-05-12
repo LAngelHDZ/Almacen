@@ -13,9 +13,10 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 class AdministradorRequisiciones extends Component
-{   
+{
     use WithPagination;
     public $products=[];
+    public $openbtn=true;
     public $solicitudes=[];
     public $id_solicitud,$aux;
     public $status, $filter_status='Revisada';
@@ -64,7 +65,7 @@ class AdministradorRequisiciones extends Component
             case 5: $this->filter_status='Transito'; break;
             default: $this->filter_status='Almacen'; break;
         }
-        
+
     }
 
     public function seguimiento(){
@@ -152,7 +153,7 @@ class AdministradorRequisiciones extends Component
     }
 
     public function product_aprobado(){
-       
+
         foreach($this->products as $data){
             $aprobado=array('aprobado'=>$data['aprobado']);
 
@@ -178,6 +179,7 @@ class AdministradorRequisiciones extends Component
     }
 
     public function inforeq($id){
+
         $this->id_solicitud=$id;
         $status='';
        $products = solicitud::
@@ -186,17 +188,21 @@ class AdministradorRequisiciones extends Component
    ->select('solicitud_productos.id','solicitud_productos.idsolicitud as id_sol','solicitud_productos.cantidad','solicitud_productos.aprobado','productos.producto','productos.id as idpro','productos.clave_producto as clave')
         ->where('solicitud_productos.idsolicitud',$id)
         ->get();
-        foreach($products as $data){
-            $this->products[]=[
-                'clave'=>$data->clave,
-                'id'=>$data->id,
-                'idsol'=>$data->id_sol,
-                'idprod'=>$data->idpro,
-                'producto'=>$data->producto,
-                'cantidad'=>$data->cantidad,
-                'aprobado'=>$data->aprobado];
 
-        }
+        if($this->openbtn){
+            foreach($products as $data){
+                $this->products[]=[
+                    'clave'=>$data->clave,
+                    'id'=>$data->id,
+                    'idsol'=>$data->id_sol,
+                    'idprod'=>$data->idpro,
+                    'producto'=>$data->producto,
+                    'cantidad'=>$data->cantidad,
+                    'aprobado'=>$data->aprobado];
+
+                }
+            }
+            $this->openbtn=false;
         $status=status_solicitud::select('status')->where('id_solicitud',$id)->latest('id')->first()->status;
         if($status!='Revisada'){
                 $this->status=true;
@@ -220,7 +226,7 @@ public function resetdatos(){
     $this->reset([
         'products',
         'id_solicitud',
-        // 'status',
+        'openbtn',
     ]);
 }
 
