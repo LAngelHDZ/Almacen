@@ -2,14 +2,15 @@
 
 namespace App\Http\Livewire\Almacen\General;
 
+use Carbon\Carbon;
+use Livewire\Component;
 use App\Models\empleado;
 use App\Models\solicitud;
-use App\Models\status_solicitud;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Livewire\Component;
 use Livewire\WithPagination;
+use App\Models\status_solicitud;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Events\RealtimeEventSolicitud;
 
 class HistorialRequisiciones extends Component
 {
@@ -50,8 +51,20 @@ class HistorialRequisiciones extends Component
             $this->seguimiento[]=[
                  'status' =>$this->status_seguimiento(status_solicitud::select('status')->where('id_solicitud',$data['id'])->get(), 'status'),
                  'icon' =>$this->status_seguimiento(status_solicitud::select('status')->where('id_solicitud',$data['id'])->get(), 'icon'),
+                 'close' =>$this->solicitud_close(status_solicitud::select('status')->where('id_solicitud',$data['id'])->latest('id')->first()->status),
+
             ];
         }
+    }
+
+    public function solicitud_close($status){
+        $close='';
+        if($status =='Cerrada'){
+            $close=true;
+        }else{
+            $close=false;
+        }
+        return $close;
     }
 
     public function status_seguimiento($array,$object ){
@@ -98,7 +111,7 @@ public function classobject($count, $type){
             case 'Aprobada' :  $object='bg-green-700'; break;
             case 'Rechazada':  $object='bg-red-700'; break;
             case 'Cerrada':  $object='bg-secondary'; break;
-            case 'Transito' :  $object='bg-blue-700'; break;
+            case 'Transito' :  $object='bg-primary'; break;
             case 'Almacen'  :  $object='bg-black'; break;
         }
     }else if($type=='icon'){
@@ -113,11 +126,14 @@ public function classobject($count, $type){
         }
     }else{
         switch($count){
-            case 'Enviada' :$object='enviada'; break;
+            case 'Enviada'
+
+
+            :$object='enviada'; break;
             case 'Revisada' :$object='enviada'; break;
             case 'Aprobada' :$object='aprobada'; break;
             case 'Rechazada':$object='rechazada'; break;
-            case 'Cerrada':$object='cerrada'; break;
+            case 'Cerrada'  :$object='cerrada'; break;
             case 'Transito' :$object='aprobada'; break;
             case 'Almacen'  :$object='almacen'; break;
         }
@@ -126,10 +142,11 @@ return $object;
 }
 
 public function close_req($id){
-    
+
     DB::table('solicituds')->where('id',$id)->update(['active'=>false]);
-   
-    // $this->resetdatos();
+    // event(new RealtimeEventSolicitud);
+    $this->reset(['solicitud']);
+
 }
 
 public function values($id,$atribute){
@@ -151,7 +168,7 @@ public function values($id,$atribute){
       if($atribute=='date'){
         $value =  $this->formatdate($value);
       }
-    return $value;   
+    return $value;
 }
 
     public function formatday($day){

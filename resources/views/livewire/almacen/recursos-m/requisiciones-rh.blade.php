@@ -109,29 +109,27 @@
                                         @endforeach
                                     </div>
                                     <div class=" ">
-                                        @if($status['status']!='Rechazada') 
+                                        @if($status['status']!='Rechazada')
                                         <i class="far fa-lg fa-window-minimize text-gray-500"></i>
                                         @endif
                                     </div>
-                                    @endforeach                               
+                                    @endforeach
                                 </div>
                                 @endif
                             @endforeach
                         </div>
                     </div>
                     <div class="p-3 ">
-                        <button 
-                        @foreach ($solicitudes as $indexd $dato)
-                            @if($dato['status']!='Rechazada')
-                                
-                            @if(!$close)
-                            class="hidden"
-                            @endif 
-                            @endif
-                            @endforeach
-                        wire:click='close_req({{ $data['id'] }})' class="p-2 mt-1 btn btn-danger">
-                            Cerrar
-                        </button>
+                        @foreach ($seguimiento as $indexz => $dato)
+                        @if($indexa == $indexz)
+                        @if ($dato['close'])
+                        <button
+                        wire:click='close_req({{ $data['id'] }})' class="p-2 mt-1 btn btn-danger" >
+                        Cerrar
+                    </button>
+                    @endif
+                    @endif
+                        @endforeach
                         <button wire:click='inforeq({{ $data['id'] }})' class="p-2 mt-1 btn btn-primary">
                             Revisar
                         </button>

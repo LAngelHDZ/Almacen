@@ -80,8 +80,19 @@ class RequisicionesRh extends Component
                 // 'status' => status_solicitud::select('status')->where('id_solicitud',$data->id)->get(),
                  'status' =>$this->status_seguimiento(status_solicitud::select('status')->where('id_solicitud',$data->id)->get(), 'status'),
                  'icon' =>$this->status_seguimiento(status_solicitud::select('status')->where('id_solicitud',$data->id)->get(), 'icon'),
+                 'close' =>$this->solicitud_close(status_solicitud::select('status')->where('id_solicitud',$data->id)->latest('id')->first()->status),
             ];
         }
+    }
+
+    public function solicitud_close($status){
+        $close='';
+        if($status =='Rechazada' || $status =='Almacen'){
+            $close=true;
+        }else{
+            $close=false;
+        }
+        return $close;
     }
 
     public function status_seguimiento($array,$object ){
@@ -175,7 +186,7 @@ class RequisicionesRh extends Component
             'date'=>date('Y-m-d'),
             'time'=>date('H:i:s'),
         ]);
-        
+
         DB::table('solicituds')->where('id',$id)->update(['state'=>false]);
         event(new RealtimeEventSolicitud);
 

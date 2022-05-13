@@ -37,7 +37,8 @@ Route::get('/requisiciones',[RecursoMController::class,'requisicionesP'])->name(
 // Route::get('/producto/precios/{id}/',[RecursoMController::class,'precios'])->name('precios-producto');
 
 Route::get('/solictud/requicision',[SolicitudController::class,'prerequicision'])->name('solicitud');
-Route::get('/requisiciones/status',[GeneralController::class,'historial'])->name('h_requisiciones_gral');
+Route::get('/requisiciones/status',[GeneralController::class,'peticiones'])->name('h_requisiciones_gral');
+Route::get('/requisiciones/historial',[GeneralController::class,'historial'])->name('historial_general');
 
 Route::get('/root/users',[UserstController::class,'users'])->name('users');
 Route::get('/root/users/create',[UserstController::class,'create'])->name('formusers');
