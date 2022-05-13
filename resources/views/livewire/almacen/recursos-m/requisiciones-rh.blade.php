@@ -68,8 +68,6 @@
             <div class="flex ">
                 <div class="flex w-1/3 py-3 pl-3 mr-2 bg-gray-100 border-right">
                     <div class="">
-                        {{-- <span class="text-bold">{{ $data['folio'] }}</span>
-                        <p class="text-gray-700">{{ $data['date'] }}</p> --}}
                         <span class="text-bold">{{ $data->folio }}</span>
                         @foreach ( $solicitudes as $indexb => $dat )
                         @if($indexb == $indexa)
@@ -81,7 +79,6 @@
                     </div>
                     <div class="ml-4 flex">
                         <p class="text-gray-700">{{ $data->name }}</p>
-                        {{-- <p class="text-gray-700">{{ $data['name'] }}</p> --}}
                     </div>
                 </div>
                 <div class="flex justify-between w-2/3 ">
@@ -120,59 +117,18 @@
                                 </div>
                                 @endif
                             @endforeach
-
-
-                            {{-- <div class="px-3 ">
-                                <div class=" ">
-                                    <p class="text-sm text-bold">Aprobado</p>
-                                    <div class="pl-1">
-                                        <i class="fas fa-clipboard-check mx-3 "></i>
-                                    </div>
-                                </div>
-                            </div>
-                             <div class=" ">
-                                <i class="far fa-lg fa-window-minimize text-gray-500"></i>
-                            </div>
-                            <div class="px-3 ">
-                                <div class=" ">
-                                    <p class="text-sm text-bold">Transito</p>
-                                    <div class="pl-1">
-                                        {{-- <i class="fas fa-clipboard-check  "></i>
-                                        {{-- <i class="fas fa-archive mx-3"></i> -
-                                        <i class="fas fa-shipping-fast mx-3"></i>
-                                    </div>
-                                </div>
-                            </div>
-                             <div class=" ">
-                                <i class="far fa-lg fa-window-minimize text-gray-500"></i>
-                            </div>
-                            <div class="px-3 ">
-                                <div class=" ">
-                                    <p class="text-sm text-bold">Almacen</p>
-                                    <div class="pl-1">
-                                        <i class="fas fa-clipboard-check  "></i>
-                                        <i class="fas fa-archive mx-3"></i>
-                                    </div>
-                                </div>
-                            </div> --}}
-                            {{-- <div class=" px-3 ">
-                                <i class="far fa-lg fa-window-minimize text-gray-500"></i>
-                            </div>
-                            <div class="">
-                                <div>
-                                    <p class="text-sm text-bold">Aprobado</p>
-                                </div>
-                                <div class=" px-3 ">
-                                    <i class="fas fa-clipboard-check "></i>
-                                </div>
-
-                            </div> --}}
                         </div>
                     </div>
                     <div class="p-3 ">
-                        <button @if(!$close)
+                        <button 
+                        @foreach ($solicitudes as $indexd $dato)
+                            @if($dato['status']!='Rechazada')
+                                
+                            @if(!$close)
                             class="hidden"
-                        @endif 
+                            @endif 
+                            @endif
+                            @endforeach
                         wire:click='close_req({{ $data['id'] }})' class="p-2 mt-1 btn btn-danger">
                             Cerrar
                         </button>
