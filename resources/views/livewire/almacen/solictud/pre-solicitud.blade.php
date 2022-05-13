@@ -62,7 +62,7 @@
     </div>
     <div class="ml-2">
         @if ($messageP)
-        <p class="text-red text-sm ">Ya has seleccionado este material</p>
+        <p class="text-red text-sm ">Este material ya se encuentra en la lista de solicitud</p>
         @endif
     </div>
     <div x-data="togg()">

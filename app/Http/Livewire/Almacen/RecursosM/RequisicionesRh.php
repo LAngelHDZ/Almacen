@@ -15,11 +15,12 @@ class RequisicionesRh extends Component
 {
     use WithPagination;
     public $products=[];
+    public $openbtn=true;
     public $solicitudes=[];
     public $id_solicitud,$aux;
     public $status, $filter_status='Enviada';
     public $seguimiento=[];
-    // protected $listeners = ['refresh' => 'updateview'];
+
     protected $listeners = ['echo:solicitud,RealtimeEventSolicitud' => 'updateview'];
     public function QuerySolicitud(){
       $list = solicitud::join('empleados','empleados.id','=','solicituds.id_empleado')
@@ -27,7 +28,6 @@ class RequisicionesRh extends Component
         ->join('status_solicituds as status','.id_solicitud','=','solicituds.id')
         ->select('solicituds.id','solicituds.folio','solicituds.descripcion','empleados.id_user','users.name')
         ->where('status.status',$this->filter_status)->Orderby('status.date','desc')->Orderby('status.time','desc')
-        // ->where('status.status',)->latest('id')->first()->status
         ->paginate(5);
         return $list;
      $this->aux=solicitud::count();
@@ -43,8 +43,6 @@ class RequisicionesRh extends Component
             'date'=>$this->formatdate(status_solicitud::select('date')->where('id_solicitud',$data->id)->latest('id')->first()->date),
             'status'=>status_solicitud::select('status')->where('id_solicitud',$data->id)->latest('id')->first()->status,
             'time'=>status_solicitud::select('time')->where('id_solicitud',$data->id)->latest('id')->first()->time,
-            // 'class'=>$this->classobject(status_solicitud::where('id_solicitud',$data->id)->count(), 'color'),
-            // 'icon'=>$this->classobject(status_solicitud::where('id_solicitud',$data->id)->count(),'icon')
         ];
         }
     }
@@ -62,7 +60,7 @@ class RequisicionesRh extends Component
             case 5: $this->filter_status='Transito'; break;
             default: $this->filter_status='Almacen'; break;
         }
-        
+
     }
 
     public function seguimiento(){
@@ -100,7 +98,6 @@ class RequisicionesRh extends Component
             }
         }
          return $status_array;
-
     }
 
     public function updateview(){
@@ -172,10 +169,13 @@ class RequisicionesRh extends Component
    ->select('solicitud_productos.idsolicitud','solicitud_productos.cantidad','productos.producto','productos.clave_producto as clave')
         ->where('solicitud_productos.idsolicitud',$id)
         ->get();
-        foreach($products as $data){
-            $this->products[]=['clave'=>$data->clave,'producto'=>$data->producto,'cantidad'=>$data->cantidad];
 
+        if($this->openbtn){
+            foreach($products as $data){
+                $this->products[]=['clave'=>$data->clave,'producto'=>$data->producto,'cantidad'=>$data->cantidad];
+            }
         }
+        $this->openbtn=false;
         $status=status_solicitud::select('status')->where('id_solicitud',$id)->latest('id')->first()->status;
         if($status!='Enviada'){
                 $this->status=true;
@@ -199,7 +199,7 @@ public function resetdatos(){
     $this->reset([
         'products',
         'id_solicitud',
-        // 'status',
+        'openbtn',
     ]);
 }
 

@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <p class="text-4xl font-bold text-blue">Prerequisicion</p>
+    <p class="text-4xl font-bold text-blue">Pre-requisicion</p>
 @stop
 
 @section('content')
@@ -25,7 +25,7 @@
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
 <script defer src="https://unpkg.com/alpinejs@3.9.5/dist/cdn.min.js"></script>
-  
+
     <script>
  Livewire.on('alert', function(){
         Swal.fire({
@@ -37,7 +37,7 @@
 })
  setTimeout( function() {
           window.location.href = "{{ route('h_requisiciones_gral') }}"; }, 1500 );
-    })    
+    })
      </script>
       <script src="{{ asset('js/app.js') }}"></script>
 @stop

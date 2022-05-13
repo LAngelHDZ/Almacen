@@ -52,7 +52,8 @@
         <div class="modal-footer">
           <button wire:click='closemodal' class="btn btn-secondary" >Cerrar</button>
 
-          <button wire:click='aceptar' @if ($status) class="hidden"  @else class="btn btn-success" @endif>Aceptar solicitud</button>
+          <button wire:click='aceptar({{1}})' @if ($status) class="hidden"  @else class="btn btn-danger" @endif>Rechazar</button>
+          <button wire:click='aceptar({{2}})' @if ($status) class="hidden"  @else class="btn btn-success" @endif>Aprobar</button>
 
 
         </div>

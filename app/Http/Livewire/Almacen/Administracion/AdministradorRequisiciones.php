@@ -162,12 +162,21 @@ class AdministradorRequisiciones extends Component
         }
     }
 
-    public function aceptar(){
+    public function aceptar($state){
+        $descrip='';
+        $status='';
+        if($state==1){
+            $status='Rechazada';
+            $descrip='Solicitud rechazada favor de comunicarse con RRMM';
+        }else{
+            $status='Aprobada';
+            $descrip='Solicitud aprobada en proceso de realizar compra';
+        }
         $this->product_aprobado();
         status_solicitud::create([
             'id_solicitud'=>$this->id_solicitud,
-            'status'=>'Aprobada',
-            'descripcion'=>'Solicitud aprobada en proceso de realizar compra',
+            'status'=>$status,
+            'descripcion'=>$descrip,
             'date'=>date('Y-m-d'),
             'time'=>date('H:i:s'),
         ]);
