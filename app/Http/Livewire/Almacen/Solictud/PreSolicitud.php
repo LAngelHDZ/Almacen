@@ -72,6 +72,8 @@ public function create(){
         'folio'=>$this->folio(),
         'id_empleado'=>$this->idempleado,
         'descripcion'=>$this->descripcion,
+        'active'=>true,
+        'state'=>true,
     ]);
 
     $idsolicitud=solicitud::select('id')->where('id_empleado',$this->idempleado)->latest('id')->first();

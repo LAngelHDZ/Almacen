@@ -18,6 +18,8 @@ class CreateSolicitudsTable extends Migration
             $table->string('folio')->unique();
             $table->integer('id_empleado')->references('id')->on('empleados');
             $table->text('descripcion')->nullable();
+            $table->boolean('active');
+            $table->boolean('state');
             $table->timestamps();
         });
     }

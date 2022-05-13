@@ -21,16 +21,21 @@ class AdministradorRequisiciones extends Component
     public $id_solicitud,$aux;
     public $status, $filter_status='Revisada';
     public $seguimiento=[];
-    // public $aprobado=[];
-    // protected $listeners = ['refresh' => 'updateview'];
+
     protected $listeners = ['echo:solicitud,RealtimeEventSolicitud' => 'updateview'];
+
     public function QuerySolicitud(){
+        $filter=$this->filter_status;
+        $status=true;
       $list = solicitud::join('empleados','empleados.id','=','solicituds.id_empleado')
         ->join('users','users.id','=','empleados.id_user')
         ->join('status_solicituds as status','.id_solicitud','=','solicituds.id')
-        ->select('solicituds.id','solicituds.folio','solicituds.descripcion','empleados.id_user','users.name')
-        ->where('status.status',$this->filter_status)->Orderby('status.date','desc')->Orderby('status.time','desc')
-        // ->where('status.status',)->latest('id')->first()->status
+        ->select('solicituds.active','solicituds.id','solicituds.folio','solicituds.descripcion','empleados.id_user','users.name')
+        ->where(function ($query) use ($filter,$status) {
+            $query->where('status.status',$filter )
+                  ->where('solicituds.state',$status);
+          })
+        ->Orderby('status.date','desc')->Orderby('status.time','desc')
         ->paginate(5);
         return $list;
      $this->aux=solicitud::count();
@@ -46,8 +51,6 @@ class AdministradorRequisiciones extends Component
             'date'=>$this->formatdate(status_solicitud::select('date')->where('id_solicitud',$data->id)->latest('id')->first()->date),
             'status'=>status_solicitud::select('status')->where('id_solicitud',$data->id)->latest('id')->first()->status,
             'time'=>status_solicitud::select('time')->where('id_solicitud',$data->id)->latest('id')->first()->time,
-            // 'class'=>$this->classobject(status_solicitud::where('id_solicitud',$data->id)->count(), 'color'),
-            // 'icon'=>$this->classobject(status_solicitud::where('id_solicitud',$data->id)->count(),'icon')
         ];
         }
     }
@@ -58,7 +61,6 @@ class AdministradorRequisiciones extends Component
         ]);
 
         switch ($var){
-            // case 1: $this->filter_status='Enviada'; break;
             case 2: $this->filter_status='Revisada'; break;
             case 3: $this->filter_status='Aprobada'; break;
             case 4: $this->filter_status='Rechazada'; break;
@@ -74,7 +76,6 @@ class AdministradorRequisiciones extends Component
         ]);
         foreach($this->QuerySolicitud() as $data){
             $this->seguimiento[]=[
-                // 'status' => status_solicitud::select('status')->where('id_solicitud',$data->id)->get(),
                  'status' =>$this->status_seguimiento(status_solicitud::select('status')->where('id_solicitud',$data->id)->get(), 'status'),
                  'icon' =>$this->status_seguimiento(status_solicitud::select('status')->where('id_solicitud',$data->id)->get(), 'icon'),
             ];
@@ -86,7 +87,6 @@ class AdministradorRequisiciones extends Component
         foreach($array as $data){
             if($object=='status'){
                 switch($data->status){
-                    // case 'Revisada':$status_array[]=['status'=>'Revisado']; break;
                     case 'Aprobada':$status_array[]=['status'=>'Aprobado']; break;
                     case 'Rechazada':$status_array[]=['status'=>'Rechazada']; break;
                     case 'Transito':$status_array[]=['status'=>'Transito']; break;
@@ -94,7 +94,6 @@ class AdministradorRequisiciones extends Component
                 }
             }else{
                 switch($data->status){
-                    // case 'Revisada':$status_array[]=['icon'=>'fas fa-envelope-open-text mx-3']; break;
                     case 'Aprobada':$status_array[]=['icon'=>'fas fa-clipboard-check mx-3']; break;
                     case 'Rechazada':$status_array[]=['icon'=>'far fa-file-excel mx-4']; break;
                     case 'Transito':$status_array[]=['icon'=>'fas fa-shipping-fast mx-3']; break;
@@ -153,7 +152,6 @@ class AdministradorRequisiciones extends Component
     }
 
     public function product_aprobado(){
-
         foreach($this->products as $data){
             $aprobado=array('aprobado'=>$data['aprobado']);
 

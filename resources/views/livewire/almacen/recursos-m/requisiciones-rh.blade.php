@@ -112,9 +112,12 @@
                                         @endforeach
                                     </div>
                                     <div class=" ">
+                                        @if($status['status']!='Rechazada') 
                                         <i class="far fa-lg fa-window-minimize text-gray-500"></i>
+                                        @endif
                                     </div>
-                                    @endforeach                               </div>
+                                    @endforeach                               
+                                </div>
                                 @endif
                             @endforeach
 
@@ -167,6 +170,12 @@
                         </div>
                     </div>
                     <div class="p-3 ">
+                        <button @if(!$close)
+                            class="hidden"
+                        @endif 
+                        wire:click='close_req({{ $data['id'] }})' class="p-2 mt-1 btn btn-danger">
+                            Cerrar
+                        </button>
                         <button wire:click='inforeq({{ $data['id'] }})' class="p-2 mt-1 btn btn-primary">
                             Revisar
                         </button>

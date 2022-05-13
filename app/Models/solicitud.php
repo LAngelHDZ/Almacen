@@ -13,5 +13,7 @@ class solicitud extends Model
         'folio',
         'id_empleado',
         'descripcion',
+        'active',
+        'state',
     ];
 }

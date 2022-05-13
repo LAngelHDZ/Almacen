@@ -7,6 +7,7 @@ use App\Models\solicitud;
 use App\Models\status_solicitud;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -16,11 +17,14 @@ class HistorialRequisiciones extends Component
     use WithPagination;
     public $solicitud=[],$aux;
     public $seguimiento=[];
+    public $close=false;
 
     public function mount(){
         $empleado=empleado::where('id_user',auth()->user()->id)->get();
-        $list= solicitud::select('id','folio','id_empleado')
-        ->where('id_empleado',$empleado[0]->id)->Orderby('solicituds.id','desc')->get();
+        $list= solicitud::select('id','folio','id_empleado','active')
+        ->where('id_empleado',$empleado[0]->id)
+        ->where('active',true)
+        ->Orderby('solicituds.id','desc')->get();
          foreach($list as $data){
             $this->solicitud[]=[
              'id'=>$data->id,
@@ -58,14 +62,16 @@ class HistorialRequisiciones extends Component
                     case 'Enviada':$status_array[]=['status'=>'Enviada']; break;
                     case 'Aprobada':$status_array[]=['status'=>'Aprobada']; break;
                     case 'Rechazada':$status_array[]=['status'=>'Rechazada']; break;
+                    case 'Cerrada':$status_array[]=['status'=>'Terminado']; $this->close=true; break;
                     case 'Transito':$status_array[]=['status'=>'Transito']; break;
                     case 'Almacen':$status_array[]=['status'=>'Almacen']; break;
                 }
             }else{
                 switch($data->status){
                     case 'Enviada':$status_array[]=['icon'=>'fas fa-lg fa-paper-plane mx-2']; break;
-                    case 'Aprobada':$status_array[]=['icon'=>'fas fa-clipboard-check mx-3']; break;
-                    case 'Rechazada':$status_array[]=['icon'=>'far fa-file-excel mx-4']; break;
+                    case 'Aprobada':$status_array[]=['icon'=>'fas fa-clipboard-check fa-lg mx-3']; break;
+                    case 'Rechazada':$status_array[]=['icon'=>'far fa-file-excel fa-lg mx-4']; break;
+                    case 'Cerrada':$status_array[]=['icon'=>'fas fa-times-circle fa-lg mx-3']; break;
                     case 'Transito':$status_array[]=['icon'=>'fas fa-shipping-fast mx-3']; break;
                     case 'Almacen':$status_array[]=['icon'=>'fas fa-archive mx-3']; break;
                 }
@@ -91,6 +97,7 @@ public function classobject($count, $type){
             case 'Revisada'  :  $object='bg-gray-500'; break;
             case 'Aprobada' :  $object='bg-green-700'; break;
             case 'Rechazada':  $object='bg-red-700'; break;
+            case 'Cerrada':  $object='bg-secondary'; break;
             case 'Transito' :  $object='bg-blue-700'; break;
             case 'Almacen'  :  $object='bg-black'; break;
         }
@@ -98,8 +105,9 @@ public function classobject($count, $type){
         switch($count){
             case 'Enviada'  :  $object='fas fa-lg fa-paper-plane'; break;
             case 'Revisada'  :  $object='fas fa-lg fa-paper-plane'; break;
-            case 'Aprobada' :  $object='fas fa-lg fa-clipboard-check'; break;
-            case 'Rechazada':  $object='far fa-file-excel'; break;
+            case 'Aprobada' :  $object='fas fa-lg fa-clipboard-check fa-lg'; break;
+            case 'Rechazada':  $object='far fa-file-excel fa-lg'; break;
+            case 'Cerrada':  $object='fas fa-times-circle fa-lg'; break;
             case 'Transito' :  $object='fas fa-shipping-fast'; break;
             case 'Almacen'  :  $object='fas fa-archive'; break;
         }
@@ -108,12 +116,20 @@ public function classobject($count, $type){
             case 'Enviada' :$object='enviada'; break;
             case 'Revisada' :$object='enviada'; break;
             case 'Aprobada' :$object='aprobada'; break;
-            case 'Rechazada':$object='Rechazada'; break;
-            case 'Transito' :$object='Transito'; break;
-            case 'Almacen'  :$object='Almacen'; break;
+            case 'Rechazada':$object='rechazada'; break;
+            case 'Cerrada':$object='cerrada'; break;
+            case 'Transito' :$object='aprobada'; break;
+            case 'Almacen'  :$object='almacen'; break;
         }
     }
 return $object;
+}
+
+public function close_req($id){
+    
+    DB::table('solicituds')->where('id',$id)->update(['active'=>false]);
+   
+    // $this->resetdatos();
 }
 
 public function values($id,$atribute){
@@ -123,7 +139,7 @@ public function values($id,$atribute){
     $value=null;
     if($desc==2){
         foreach($des as $index=> $data){
-            if($data->status=='Revisada'){
+            if($data->status=='Revisada' || $data->status=='Cerrada'){
                 $value=$auxiliar;
             }else{
                 $auxiliar=$data->$atribute;

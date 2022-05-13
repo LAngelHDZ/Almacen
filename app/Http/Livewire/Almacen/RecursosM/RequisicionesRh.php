@@ -8,6 +8,7 @@ use App\Models\solicitud;
 use App\Models\solicitud_producto;
 use App\Models\status_solicitud;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -20,14 +21,21 @@ class RequisicionesRh extends Component
     public $id_solicitud,$aux;
     public $status, $filter_status='Enviada';
     public $seguimiento=[];
+    public $close=false;
 
     protected $listeners = ['echo:solicitud,RealtimeEventSolicitud' => 'updateview'];
     public function QuerySolicitud(){
+        $filter=$this->filter_status;
+        $status=true;
       $list = solicitud::join('empleados','empleados.id','=','solicituds.id_empleado')
         ->join('users','users.id','=','empleados.id_user')
         ->join('status_solicituds as status','.id_solicitud','=','solicituds.id')
         ->select('solicituds.id','solicituds.folio','solicituds.descripcion','empleados.id_user','users.name')
-        ->where('status.status',$this->filter_status)->Orderby('status.date','desc')->Orderby('status.time','desc')
+        ->where(function ($query) use ($filter,$status) {
+            $query->where('status.status',$filter )
+                  ->where('solicituds.state',$status);
+          })
+        ->Orderby('status.date','desc')->Orderby('status.time','desc')
         ->paginate(5);
         return $list;
      $this->aux=solicitud::count();
@@ -83,7 +91,7 @@ class RequisicionesRh extends Component
                 switch($data->status){
                     case 'Revisada':$status_array[]=['status'=>'Revisado']; break;
                     case 'Aprobada':$status_array[]=['status'=>'Aprobado']; break;
-                    case 'Rechazada':$status_array[]=['status'=>'Rechazada']; break;
+                    case 'Rechazada':$status_array[]=['status'=>'Rechazada']; $this->close=true; break;
                     case 'Transito':$status_array[]=['status'=>'Transito']; break;
                     case 'Almacen':$status_array[]=['status'=>'Almacen']; break;
                 }
@@ -157,6 +165,21 @@ class RequisicionesRh extends Component
         event(new RealtimeEventSolicitud);
 
         $this->closemodal();
+        $this->resetdatos();
+    }
+    public function close_req($id){
+        status_solicitud::create([
+            'id_solicitud'=>$id,
+            'status'=>'Cerrada',
+            'descripcion'=>'Solicitud cerrada ',
+            'date'=>date('Y-m-d'),
+            'time'=>date('H:i:s'),
+        ]);
+        
+        DB::table('solicituds')->where('id',$id)->update(['state'=>false]);
+        event(new RealtimeEventSolicitud);
+
+        // $this->closemodal();
         $this->resetdatos();
     }
 
