@@ -26,17 +26,28 @@ class HistorialGeneral extends Component
              'folio'=> $data->folio,  //folio de la solicitud
              'dateA'=>$this->values($data->id,'dateA'),  //metodo a la cual le paso el id de solicitud para que muestre ciertas fechas de status en español
              'dateC'=>$this->values($data->id,'dateC'),  //metodo a la cual le paso el id de solicitud para que muestre ciertas fechas de status en español
+             'status'=>$this->getstatus(status_solicitud::select('status')->where('id_solicitud',$data->id)->get()),
             //  'time'=>$this->values($data->id,'time'), // Lo mismo que fecha solo que con la hora
             //  'descripcion'=>$this->values($data->id,'descripcion'), //metodo que le paso el id de solicitud para que me consulte la descripcion e los status
              // aqui al metodo le pasu la colecion de los status   para determinar que icono, color y status se va a mostrar dependiendo de como valla el seguimiento
             //  'icon'=>$this->classobject(status_solicitud::select('status')->where('id_solicitud',$data->id)->latest('id')->first()->status, 'icon'),
             //  'class'=>$this->classobject(status_solicitud::select('status')->where('id_solicitud',$data->id)->latest('id')->first()->status, 'color'),
-            //  'status'=>$this->classobject(status_solicitud::select('status')->where('id_solicitud',$data->id)->latest('id')->first()->status,'status'),
             ];
          }
         //  $this->aux=status_solicitud::count(); // realizo un contedo de los status
          return $this->solicitud;
 
+    }
+
+    public function getstatus($status){
+
+        foreach($status as $index => $data){
+                if($data->status =='Aprobada' || $data->status=='Rechazada'){
+                    $status=$data->status;
+                    break;
+                }
+        }
+        return $status;
     }
 
     public function values($id,$atribute){
@@ -49,13 +60,13 @@ class HistorialGeneral extends Component
                 $value =  $this->formatdate($value);
                    break;
                 }
-                
+
                 if($data->status=='Cerrada' && $atribute=='dateC'){
                     $value =  $this->formatdate($value);
                     break;
                 }
             }
-       
+
         //   if($atribute=='date'){
         //     $value =  $this->formatdate($value);
         //   }

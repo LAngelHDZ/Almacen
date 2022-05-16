@@ -95,7 +95,7 @@ class ProductoInsumos extends Component
 
          if($this->openbtn){
 
-             $this->arrayCats[] = ['idproveedor' => '', 'precio' => 0];
+             $this->arrayCats[] = ['idcatalogo'=>'','idproveedor' => '', 'precio' => 0];
              $this->increment+=1;
          }
 
