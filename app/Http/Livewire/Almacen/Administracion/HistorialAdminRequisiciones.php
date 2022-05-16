@@ -1,24 +1,36 @@
 <?php
 
-namespace App\Http\Livewire\Almacen\General;
+namespace App\Http\Livewire\Almacen\Administracion;
 
 use Carbon\Carbon;
 use Livewire\Component;
-use App\Models\empleado;
 use App\Models\solicitud;
 use App\Models\status_solicitud;
 
-class HistorialGeneral extends Component
+class HistorialAdminRequisiciones extends Component
 {
-
+    public $products=[];
+    public $openbtn=true;
+    public $solicitudes=[];
+    public $id_solicitud,$aux;
+    public $status, $filter_status='Revisada';
+    public $seguimiento=[];
     public $solicitud=[];
 
     public function querysoliitudes(){
-        $empleado=empleado::where('id_user',auth()->user()->id)->get();
-        $list= solicitud::select('id','folio','id_empleado','active')
-        ->where('id_empleado',$empleado[0]->id)
-        ->where('active',false)
-        ->Orderby('solicituds.id','desc')->get();
+        $filter=$this->filter_status;
+        $status=true;
+        // $empleado=empleado::where('id_user',auth()->user()->id)->get();
+        $list = solicitud::join('empleados','empleados.id','=','solicituds.id_empleado')
+        ->join('users','users.id','=','empleados.id_user')
+        ->join('status_solicituds as status','.id_solicitud','=','solicituds.id')
+        ->select('solicituds.active','solicituds.id','solicituds.folio','solicituds.descripcion','empleados.id_user','users.name')
+        ->where(function ($query) use ($filter,$status) {
+            $query->where('status.status',$filter )
+                  ->where('solicituds.state',$status);
+          })
+        ->Orderby('status.date','desc')->Orderby('status.time','desc')
+        ->paginate(5);
         //relleno el areglo con los datos
          foreach($list as $data){
             $this->solicitud[]=[
@@ -100,6 +112,6 @@ class HistorialGeneral extends Component
     }
     public function render()
     {
-        return view('livewire.almacen.general.historial-general',['solicitudes'=> $this->querysoliitudes()]);
+        return view('livewire.almacen.administracion.historial-admin-requisiciones');
     }
 }

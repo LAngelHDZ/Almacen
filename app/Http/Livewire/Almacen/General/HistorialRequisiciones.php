@@ -20,29 +20,32 @@ class HistorialRequisiciones extends Component
     public $seguimiento=[];
     public $close=false;
 
+    //Consulto las solicitudes de el empleado usuario que se encuentre activo en la sesion
     public function mount(){
         $empleado=empleado::where('id_user',auth()->user()->id)->get();
         $list= solicitud::select('id','folio','id_empleado','active')
         ->where('id_empleado',$empleado[0]->id)
         ->where('active',true)
         ->Orderby('solicituds.id','desc')->get();
+        //relleno el areglo con los datos
          foreach($list as $data){
             $this->solicitud[]=[
-             'id'=>$data->id,
-             'folio'=> $data->folio,
-             'date'=>$this->values($data->id,'date'),
-             'time'=>$this->values($data->id,'time'),
-             'descripcion'=>$this->values($data->id,'descripcion'),
+             'id'=>$data->id,  //id de solicitud
+             'folio'=> $data->folio,  //folio de la solicitud
+             'date'=>$this->values($data->id,'date'),  //metodo a la cual le paso el id de solicitud para que muestre ciertas fechas de status en español
+             'time'=>$this->values($data->id,'time'), // Lo mismo que fecha solo que con la hora
+             'descripcion'=>$this->values($data->id,'descripcion'), //metodo que le paso el id de solicitud para que me consulte la descripcion e los status
+             // aqui al metodo le pasu la colecion de los status   para determinar que icono, color y status se va a mostrar dependiendo de como valla el seguimiento
              'icon'=>$this->classobject(status_solicitud::select('status')->where('id_solicitud',$data->id)->latest('id')->first()->status, 'icon'),
              'class'=>$this->classobject(status_solicitud::select('status')->where('id_solicitud',$data->id)->latest('id')->first()->status, 'color'),
              'status'=>$this->classobject(status_solicitud::select('status')->where('id_solicitud',$data->id)->latest('id')->first()->status,'status'),
             ];
          }
-         $this->aux=status_solicitud::count();
-
+         $this->aux=status_solicitud::count(); // realizo un contedo de los status
          return $this->solicitud;
     }
 
+    //consulto todos los status para mostrar el seguimiento de la solicitud y se muestre con forme valla avanzndo
     public function seguimiento(){
         $this->reset([
             'seguimiento',
@@ -52,7 +55,6 @@ class HistorialRequisiciones extends Component
                  'status' =>$this->status_seguimiento(status_solicitud::select('status')->where('id_solicitud',$data['id'])->get(), 'status'),
                  'icon' =>$this->status_seguimiento(status_solicitud::select('status')->where('id_solicitud',$data['id'])->get(), 'icon'),
                  'close' =>$this->solicitud_close(status_solicitud::select('status')->where('id_solicitud',$data['id'])->latest('id')->first()->status),
-
             ];
         }
     }
@@ -66,7 +68,7 @@ class HistorialRequisiciones extends Component
         }
         return $close;
     }
-
+        
     public function status_seguimiento($array,$object ){
         $status_array=[];
         foreach($array as $data){
@@ -107,29 +109,26 @@ public function classobject($count, $type){
     if($type=='color'){
         switch($count){
             case 'Enviada'  :  $object='bg-gray-500'; break;
-            case 'Revisada'  :  $object='bg-gray-500'; break;
+            case 'Revisada' :  $object='bg-gray-500'; break;
             case 'Aprobada' :  $object='bg-green-700'; break;
             case 'Rechazada':  $object='bg-red-700'; break;
-            case 'Cerrada':  $object='bg-secondary'; break;
+            case 'Cerrada'  :  $object='bg-secondary'; break;
             case 'Transito' :  $object='bg-primary'; break;
             case 'Almacen'  :  $object='bg-black'; break;
         }
     }else if($type=='icon'){
         switch($count){
             case 'Enviada'  :  $object='fas fa-lg fa-paper-plane'; break;
-            case 'Revisada'  :  $object='fas fa-lg fa-paper-plane'; break;
+            case 'Revisada' :  $object='fas fa-lg fa-paper-plane'; break;
             case 'Aprobada' :  $object='fas fa-lg fa-clipboard-check fa-lg'; break;
             case 'Rechazada':  $object='far fa-file-excel fa-lg'; break;
-            case 'Cerrada':  $object='fas fa-times-circle fa-lg'; break;
+            case 'Cerrada'  :  $object='fas fa-times-circle fa-lg'; break;
             case 'Transito' :  $object='fas fa-shipping-fast'; break;
             case 'Almacen'  :  $object='fas fa-archive'; break;
         }
     }else{
         switch($count){
-            case 'Enviada'
-
-
-            :$object='enviada'; break;
+            case 'Enviada'  :$object='enviada'; break;
             case 'Revisada' :$object='enviada'; break;
             case 'Aprobada' :$object='aprobada'; break;
             case 'Rechazada':$object='rechazada'; break;
@@ -142,11 +141,9 @@ return $object;
 }
 
 public function close_req($id){
-
     DB::table('solicituds')->where('id',$id)->update(['active'=>false]);
-    // event(new RealtimeEventSolicitud);
     $this->reset(['solicitud']);
-
+    $this->mount();
 }
 
 public function values($id,$atribute){

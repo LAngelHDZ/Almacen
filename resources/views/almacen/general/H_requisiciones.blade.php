@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="container w-75">
-        <div class="bg-white border-primary">
+        <div class="border-primary">
                 <div class="mt-2">
                     @livewire('almacen.general.historial-requisiciones')
                 </div>
