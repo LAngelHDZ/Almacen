@@ -48,3 +48,4 @@ Route::get('/adminlte',[GeneralController::class,'adminlte'])->name('adminlte');
 Route::get('/profile',[PerfilController::class,'profile'])->name('profile');
 
 Route::get('/administrador/requisiciones',[AdminsController::class,'requisicionesA'])->name('requisicionesA');
+Route::get('/administrador/requisiciones/historial',[AdminsController::class,'historialreq'])->name('historialReq-Admin');

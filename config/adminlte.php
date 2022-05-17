@@ -243,7 +243,7 @@ return [
         ],
 
          ['header' => 'GENERAL',
-         'icon'    => 'fas fa-fw fa-user-tie',
+         'can'     => 'root.dashboard.gen',
         ],
 
         // [
@@ -279,7 +279,7 @@ return [
         // ],
 
         [
-            'text'    => 'ALMACEN',
+            'text'    => 'Almacen',
             'icon'    => 'fas fa-fw fa-archive',
             'can'     => 'root.dashboard.almacen',
             'submenu' => [
@@ -304,7 +304,7 @@ return [
 
 
             [
-                'text'    => 'RECURSOS MATERIALES',
+                'text'    => 'Recursos Materiales',
                 'icon'    => 'fas fa-fw fa-boxes',
                 'can'     => 'root.dashboard.rm',
 
@@ -347,7 +347,7 @@ return [
             ],
 
         [
-            'text'    => 'ADMINISTRACIÓN',
+            'text'    => 'Administración',
             'icon'    => 'fas fa-fw fa-globe',
             'can'     => 'root.dashboard.admon',
             'submenu' => [
@@ -365,8 +365,9 @@ return [
                         ],
 
                         [
-                            'text' => 'opcion 3',
-                        'url' => '#',
+                        'icon'    => 'fas fa-sm fa-list',
+                        'text' => 'Historial',
+                        'route' => 'historialReq-Admin',
                         ],
 
                     ],
@@ -397,30 +398,34 @@ return [
             ],
         ],
 
-        [
-            'text'    => 'ROOT',
-            'icon'    => 'fas fa-fw fa-user-cog',
-            'can'     => 'root.dashboard.root',
-            'submenu' => [
+        
+            ['header' => 'SUPER ADMIN',
+            'root.dashboard.root',
+        ],
+            
                 [
                     'icon'    => 'fas fa-sm fa-users',
                     'text' => 'usuarios',
+                    'can'     => 'root.dashboard.root',
                     'route'  => 'users',
                 ],
                 [
                     'text' => 'permisos',
+                    'can'     => 'root.dashboard.root',
                     'url'  => 'admin/blog',
                 ],
                 [
                     'text' => 'auditoria',
+                    'can'     => 'root.dashboard.root',
                     'url'  => 'admin/blog',
                 ],
                 [
                     'text' => 'opcion 4',
+                    'can'     => 'root.dashboard.root',
                     'url'  => 'admin/blog',
                 ],
-            ],
-        ],
+            
+        
 
         // [
         //     'text'        => 'pages',

@@ -23,7 +23,7 @@ class ProductoInsumos extends Component
     protected $rules=[
         'clave' => 'required',
         'marca' => 'required',
-        'producto' => 'required|min:4|max:30',
+        'producto' => 'required|min:4|max:50',
         'presentacion' => 'required',
         'categoria' => 'required',
         'contenido' => 'required',

@@ -10,4 +10,9 @@ class AdminsController extends Controller
     public function requisicionesA(){
  return View('almacen.Administracion.administrador');
     }
+
+
+    public function historialreq(){
+ return View('almacen.Administracion.historial');
+    }
 }

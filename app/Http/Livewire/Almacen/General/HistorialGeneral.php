@@ -35,7 +35,7 @@ class HistorialGeneral extends Component
             ];
          }
         //  $this->aux=status_solicitud::count(); // realizo un contedo de los status
-         return $this->solicitud;
+         return $list;
 
     }
 
