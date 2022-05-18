@@ -120,7 +120,7 @@ class RequisicionesRh extends Component
                 switch($data->status){
                     case 'Revisada':$status_array[]=['icon'=>'fas fa-envelope-open-text mx-3']; break;
                     case 'Aprobada':$status_array[]=['icon'=>'fas fa-clipboard-check mx-3']; break;
-                    case 'Rechazada':$status_array[]=['icon'=>'far fa-file-excel mx-4']; break;
+                    case 'Rechazada':$status_array[]=['icon'=>'fas fa-file-excel mx-4']; break;
                     case 'Transito':$status_array[]=['icon'=>'fas fa-shipping-fast mx-3']; break;
                     case 'Almacen':$status_array[]=['icon'=>'fas fa-archive mx-3']; break;
                 }

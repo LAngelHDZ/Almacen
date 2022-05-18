@@ -24,7 +24,7 @@ class HistorialRequisiciones extends Component
 
     // protected $listeners = ['echo:solicitud,RealtimeEventSolicitud' => 'updateview'];
 
-    
+
     public function QuerySolicitud(){
         $filter=$this->filter_status;
         $status=true;
@@ -142,7 +142,7 @@ class HistorialRequisiciones extends Component
             }else{
                 switch($data->status){
                     case 'Aprobada':$status_array[]=['icon'=>'fas fa-clipboard-check mx-3']; break;
-                    case 'Rechazada':$status_array[]=['icon'=>'far fa-file-excel mx-4']; break;
+                    case 'Rechazada':$status_array[]=['icon'=>'fas fa-file-excel mx-4']; break;
                     case 'Transito':$status_array[]=['icon'=>'fas fa-shipping-fast mx-3']; break;
                     case 'Almacen':$status_array[]=['icon'=>'fas fa-archive mx-3']; break;
                 }
