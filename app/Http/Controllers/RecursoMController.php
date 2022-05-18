@@ -40,6 +40,10 @@ class RecursoMController extends Controller
         return view('almacen.recursosM.requisicionesrm');
 
     }
+    public function historial(){
+        return view('almacen.recursosM.historialRm');
+
+    }
 
     
 }

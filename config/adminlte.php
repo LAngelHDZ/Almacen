@@ -284,19 +284,23 @@ return [
             'can'     => 'root.dashboard.almacen',
             'submenu' => [
                 [
-                    'text' => 'opcion 1',
+                    'text' => 'Requisiciones',
+                    'icon'    => 'fas fa-sm fa-clipboard-list',
+                    'route'  => 'requisicionesAlmacen',
+                ],
+                [
+                    'text' => 'Stock',
+                    'icon'    => 'fas fa-sm fa-chart-line',
                     'url'  => 'admin/blog',
                 ],
                 [
-                    'text' => 'opcion 2',
+                    'text' => 'Facturas',
+                    'icon'    => 'fas fa-sm fa-file-invoice-dollar',
                     'url'  => 'admin/blog',
                 ],
                 [
-                    'text' => 'opcion 3',
-                    'url'  => 'admin/blog',
-                ],
-                [
-                    'text' => 'opcion 4',
+                    'icon'    => 'fas fa-sm fa-list-ul',
+                    'text' => 'Historial',
                     'url'  => 'admin/blog',
                 ],
             ],
@@ -320,14 +324,14 @@ return [
                     ['header' => 'COTIZACIONES'],
 
                     [
-                        'icon'    => 'fas fa-sm fa-file-invoice-dollar',
+                        'icon'    => ' fas fa-sm fa-dollar-sign',
                         'text' => 'Cotización',
                         'route' => 'catalogo',
                     ],
                     [
                         'icon'    => 'fas fa-sm fa-list',
                         'text' => 'Historial',
-                        'route' => 'catalogo',
+                        'route' => 'historial-rm',
                     ],
                     ['header' => 'ALTAS y ACTUALZACIONES'],
                     [
@@ -356,11 +360,13 @@ return [
                     'url'  => 'admin/blog',
                     'submenu' => [
                         [
-                            'text' => 'Requisiciones ',
+                        'icon'    => 'fas fa-clipboard-list',
+                        'text' => 'Lista de requisiciones',
                         'route' => 'requisicionesA',
                         ],
                         [
-                            'text' => 'opcion 2',
+                            'text' => 'Stock',
+                            'icon'    => 'fas fa-sm fa-chart-line',
                         'url' => '#',
                         ],
 

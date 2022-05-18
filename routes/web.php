@@ -3,6 +3,7 @@
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Administracion\AdminsController;
+use App\Http\Controllers\AlmacenController;
 use App\Http\Controllers\RecursoMController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\GeneralController;
@@ -34,6 +35,7 @@ Route::get('/catalogo',[RecursoMController::class,'catalogo'])->name('catalogo')
 Route::get('/proveedor',[RecursoMController::class,'proveedor'])->name('proveedor');
 Route::get('/producto',[RecursoMController::class,'producto'])->name('producto');
 Route::get('/requisiciones',[RecursoMController::class,'requisicionesP'])->name('requisiciones-rm');
+Route::get('/rm/requisiciones/historial',[RecursoMController::class,'historial'])->name('historial-rm');
 // Route::get('/producto/precios/{id}/',[RecursoMController::class,'precios'])->name('precios-producto');
 
 Route::get('/solictud/requicision',[SolicitudController::class,'prerequicision'])->name('solicitud');
@@ -46,6 +48,8 @@ Route::get('/root/users/update/{id}/',[UserstController::class,'update'])->name(
 Route::get('/adminlte',[GeneralController::class,'adminlte'])->name('adminlte');
 
 Route::get('/profile',[PerfilController::class,'profile'])->name('profile');
+
+Route::get('/almacen/requisiciones',[AlmacenController::class,'requisiciones'])->name('requisicionesAlmacen');
 
 Route::get('/administrador/requisiciones',[AdminsController::class,'requisicionesA'])->name('requisicionesA');
 Route::get('/administrador/requisiciones/historial',[AdminsController::class,'historialreq'])->name('historialReq-Admin');

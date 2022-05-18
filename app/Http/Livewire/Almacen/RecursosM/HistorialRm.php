@@ -12,33 +12,80 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class RequisicionesRh extends Component
+class HistorialRm extends Component
 {
     use WithPagination;
     public $products=[];
     public $openbtn=true;
     public $solicitudes=[];
     public $id_solicitud,$aux;
-    public $status, $filter_status='Enviada';
+    public $status, $filter_status='Revisada';
     public $seguimiento=[];
-    public $close=false;
 
-    protected $listeners = ['echo:solicitud,RealtimeEventSolicitud' => 'updateview'];
+    // protected $listeners = ['echo:solicitud,RealtimeEventSolicitud' => 'updateview'];
+
+    
     public function QuerySolicitud(){
         $filter=$this->filter_status;
         $status=true;
       $list = solicitud::join('empleados','empleados.id','=','solicituds.id_empleado')
         ->join('users','users.id','=','empleados.id_user')
-        ->join('status_solicituds as status','.id_solicitud','=','solicituds.id')
-        ->select('solicituds.id','solicituds.folio','solicituds.descripcion','empleados.id_user','users.name')
-        ->where(function ($query) use ($filter,$status) {
-            $query->where('status.status',$filter )
-                  ->where('solicituds.state',$status);
-          })
-        ->Orderby('status.date','desc')->Orderby('status.time','desc')
-        ->paginate(5);
+        // ->join('status_solicituds as status','.id_solicitud','=','solicituds.id')
+        ->select('solicituds.active','solicituds.id','solicituds.folio','solicituds.descripcion','empleados.id_user','users.name')
+        ->where('solicituds.state',false)
+        // ->Orderby('status.date','desc')->Orderby('status.time','desc')
+        ->paginate(10);
+
+        foreach($list as $data){
+            $this->solicitudes[]=[
+             'id'=>$data->id,  //id de solicitud
+             'folio'=> $data->folio,  //folio de la solicitud
+             'dateA'=>$this->values($data->id,'dateA'),  //metodo a la cual le paso el id de solicitud para que muestre ciertas fechas de status en español
+             'dateC'=>$this->values($data->id,'dateC'),  //metodo a la cual le paso el id de solicitud para que muestre ciertas fechas de status en español
+             'status'=>$this->getstatus(status_solicitud::select('status')->where('id_solicitud',$data->id)->get()),
+            //  'time'=>$this->values($data->id,'time'), // Lo mismo que fecha solo que con la hora
+            //  'descripcion'=>$this->values($data->id,'descripcion'), //metodo que le paso el id de solicitud para que me consulte la descripcion e los status
+             // aqui al metodo le pasu la colecion de los status   para determinar que icono, color y status se va a mostrar dependiendo de como valla el seguimiento
+            //  'icon'=>$this->classobject(status_solicitud::select('status')->where('id_solicitud',$data->id)->latest('id')->first()->status, 'icon'),
+            //  'class'=>$this->classobject(status_solicitud::select('status')->where('id_solicitud',$data->id)->latest('id')->first()->status, 'color'),
+            ];
+         }
         return $list;
      $this->aux=solicitud::count();
+    }
+
+    public function getstatus($status){
+
+        foreach($status as $index => $data){
+                if($data->status =='Aprobada' || $data->status=='Rechazada'){
+                    $status=$data->status;
+                    break;
+                }
+        }
+        return $status;
+    }
+
+    public function values($id,$atribute){
+        $des =status_solicitud::select('date','status')->where('id_solicitud',$id)->get();
+        // $desc =status_solicitud::select($atribute,'status')->where('id_solicitud',$id)->count();
+        // $auxiliar=null;
+        $value=null;
+            foreach($des as $index=> $data){
+                if($data->status=='Enviada' && $atribute=='dateA'){
+                $value =  $this->formatdate($value);
+                   break;
+                }
+
+                if($data->status=='Cerrada' && $atribute=='dateC'){
+                    $value =  $this->formatdate($value);
+                    break;
+                }
+            }
+
+        //   if($atribute=='date'){
+        //     $value =  $this->formatdate($value);
+        //   }
+        return $value;
     }
 
     public function querydate(){
@@ -61,7 +108,6 @@ class RequisicionesRh extends Component
         ]);
 
         switch ($var){
-            case 1: $this->filter_status='Enviada'; break;
             case 2: $this->filter_status='Revisada'; break;
             case 3: $this->filter_status='Aprobada'; break;
             case 4: $this->filter_status='Rechazada'; break;
@@ -77,32 +123,10 @@ class RequisicionesRh extends Component
         ]);
         foreach($this->QuerySolicitud() as $data){
             $this->seguimiento[]=[
-                // 'status' => status_solicitud::select('status')->where('id_solicitud',$data->id)->get(),
                  'status' =>$this->status_seguimiento(status_solicitud::select('status')->where('id_solicitud',$data->id)->get(), 'status'),
-                 'icon'   =>$this->status_seguimiento(status_solicitud::select('status')->where('id_solicitud',$data->id)->get(), 'icon'),
-                 'close'  =>$this->solicitud_close(status_solicitud::select('status')->where('id_solicitud',$data->id)->latest('id')->first()->status),
-                 'aprob'  =>$this->solicitud_aprob(status_solicitud::select('status')->where('id_solicitud',$data->id)->latest('id')->first()->status),
+                 'icon' =>$this->status_seguimiento(status_solicitud::select('status')->where('id_solicitud',$data->id)->get(), 'icon'),
             ];
         }
-    }
-
-    public function solicitud_close($status){
-        $close='';
-        if($status =='Rechazada' || $status =='Almacen'){
-            $close=true;
-        }else{
-            $close=false;
-        }
-        return $close;
-    }
-    public function solicitud_aprob($status){
-        $close='';
-        if($status =='Aprobada'){
-            $close=true;
-        }else{
-            $close=false;
-        }
-        return $close;
     }
 
     public function status_seguimiento($array,$object ){
@@ -110,15 +134,13 @@ class RequisicionesRh extends Component
         foreach($array as $data){
             if($object=='status'){
                 switch($data->status){
-                    case 'Revisada':$status_array[]=['status'=>'Revisado']; break;
                     case 'Aprobada':$status_array[]=['status'=>'Aprobado']; break;
-                    case 'Rechazada':$status_array[]=['status'=>'Rechazada']; $this->close=true; break;
+                    case 'Rechazada':$status_array[]=['status'=>'Rechazada']; break;
                     case 'Transito':$status_array[]=['status'=>'Transito']; break;
                     case 'Almacen':$status_array[]=['status'=>'Almacen']; break;
                 }
             }else{
                 switch($data->status){
-                    case 'Revisada':$status_array[]=['icon'=>'fas fa-envelope-open-text mx-3']; break;
                     case 'Aprobada':$status_array[]=['icon'=>'fas fa-clipboard-check mx-3']; break;
                     case 'Rechazada':$status_array[]=['icon'=>'far fa-file-excel mx-4']; break;
                     case 'Transito':$status_array[]=['icon'=>'fas fa-shipping-fast mx-3']; break;
@@ -127,6 +149,7 @@ class RequisicionesRh extends Component
             }
         }
          return $status_array;
+
     }
 
     public function updateview(){
@@ -175,68 +198,67 @@ class RequisicionesRh extends Component
         return $this->formatday(date_format($dat,'l')).' '.date_format($dat,'d').' de '.$this->formatweek(date_format($dat,'F')).' del '.date_format($dat,'Y');
     }
 
-    public function aceptar(){
+    public function product_aprobado(){
+        foreach($this->products as $data){
+            $aprobado=array('aprobado'=>$data['aprobado']);
+
+            DB::table('solicitud_productos')->where('id',$data['id'])->update($aprobado);
+            $aprobado=null;
+        }
+    }
+
+    public function aceptar($state){
+        $descrip='';
+        $status='';
+        if($state==1){
+            $status='Rechazada';
+            $descrip='Solicitud rechazada favor de comunicarse con RRMM';
+        }else{
+            $status='Aprobada';
+            $descrip='Solicitud aprobada en proceso de realizar compra';
+        }
+        $this->product_aprobado();
         status_solicitud::create([
             'id_solicitud'=>$this->id_solicitud,
-            'status'=>'Revisada',
-            'descripcion'=>'Solicitud revisada y en proceso de autorización',
+            'status'=>$status,
+            'descripcion'=>$descrip,
             'date'=>date('Y-m-d'),
             'time'=>date('H:i:s'),
         ]);
+
         event(new RealtimeEventSolicitud);
 
         $this->closemodal();
         $this->resetdatos();
     }
-    public function aprob_req($id){
-        status_solicitud::create([
-            'id_solicitud'=>$id,
-            'status'=>'Transito',
-            'descripcion'=>'Compra realizada al proveedor, tiempo de espera 30 dias',
-            'date'=>date('Y-m-d'),
-            'time'=>date('H:i:s'),
-        ]);
-
-        // DB::table('solicituds')->where('id',$id)->update(['state'=>false]);
-        event(new RealtimeEventSolicitud);
-
-        // $this->closemodal();
-        $this->resetdatos();
-    }
-    public function close_req($id){
-        status_solicitud::create([
-            'id_solicitud'=>$id,
-            'status'=>'Cerrada',
-            'descripcion'=>'Solicitud cerrada ',
-            'date'=>date('Y-m-d'),
-            'time'=>date('H:i:s'),
-        ]);
-
-        DB::table('solicituds')->where('id',$id)->update(['state'=>false]);
-        event(new RealtimeEventSolicitud);
-
-        // $this->closemodal();
-        $this->resetdatos();
-    }
 
     public function inforeq($id){
+
         $this->id_solicitud=$id;
         $status='';
        $products = solicitud::
        join('solicitud_productos','solicitud_productos.idsolicitud','=','solicituds.id')
    ->join('productos','solicitud_productos.idproducto','=','productos.id')
-   ->select('solicitud_productos.idsolicitud','solicitud_productos.cantidad','productos.producto','productos.clave_producto as clave')
+   ->select('solicitud_productos.id','solicitud_productos.idsolicitud as id_sol','solicitud_productos.cantidad','solicitud_productos.aprobado','productos.producto','productos.id as idpro','productos.clave_producto as clave')
         ->where('solicitud_productos.idsolicitud',$id)
         ->get();
 
         if($this->openbtn){
             foreach($products as $data){
-                $this->products[]=['clave'=>$data->clave,'producto'=>$data->producto,'cantidad'=>$data->cantidad];
+                $this->products[]=[
+                    'clave'=>$data->clave,
+                    'id'=>$data->id,
+                    'idsol'=>$data->id_sol,
+                    'idprod'=>$data->idpro,
+                    'producto'=>$data->producto,
+                    'cantidad'=>$data->cantidad,
+                    'aprobado'=>$data->aprobado];
+
+                }
             }
-        }
-        $this->openbtn=false;
+            $this->openbtn=false;
         $status=status_solicitud::select('status')->where('id_solicitud',$id)->latest('id')->first()->status;
-        if($status!='Enviada'){
+        if($status!='Revisada'){
                 $this->status=true;
             }else{
             $this->status=false;
@@ -261,11 +283,8 @@ public function resetdatos(){
         'openbtn',
     ]);
 }
-
     public function render()
     {
-        return view('livewire.almacen.recursos-m.requisiciones-rh',['solicitud'=> $this->QuerySolicitud(), $this->querydate(),$this->seguimiento()]);
+        return view('livewire.almacen.recursos-m.historial-rm',['solicitud'=> $this->QuerySolicitud()]);
     }
-
-
 }

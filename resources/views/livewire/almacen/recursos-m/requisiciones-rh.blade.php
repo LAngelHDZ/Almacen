@@ -128,6 +128,12 @@
                         Cerrar
                     </button>
                     @endif
+                        @if ($dato['aprob'])
+                        <button
+                        wire:click='aprob_req({{ $data['id'] }})' class="p-2 mt-1 btn btn-success" >
+                        Aprobar
+                    </button>
+                    @endif
                     @endif
                         @endforeach
                         <button wire:click='inforeq({{ $data['id'] }})' class="p-2 mt-1 btn btn-primary">
