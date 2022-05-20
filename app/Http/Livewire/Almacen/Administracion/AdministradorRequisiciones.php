@@ -21,6 +21,7 @@ class AdministradorRequisiciones extends Component
     public $id_solicitud,$aux;
     public $status, $filter_status='Revisada';
     public $seguimiento=[];
+    public $messageP=false;
 
     protected $listeners = ['echo:solicitud,RealtimeEventSolicitud' => 'updateview'];
 
@@ -164,26 +165,42 @@ class AdministradorRequisiciones extends Component
     public function aceptar($state){
         $descrip='';
         $status='';
-        if($state==1){
-            $status='Rechazada';
-            $descrip='Solicitud rechazada favor de comunicarse con RRMM';
+        $aprobado=true;
+        $count=null;
+        foreach($this->products as $data){
+            if($data['aprobado']==0){
+                $aprobado=false;
+            }else{
+                $aprobado=true;
+                break;
+            }
+        }
+            if($state==1){
+                $status='Rechazada';
+                $descrip='Solicitud rechazada favor de comunicarse con RRMM';
         }else{
             $status='Aprobada';
             $descrip='Solicitud aprobada en proceso de realizar compra';
         }
-        $this->product_aprobado();
-        status_solicitud::create([
-            'id_solicitud'=>$this->id_solicitud,
-            'status'=>$status,
-            'descripcion'=>$descrip,
-            'date'=>date('Y-m-d'),
-            'time'=>date('H:i:s'),
-        ]);
 
-        event(new RealtimeEventSolicitud);
+        if($aprobado){
+            $this->product_aprobado();
+            status_solicitud::create([
+                'id_solicitud'=>$this->id_solicitud,
+                'status'=>$status,
+                'descripcion'=>$descrip,
+                'date'=>date('Y-m-d'),
+                'time'=>date('H:i:s'),
+            ]);
+            event(new RealtimeEventSolicitud);
+            $this->closemodal();
+            $this->resetdatos();
+        }else{
+            $this->messageP=true;
+        }
 
-        $this->closemodal();
-        $this->resetdatos();
+
+
     }
 
     public function inforeq($id){
@@ -235,6 +252,7 @@ public function resetdatos(){
         'products',
         'id_solicitud',
         'openbtn',
+        'messageP',
     ]);
 }
 

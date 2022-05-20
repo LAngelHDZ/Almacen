@@ -132,19 +132,19 @@
                         @if($indexa == $indexz)
                         @if ($dato['close'])
                         <button
-                        wire:click='close_req({{ $data['id'] }})' class="p-2 mt-1 btn btn-danger" >
-                        Cerrar
+                        wire:click='close_req({{ $data['id'] }})' class=" inline-block px-3 py-2 mt-1  btn btn-danger" >
+                        <i class="fas fa-ban"></i>
                     </button>
                     @endif
                         @if ($dato['aprob'])
                         <button
-                        wire:click='aprob_req({{ $data['id'] }})' class="p-2 mt-1 btn btn-success" >
-                        Aprobar
+                        wire:click='aprob_req({{ $data['id'] }})' class=" inline-block  mt-1 px-3 py-2 btn btn-success" >
+                        <i class="fas fa-check"></i>
                     </button>
                     @endif
                     @endif
                         @endforeach
-                        <button wire:click='inforeq({{ $data['id'] }})' class="p-2 mt-1 btn btn-primary">
+                        <button wire:click='inforeq({{ $data['id'] }})' class="  p-2 mt-1 btn btn-primary">
                             Revisar
                         </button>
                     </div>
