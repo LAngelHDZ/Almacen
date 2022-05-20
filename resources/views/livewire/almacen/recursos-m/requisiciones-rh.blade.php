@@ -22,7 +22,11 @@
                             <tr>
                                 <th scope="col" class="text-center text-uppercase">Clave</th>
                                 <th scope="col" class="text-center text-uppercase">Material</th>
+                                @if(!$aprobado)
                                 <th scope="col" class="text-center text-uppercase">Cantidad</th>
+                                @else
+                                <th scope="col" class="text-center text-uppercase">Aprobado</th>
+                                @endif
 
               </tr>
             </thead>
@@ -33,7 +37,11 @@
             <tr class="">
               <th class="pt-3 text-center font-weight-normal text-decoration-underline">{{ $data['clave'] }}</th>
               <th class="pt-3 text-center font-weight-normal"><a href="">{{ $data['producto'] }}</a></th>
+              @if(!$aprobado)
               <th class="pt-3 text-center font-weight-normal">{{ $data['cantidad'] }}</th>
+              @else
+              <th class="pt-3 text-center font-weight-normal">{{ $data['aprobado'] }}</th>
+              @endif
     </tr>
     @endforeach
     </tbody>

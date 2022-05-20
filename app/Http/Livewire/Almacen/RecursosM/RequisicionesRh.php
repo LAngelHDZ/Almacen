@@ -22,6 +22,7 @@ class RequisicionesRh extends Component
     public $status, $filter_status='Enviada';
     public $seguimiento=[];
     public $close=false;
+    public $aprobado=false;
 
     protected $listeners = ['echo:solicitud,RealtimeEventSolicitud' => 'updateview'];
     public function QuerySolicitud(){
@@ -111,9 +112,9 @@ class RequisicionesRh extends Component
             if($object=='status'){
                 switch($data->status){
                     case 'Revisada':$status_array[]=['status'=>'Revisado']; break;
-                    case 'Aprobada':$status_array[]=['status'=>'Aprobado']; break;
+                    case 'Aprobada':$status_array[]=['status'=>'Aprobado'];  break;
                     case 'Rechazada':$status_array[]=['status'=>'Rechazada']; $this->close=true; break;
-                    case 'Transito':$status_array[]=['status'=>'Transito']; break;
+                    case 'Transito':$status_array[]=['status'=>'Transito'];  break;
                     case 'Almacen':$status_array[]=['status'=>'Almacen']; break;
                 }
             }else{
@@ -225,13 +226,13 @@ class RequisicionesRh extends Component
        $products = solicitud::
        join('solicitud_productos','solicitud_productos.idsolicitud','=','solicituds.id')
    ->join('productos','solicitud_productos.idproducto','=','productos.id')
-   ->select('solicitud_productos.idsolicitud','solicitud_productos.cantidad','productos.producto','productos.clave_producto as clave')
+   ->select('solicitud_productos.idsolicitud','solicitud_productos.cantidad','solicitud_productos.aprobado','productos.producto','productos.clave_producto as clave')
         ->where('solicitud_productos.idsolicitud',$id)
         ->get();
 
         if($this->openbtn){
             foreach($products as $data){
-                $this->products[]=['clave'=>$data->clave,'producto'=>$data->producto,'cantidad'=>$data->cantidad];
+                $this->products[]=['clave'=>$data->clave,'producto'=>$data->producto,'cantidad'=>$data->cantidad,'aprobado'=>$data->aprobado];
             }
         }
         $this->openbtn=false;
@@ -240,8 +241,12 @@ class RequisicionesRh extends Component
                 $this->status=true;
             }else{
             $this->status=false;
-
         }
+        if($status =='Enviada' || $status=='Revisada' || $status=='Rechazada'){
+            $this->aprobado=false;
+        }else{
+            $this->aprobado=true;
+            }
         $this->showmodal();
     }
 
@@ -259,6 +264,7 @@ public function resetdatos(){
         'products',
         'id_solicitud',
         'openbtn',
+        'aprobado',
     ]);
 }
 
