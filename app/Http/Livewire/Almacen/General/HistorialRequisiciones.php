@@ -68,7 +68,7 @@ class HistorialRequisiciones extends Component
         }
         return $close;
     }
-        
+
     public function status_seguimiento($array,$object ){
         $status_array=[];
         foreach($array as $data){
@@ -121,7 +121,7 @@ public function classobject($count, $type){
             case 'Enviada'  :  $object='fas fa-lg fa-paper-plane'; break;
             case 'Revisada' :  $object='fas fa-lg fa-paper-plane'; break;
             case 'Aprobada' :  $object='fas fa-lg fa-clipboard-check fa-lg'; break;
-            case 'Rechazada':  $object='far fa-file-excel fa-lg'; break;
+            case 'Rechazada':  $object='fas fa-file-excel fa-lg'; break;
             case 'Cerrada'  :  $object='fas fa-times-circle fa-lg'; break;
             case 'Transito' :  $object='fas fa-shipping-fast'; break;
             case 'Almacen'  :  $object='fas fa-archive'; break;

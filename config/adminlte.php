@@ -404,11 +404,11 @@ return [
             ],
         ],
 
-        
+
             ['header' => 'SUPER ADMIN',
-            'root.dashboard.root',
+            'can'     => 'root.dashboard.root',
         ],
-            
+
                 [
                     'icon'    => 'fas fa-sm fa-users',
                     'text' => 'usuarios',
@@ -430,8 +430,8 @@ return [
                     'can'     => 'root.dashboard.root',
                     'url'  => 'admin/blog',
                 ],
-            
-        
+
+
 
         // [
         //     'text'        => 'pages',
