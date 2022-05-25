@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStocksTable extends Migration
+class CreateFacturasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateStocksTable extends Migration
      */
     public function up()
     {
-        Schema::create('stocks', function (Blueprint $table) {
+        Schema::create('facturas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_producto')->references('id_producto')->on('productos')->unique();
-            $table->double('stock');
+            $table->unsignedBigInteger('NoFactura');
+            $table->unsignedBigInteger('idproveedor')->references('id')->on('proveedors');
+            $table->text('descripcion');
+            $table->date('fecha_elaboracion');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateStocksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stocks');
+        Schema::dropIfExists('facturas');
     }
 }

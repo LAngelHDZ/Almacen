@@ -2,15 +2,19 @@
 
 namespace App\Http\Livewire\Almacen\Almacenes;
 
-use App\Events\RealtimeEventSolicitud;
-use App\Models\Productos;
-use App\Models\solicitud;
-use App\Models\solicitud_producto;
-use App\Models\status_solicitud;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
+use App\Models\factura;
 use Livewire\Component;
+use App\Models\Productos;
+use App\Models\Proveedor;
+use App\Models\solicitud;
 use Livewire\WithPagination;
+use App\Models\status_solicitud;
+use App\Models\solicitud_producto;
+use Illuminate\Support\Facades\DB;
+use App\Events\RealtimeEventSolicitud;
+use App\Models\productos_factura;
+use App\Models\stock;
 
 class RequisicionesAlmacen extends Component
 {
@@ -19,9 +23,13 @@ class RequisicionesAlmacen extends Component
     public $openbtn=true;
     public $solicitudes=[];
     public $id_solicitud,$aux;
+    /*Variables para guardar nueva factura */
+    public $nfactura,$idproveedor,$fecha,$descripcion;
+    public $factura,$alert;
+
     // public $status, $filter_status='Revisada';
     public $seguimiento=[];
- // protected $listeners = ['echo:solicitud,RealtimeEventSolicitud' => 'updateview'];
+  protected $listeners = ['echo:solicitud,RealtimeEventSolicitud' => 'updateview'];
 
     
  public function QuerySolicitud(){
@@ -54,6 +62,73 @@ class RequisicionesAlmacen extends Component
      }
     return $list;
  $this->aux=solicitud::count();
+}
+
+public function facturado($array){
+    productos_factura::create($array);
+}
+
+public function stock($index){
+    foreach($this->products as $in => $data){
+        if($index==$in){
+          $count=  stock::where('id_producto',$data['idprod'])->count();
+         $array=array(
+             'id_factura'=>$this->factura,
+             'id_producto'=>$data['idprod'],
+             'id_solicitud'=>$data['idsol'],
+             'cantidad'=>$data['alta'],
+         );
+         $this->facturado($array);
+          if($count==0){
+            stock::create([
+                'id_producto'=>$data['idprod'],
+                'stock'=>$data['alta'],
+                
+            ]);
+          }else{
+              $stock = stock::select('stock')->where('id_producto',$data['idprod'])->get();
+
+              $stock=$stock[0]->stock + $data['alta'];
+
+              DB::table('stocks')->where('id_producto',$data['idprod'])->update(['stock'=>$stock]);
+          }
+
+        }
+    }
+
+}
+
+public function create_factura(){
+    factura::create([
+        'NoFactura'=>$this->nfactura,
+        'idproveedor'=>$this->idproveedor,
+        'descripcion'=>$this->descripcion,
+        'fecha_elaboracion'=>$this->fecha,
+    ]);
+    $this->factura =factura::select('NoFactura')->latest('id')->first()->NoFactura;
+    $messages='';
+    session()->flash('message',$messages);
+    // session()->flush();
+}
+
+public function search_f(){
+ $count=   factura::where('NoFactura',$this->factura)->count();
+ $messages='Factura capturada exitosamente';
+
+    if($count>0){
+        $messages='Factura existente';
+        $this->alert=true;
+    }else{
+        $messages='No existe una factura con el No.'.$this->factura;
+        $this->alert=false;
+    }
+    $this->emit('alert',$messages);
+    session()->flash('messages',$messages);
+}
+
+public function flashdelete(){
+   session()->forget(['messages','message']);
+
 }
 
 public function getstatus($status){
@@ -170,14 +245,14 @@ public function status_seguimiento($array,$object ){
 
 }
 
-public function updateview(){
-    if(solicitud::count()!=$this->aux){
-        $this->reset([
-            'solicitudes',
-        ]);
-        $this->mount();
-    }
-}
+// public function updateview(){
+//     if(solicitud::count()!=$this->aux){
+//         $this->reset([
+//             'solicitudes',
+//         ]);
+//         $this->mount();
+//     }
+// }
 
 public function formatday($day){
     $dia='';
@@ -269,8 +344,8 @@ public function inforeq($id){
                 'idsol'=>$data->id_sol,
                 'idprod'=>$data->idpro,
                 'producto'=>$data->producto,
-                'cantidad'=>$data->cantidad,
-                'aprobado'=>$data->aprobado];
+                'aprobado'=>$data->aprobado,
+                'alta'=>0];
 
             }
         }
@@ -292,6 +367,7 @@ public function showmodal(){
 public function closemodal(){
 $this->dispatchBrowserEvent('close-form');
 $this->resetdatos();
+$this->flashdelete();
 }
 
 public function resetdatos(){
@@ -299,11 +375,26 @@ $this->reset([
     'products',
     'id_solicitud',
     'openbtn',
+    'nfactura',
+    'idproveedor',
+    'descripcion',
+    'fecha',
+    'factura',
 ]);
+}
+
+
+
+public function proveedores(){
+    $listprove = Proveedor::all();
+
+    $this->proveedor=$listprove;
+    return $listprove;
 }
 
     public function render()
     {
-        return view('livewire.almacen.almacenes.requisiciones-almacen',['solicitud'=> $this->QuerySolicitud()]);
+        return view('livewire.almacen.almacenes.requisiciones-almacen',['solicitud'=> $this->QuerySolicitud()
+    ,'listProve'=> $this->proveedores()]);
     }
 }

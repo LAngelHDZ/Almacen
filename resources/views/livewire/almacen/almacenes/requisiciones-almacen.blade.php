@@ -1,4 +1,146 @@
-<div>
+<div x-data="togg()">
+    {{-- <----- Este fragmento de código es el modal -----> --}}
+  <div wire:ignore.self  class="modal fade" id="showreq" tabindex="-1" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+
+        {{-- <--- Cabecera del modal donde aparece el titulo del modal ---> --}}
+        <div class="modal-header">
+
+          <h5 class="modal-title" id="exampleModalLabel">Producto en espera</h5>
+        </div>
+        {{-- <--- Fin cabecera modal ---> --}}
+
+        {{-- <-- Inicio Cuerpo del modal donde estan los controles de formulario --> --}}
+        <div  class="modal-body bg-gray-50">
+          <div   class="mb-2 px-3 pb-3">
+            <div class="mb-3">
+              <button wire:click='flashdelete' @click="show2(open2)" >Nueva factura</button>
+              <button wire:click='flashdelete' @click="show(open)" class="ml-3">Buscar</button>
+            </div>
+            
+            @if(session()->has('message'))
+                        <div>
+                          <div class="p-2 mb-2 bg-green-700 text-white text-bold rounded-sm"><p> {{session('message') }}</p></div>
+                        </div>
+                            @endif
+            <div  x-show="setOpen2()"
+            x-transition:enter="transition ease-out duration-600"
+            x-transition:enter-start="opacity-0 scale-90"
+            x-transition:enter-end="opacity-100 scale-100"
+            >
+            <div class="flex justify-between">
+              <div class="flex ">
+                <div >
+                  <label for="" class="block">No. Factura</label>
+                  <input wire:model="nfactura" type="text" class="w-64 rounded-lg hover:border-blue-700" name="" id="">
+                </div>
+                <div class="mx-4">
+                  <label for="" class="block">Proveedor</label>
+                  <select wire:model="idproveedor" name="" class=" w-64 rounded-lg hover:border-blue-700" id="">
+                    <option value="" selected>Seleccionar</option>
+                            @foreach($listProve as $data)
+                                <option  value="{{$data->id}}">{{$data->empresa}}</option>
+                            @endforeach
+                  </select>
+                </div>
+                <div>
+                  <label for="" class="block">Fecha de elaboracion</label>
+                  <input wire:model="fecha" type="date" class="w-64 rounded-lg hover:border-blue-700">
+                </div>
+              </div>
+              <div class=" mt-4">
+                <button wire:click.prevent='create_factura' class="  px-2 py-2 mt-2 rounded-sm btn-success">Guardar factura</button>
+              </div>
+              
+            </div>
+            <div class="block mt-2">
+              <label for="">Descripción</label>
+              <textarea wire:model="descripcion" name="" class=" w-100 rounded-lg hover:border-blue-700" cols="30" rows="3" ></textarea>
+            </div>
+            </div>
+            @if(session()->has('messages'))
+            <div>
+              @if ($alert)
+              <div class="p-2 mb-2 bg-green-700 text-white text-bold rounded-sm"><p>{{session('messages')}}</p></div>
+              @else
+              <div class="p-2 mb-2 bg-red-700 text-white text-bold rounded-sm"><p>{{session('messages')}}</p></div>
+              @endif
+            </div>
+                @endif
+            <div
+            x-show="setOpen()"
+            x-transition:enter="transition ease-out duration-600"
+            x-transition:enter-start="opacity-0 scale-90"
+            x-transition:enter-end="opacity-100 scale-100"
+            >
+              <label for="" class="block">No. de factura</label>
+              <div class="flex">
+                <div class="mr-2 pb-0 border rounded-lg flex border-secondary  hover:border-blue-700">
+                  <div class="bg-blue rounded-left pb-0 pt-1 px-1">
+                    <i class="mx-1 mt-2 mb-0 fa fa-lg fa-search"></i>
+                  </div>
+                  <div class="mb-0 pb-0">
+                    <input wire:model="factura" type="text" class="border-0 rounded-right form-input hover:border-blue-700"  placeholder="Buscar">
+                  </div>
+              </div>
+              <div class="">
+                <button  wire:click="search_f" class="  px-2 py-2  rounded-sm btn-primary">Buscar</button>
+              </div>
+            </div>
+          </div>
+
+          </div>
+
+            <div class="h-50">
+
+                <table class=" table table-hover table-striped table-light table-sm border shadow-sm rounded-2">
+                    <div class="p-1 bg-primary bg-gradient ">
+                        <thead class=" bg-white">
+                            <tr>
+                                <th scope="col" class="text-center text-uppercase">Clave</th>
+                                <th scope="col" class="text-center text-uppercase">Material</th>
+                                <th scope="col" class="text-center text-uppercase">Cantidad</th>
+                                <th scope="col" class="text-center text-uppercase"></th>
+                                
+
+              </tr>
+            </thead>
+          </div>
+          <tbody class="">
+
+            @foreach ($products as $index=> $data)
+            <tr class="">
+              <th class="pt-3 text-center font-weight-normal text-decoration-underline">{{ $data['clave'] }}</th>
+              <th class="pt-3 text-center font-weight-normal">{{ $data['producto'] }}</th>
+              <th class="pt-3 text-center font-weight-normal">{{ $data['aprobado'] }}</th>
+              <th class="pt-3 text-center font-weight-normal">
+                  <input wire:model="products.{{ $index }}.alta" class="w-10 rounded-lg hover:border-blue-700" type="text">
+
+                  <button wire:click.prevent="stock({{ $index }})" class=" inline-block ml-2"><i class="fas fa-check text-green-500"></i></button>
+                </th>
+    </tr>
+    @endforeach
+    </tbody>
+    </table>
+        </div>
+        {{-- <-- Fin cuerpo modal --> --}}
+
+        <div class="modal-footer">
+          <button  wire:click='closemodal'  class="btn btn-secondary" >Cerrar</button>
+
+          {{-- <button wire:click='aceptar({{1}})' @if ($status) class="hidden"  @else class="btn btn-danger" @endif>Rechazar</button>
+          <button wire:click='aceptar({{2}})' @if ($status) class="hidden"  @else class="btn btn-success" @endif>Aprobar</button> --}}
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  {{-- <----- Fin fragmento de código modal -----> --}}
+    </div>
+    
     <div class="h-50">
 
             <table class="table bg-white border shadow-sm rounded-2">
@@ -35,7 +177,8 @@
                     </svg> --}}
                 </button>
 
-                <button class="btn-primary px-3 py-2">
+                <button @click="reset()" wire:click.prevent='inforeq({{ $data['id'] }})' class="btn-primary px-3 py-2">
+
                     Abrir
                     {{-- <div class="flex border border-success border-lg">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-currency-dollar text-green" viewBox="0 0 16 16">
@@ -55,4 +198,46 @@
 @endforeach
 </tbody>
 </table>
+</div>
+{{-- <script>
+  Livewire.on('alert', postId => {
+      alert('A post was added with the id of: ' + postId);
+  })
+  </script> --}}
+<script>
+  function togg(){
+  return{
+    open:true,
+    open2:false,
+
+    show:function(open){
+      if(open){
+        this.open2=false;
+        this.open=true;
+      }else{
+         this.open2=false;
+         this.open=true;
+      }
+    },
+    setOpen(){return this.open===true},
+
+    show2:function(open2){
+      if(!open2){
+        this.open2=true;
+        this.open=false;
+      }else{
+        this.open2=true;
+        this.open=false;
+      }
+    },
+    setOpen2(){return this.open2===true},
+
+    reset:function(){
+      this.open2=false;
+         this.open=true;
+    }
+
+  }
+  }
+  </script>
 </div>

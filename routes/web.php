@@ -4,6 +4,7 @@ use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Administracion\AdminsController;
 use App\Http\Controllers\AlmacenController;
+use App\Http\Controllers\FacturasController;
 use App\Http\Controllers\RecursoMController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\GeneralController;
@@ -50,6 +51,8 @@ Route::get('/adminlte',[GeneralController::class,'adminlte'])->name('adminlte');
 Route::get('/profile',[PerfilController::class,'profile'])->name('profile');
 
 Route::get('/almacen/requisiciones',[AlmacenController::class,'requisiciones'])->name('requisicionesAlmacen');
+
+Route::get('/facturas',[FacturasController::class,'index'])->name('facturas');
 
 Route::get('/administrador/requisiciones',[AdminsController::class,'requisicionesA'])->name('requisicionesA');
 Route::get('/administrador/requisiciones/historial',[AdminsController::class,'historialreq'])->name('historialReq-Admin');

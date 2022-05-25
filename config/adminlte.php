@@ -296,7 +296,7 @@ return [
                 [
                     'text' => 'Facturas',
                     'icon'    => 'fas fa-sm fa-file-invoice-dollar',
-                    'url'  => 'admin/blog',
+                    'route'  => 'facturas',
                 ],
                 [
                     'icon'    => 'fas fa-sm fa-list-ul',

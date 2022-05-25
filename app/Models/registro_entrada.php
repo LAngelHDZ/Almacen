@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class stock extends Model
+class registro_entrada extends Model
 {
-    use HasFactory;
 
     protected $fillable = [
-        'id_producto',
-        'stock',
+        'reg_factura_pro',
+        'fecha',
+        'time',
     ];
+    use HasFactory;
 }
