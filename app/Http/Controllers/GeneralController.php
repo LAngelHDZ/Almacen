@@ -14,6 +14,11 @@ class GeneralController extends Controller
 
         return view('almacen.general.historial');
     }
+
+    public function materiales(){
+
+        return view('almacen.general.material');
+    }
     // public function adminlte(){
     //     return view('almacen.adminlte');
     // }

@@ -5,10 +5,10 @@
             <div class="p-1 bg-primary bg-gradient ">
                 <thead class="">
                     <tr>
-                        <th scope="col" class="text-center text-uppercase">No. factura</th>
-                        {{-- <th scope="col" class="text-center text-uppercase"></th> --}}
-                        <th scope="col" class="text-center text-uppercase">Proveedor</th>
-                        <th scope="col" class="text-center text-uppercase">Fecha</th>
+                        <th scope="col" class="text-center text-uppercase">Clave</th>
+                        <th scope="col" class="text-center text-uppercase">Producto</th>
+                        <th scope="col" class="text-center text-uppercase">Stock</th>
+                        {{-- <th scope="col" class="text-center text-uppercase">Fecha</th> --}}
         {{-- <th scope="col" class=" text-uppercase">Status</th> --}}
         {{-- <th scope="col" class="text-center text-uppercase">Acciones</th> --}}
       </tr>
@@ -16,12 +16,12 @@
   </div>
   <tbody>
 
-    @foreach ($facturas as $index=> $data)
+    @foreach ($stock as $index=> $data)
     <tr class=" bg-green-100">
-        <th class="pt-3 text-center  text-decoration-underline">{{ $data->nfactura }}</th>
-        <th class="pt-3 text-center  text-success">{{ $data->empresa }}</th>
+        <th class="pt-3 text-center  text-decoration-underline">{{ $data->clave }}</th>
+        <th class="pt-3 text-center  text-success">{{ $data->producto }}</th>
         {{-- <th class="pt-3 text-center font-weight-normal"><a href="">@if ($data->status=='Enviada') Nueva @endif</a></th> --}}
-        <th class="pt-3 text-center  text-danger">{{ $data->fecha }}</th>
+        <th class="pt-3 text-center  text-danger">{{ $data->stock }}</th>
         {{-- <th class="pt-3 font-weight-normal ">{{ $data['status'] }}</th> --}}
 
         <td class="text-center">

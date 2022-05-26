@@ -42,6 +42,7 @@ Route::get('/rm/requisiciones/historial',[RecursoMController::class,'historial']
 Route::get('/solictud/requicision',[SolicitudController::class,'prerequicision'])->name('solicitud');
 Route::get('/requisiciones/status',[GeneralController::class,'peticiones'])->name('h_requisiciones_gral');
 Route::get('/requisiciones/historial',[GeneralController::class,'historial'])->name('historial_general');
+Route::get('/materiales',[GeneralController::class,'materiales'])->name('materiales');
 
 Route::get('/root/users',[UserstController::class,'users'])->name('users');
 Route::get('/root/users/create',[UserstController::class,'create'])->name('formusers');
@@ -53,6 +54,7 @@ Route::get('/profile',[PerfilController::class,'profile'])->name('profile');
 Route::get('/almacen/requisiciones',[AlmacenController::class,'requisiciones'])->name('requisicionesAlmacen');
 
 Route::get('/facturas',[FacturasController::class,'index'])->name('facturas');
+Route::get('/stock',[FacturasController::class,'stock'])->name('stock');
 
 Route::get('/administrador/requisiciones',[AdminsController::class,'requisicionesA'])->name('requisicionesA');
 Route::get('/administrador/requisiciones/historial',[AdminsController::class,'historialreq'])->name('historialReq-Admin');

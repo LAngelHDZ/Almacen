@@ -267,7 +267,7 @@ return [
                     'icon'    => 'fas fa-sm fa-vials',
                     'text' => 'materiales',
                     'can'     => 'root.dashboard.gen',
-                    'route'  => 'historial_general',
+                    'route'  => 'materiales',
                 ],
                 [
                     'icon'    => 'fas fa-list-ul',
@@ -291,7 +291,7 @@ return [
                 [
                     'text' => 'Stock',
                     'icon'    => 'fas fa-sm fa-chart-line',
-                    'url'  => 'admin/blog',
+                    'route'  => 'stock',
                 ],
                 [
                     'text' => 'Facturas',
@@ -320,6 +320,11 @@ return [
                         'text' => 'Lista de requisiciones',
                         'route' => 'requisiciones-rm',
                     ],
+                    [
+                        'icon'    => 'fas fa-sm fa-list',
+                        'text' => 'Historial',
+                        'route' => 'historial-rm',
+                    ],
 
                     ['header' => 'COTIZACIONES'],
 
@@ -328,11 +333,7 @@ return [
                         'text' => 'Cotización',
                         'route' => 'catalogo',
                     ],
-                    [
-                        'icon'    => 'fas fa-sm fa-list',
-                        'text' => 'Historial',
-                        'route' => 'historial-rm',
-                    ],
+                   
                     ['header' => 'ALTAS y ACTUALZACIONES'],
                     [
                         'icon'    => 'fas fa-sm fa-truck',
@@ -367,13 +368,18 @@ return [
                         [
                             'text' => 'Stock',
                             'icon'    => 'fas fa-sm fa-chart-line',
-                        'url' => '#',
+                        'route' => 'stock',
                         ],
 
                         [
                         'icon'    => 'fas fa-sm fa-list',
                         'text' => 'Historial',
                         'route' => 'historialReq-Admin',
+                        ],
+                        [
+                            'text' => 'Facturas',
+                            'icon'    => 'fas fa-sm fa-file-invoice-dollar',
+                            'route'  => 'facturas',
                         ],
 
                     ],

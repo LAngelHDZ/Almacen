@@ -9,4 +9,8 @@ class FacturasController extends Controller
     public function index(){
         return view('almacen.finanzas.facturas');
     }
+
+    public function stock(){
+        return view('almacen.finanzas.stock');
+    }
 }
