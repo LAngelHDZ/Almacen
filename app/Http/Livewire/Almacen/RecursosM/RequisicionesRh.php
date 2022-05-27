@@ -229,19 +229,22 @@ class RequisicionesRh extends Component
 
 
         if($this->btnenvio && $this->access<=1){
-            status_solicitud::create([
-                'id_solicitud'=>$id,
-                'status'=>'Cerrada',
-                'descripcion'=>'Solicitud cerrada ',
-                'date'=>date('Y-m-d'),
-                'time'=>date('H:i:s'),
-            ]);
+            if(status_solicitud::where('id_solicitud',$id)->where('status','Cerrada')->count() ==0){
 
-            DB::table('solicituds')->where('id',$id)->update(['state'=>false]);
-            event(new RealtimeEventSolicitud);
-            $this->btnenvio=false;
-            $this->access+=1;
-            // $this->closemodal();
+                status_solicitud::create([
+                    'id_solicitud'=>$id,
+                    'status'=>'Cerrada',
+                    'descripcion'=>'Solicitud cerrada ',
+                    'date'=>date('Y-m-d'),
+                    'time'=>date('H:i:s'),
+                ]);
+                
+                DB::table('solicituds')->where('id',$id)->update(['state'=>false]);
+                event(new RealtimeEventSolicitud);
+                $this->btnenvio=false;
+                $this->access+=1;
+                // $this->closemodal();
+            }
         }else{
             // $this->access-=1;
         }

@@ -22,7 +22,8 @@ class AdministradorRequisiciones extends Component
     public $status, $filter_status='Revisada';
     public $seguimiento=[];
     public $messageP=false;
-    public $btnenvio=true,$access=1;
+    public $messagetxt;
+    public $btnenvio=true;
 
     protected $listeners = ['echo:solicitud,RealtimeEventSolicitud' => 'updateview'];
 
@@ -166,22 +167,34 @@ class AdministradorRequisiciones extends Component
     public function aceptar($state){
         $descrip='';
         $status='';
-        $aprobado=true;
-        $count=null;
-        if($this->btnenvio && $this->access<=1 ){
+        $aprobado=null;
+        $this->reset(['messagetxt']);
+        if($this->btnenvio){
 
+        if($state==1){
             foreach($this->products as $data){
-                if($data['aprobado']==0){
+                if($data['aprobado']!=0){
+                $aprobado=false;
+                break;
+            }else{
+                 $aprobado=true;
+                
+            }
+        }
+        $this->messagetxt='Para rechar una solicitud no debe de estar aprobado ningun producto';
+        
+        $status='Rechazada';
+        $descrip='Solicitud rechazada favor de comunicarse con RRMM';
+    }else{
+        foreach($this->products as $data){
+            if($data['aprobado']==0){
                 $aprobado=false;
             }else{
                 $aprobado=true;
                 break;
             }
         }
-            if($state==1){
-                $status='Rechazada';
-                $descrip='Solicitud rechazada favor de comunicarse con RRMM';
-        }else{
+        $this->messagetxt='Debe de aprobar minimo un producto';
             $status='Aprobada';
             $descrip='Solicitud aprobada en proceso de realizar compra';
         }
@@ -195,12 +208,12 @@ class AdministradorRequisiciones extends Component
                 'date'=>date('Y-m-d'),
                 'time'=>date('H:i:s'),
             ]);
+            $aprobado=false;
             event(new RealtimeEventSolicitud);
             $this->closemodal();
         }else{
             $this->messageP=true;
         }
-        $this->access+=1;
     }
     }
 
@@ -253,6 +266,7 @@ public function resetdatos(){
         'products',
         'id_solicitud',
         'openbtn',
+        'btnenvio',
         'messageP',
     ]);
 }

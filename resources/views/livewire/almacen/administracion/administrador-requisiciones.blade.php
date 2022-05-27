@@ -16,7 +16,7 @@
         <div class="modal-body bg-gray-50">
             <div class="h-50">
                 @if ($messageP)
-        <p class="text-red text-sm ">Debe de aprobar minimo un producto</p>
+        <p class="text-red text-sm ">{{ $messagetxt }}</p>
         @endif
                 <table class=" table table-hover table-striped table-light table-sm border shadow-sm rounded-2">
                     <div class="p-1 bg-primary bg-gradient ">
