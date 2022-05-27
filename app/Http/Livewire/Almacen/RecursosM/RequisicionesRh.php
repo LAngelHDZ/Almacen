@@ -17,6 +17,7 @@ class RequisicionesRh extends Component
     use WithPagination;
     public $products=[];
     public $openbtn=true;
+    public $btnenvio=true,$access=1;
     public $solicitudes=[];
     public $id_solicitud,$aux;
     public $status, $filter_status='Enviada';
@@ -88,22 +89,28 @@ class RequisicionesRh extends Component
     }
 
     public function solicitud_close($status){
-        $close='';
-        if($status =='Rechazada' || $status =='Almacen'){
-            $close=true;
-        }else{
-            $close=false;
-        }
-        return $close;
+
+
+            $close='';
+            if($status =='Rechazada' || $status =='Almacen'){
+                $close=true;
+            }else{
+                $close=false;
+            }
+            return $close;
+            $this->btnenvior=false;
+
     }
     public function solicitud_aprob($status){
-        $close='';
-        if($status =='Aprobada'){
-            $close=true;
-        }else{
-            $close=false;
-        }
-        return $close;
+
+            $close='';
+            if($status =='Aprobada'){
+                $close=true;
+            }else{
+                $close=false;
+            }
+            return $close;
+
     }
 
     public function status_seguimiento($array,$object ){
@@ -177,47 +184,71 @@ class RequisicionesRh extends Component
     }
 
     public function aceptar(){
-        status_solicitud::create([
-            'id_solicitud'=>$this->id_solicitud,
-            'status'=>'Revisada',
-            'descripcion'=>'Solicitud revisada y en proceso de autorización',
-            'date'=>date('Y-m-d'),
-            'time'=>date('H:i:s'),
-        ]);
-        event(new RealtimeEventSolicitud);
 
-        $this->closemodal();
-        $this->resetdatos();
+        if($this->btnenvio && $this->access<=1){
+
+            status_solicitud::create([
+                'id_solicitud'=>$this->id_solicitud,
+                'status'=>'Revisada',
+                'descripcion'=>'Solicitud revisada y en proceso de autorización',
+                'date'=>date('Y-m-d'),
+                'time'=>date('H:i:s'),
+            ]);
+            event(new RealtimeEventSolicitud);
+            $this->btnenvio=false;
+            $this->access+=1;
+            $this->closemodal();
+        }
+
+
     }
     public function aprob_req($id){
-        status_solicitud::create([
-            'id_solicitud'=>$id,
-            'status'=>'Transito',
-            'descripcion'=>'Compra realizada al proveedor, tiempo de espera 30 dias',
-            'date'=>date('Y-m-d'),
-            'time'=>date('H:i:s'),
-        ]);
 
-        // DB::table('solicituds')->where('id',$id)->update(['state'=>false]);
-        event(new RealtimeEventSolicitud);
+        if($this->btnenvio && $this->access<=1){
+           if(status_solicitud::where('id_solicitud',$id)->where('status','Transito')->count() ==0){
 
-        // $this->closemodal();
-        $this->resetdatos();
+               status_solicitud::create([
+                   'id_solicitud'=>$id,
+                   'status'=>'Transito',
+                   'descripcion'=>'Compra realizada al proveedor, tiempo de espera 30 dias',
+                   'date'=>date('Y-m-d'),
+                   'time'=>date('H:i:s'),
+                ]);
+
+                // DB::table('solicituds')->where('id',$id)->update(['state'=>false]);
+                event(new RealtimeEventSolicitud);
+            }
+
+            // $this->closemodal();
+            $this->btnenvio=false;
+            $this->access+=1;
+        }
+            $this->resetdatos();
     }
     public function close_req($id){
-        status_solicitud::create([
-            'id_solicitud'=>$id,
-            'status'=>'Cerrada',
-            'descripcion'=>'Solicitud cerrada ',
-            'date'=>date('Y-m-d'),
-            'time'=>date('H:i:s'),
-        ]);
 
-        DB::table('solicituds')->where('id',$id)->update(['state'=>false]);
-        event(new RealtimeEventSolicitud);
 
-        // $this->closemodal();
-        $this->resetdatos();
+        if($this->btnenvio && $this->access<=1){
+            status_solicitud::create([
+                'id_solicitud'=>$id,
+                'status'=>'Cerrada',
+                'descripcion'=>'Solicitud cerrada ',
+                'date'=>date('Y-m-d'),
+                'time'=>date('H:i:s'),
+            ]);
+
+            DB::table('solicituds')->where('id',$id)->update(['state'=>false]);
+            event(new RealtimeEventSolicitud);
+            $this->btnenvio=false;
+            $this->access+=1;
+            // $this->closemodal();
+        }else{
+            // $this->access-=1;
+        }
+        if($this->access>1 && $this->btnenvio){
+            $this->reset(['access']);
+        }
+            $this->resetdatos();
     }
 
     public function inforeq($id){
@@ -264,6 +295,8 @@ public function resetdatos(){
         'products',
         'id_solicitud',
         'openbtn',
+        'btnenvio',
+        'access',
         'aprobado',
     ]);
 }

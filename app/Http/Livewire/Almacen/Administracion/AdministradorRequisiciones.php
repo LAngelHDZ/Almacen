@@ -22,6 +22,7 @@ class AdministradorRequisiciones extends Component
     public $status, $filter_status='Revisada';
     public $seguimiento=[];
     public $messageP=false;
+    public $btnenvio=true,$access=1;
 
     protected $listeners = ['echo:solicitud,RealtimeEventSolicitud' => 'updateview'];
 
@@ -167,8 +168,10 @@ class AdministradorRequisiciones extends Component
         $status='';
         $aprobado=true;
         $count=null;
-        foreach($this->products as $data){
-            if($data['aprobado']==0){
+        if($this->btnenvio && $this->access<=1 ){
+
+            foreach($this->products as $data){
+                if($data['aprobado']==0){
                 $aprobado=false;
             }else{
                 $aprobado=true;
@@ -194,13 +197,11 @@ class AdministradorRequisiciones extends Component
             ]);
             event(new RealtimeEventSolicitud);
             $this->closemodal();
-            $this->resetdatos();
         }else{
             $this->messageP=true;
         }
-
-
-
+        $this->access+=1;
+    }
     }
 
     public function inforeq($id){

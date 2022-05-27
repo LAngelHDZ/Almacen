@@ -18,6 +18,7 @@ class PreSolicitud extends Component
     public $addprod=true;
     public $messageP=false;
     public $usuario,$intfolio;
+    public $btnenvio=true;
     public $arrayProduct = [],$producto,$cantidad,$cat,$activeBtn=false,$idempleado,$descripcion;
 
     public function mount(){
@@ -74,33 +75,37 @@ public function folio(){
 }
 
 public function create(){
-    solicitud::create([
-        'folio'=>$this->folio(),
-        'id_empleado'=>$this->idempleado,
-        'descripcion'=>$this->descripcion,
-        'active'=>true,
-        'state'=>true,
-    ]);
+    if($this->btnenvio){
 
-    $idsolicitud=solicitud::select('id')->where('id_empleado',$this->idempleado)->latest('id')->first();
-    status_solicitud::create([
-        'id_solicitud'=>$idsolicitud->id,
-        'status' => 'Enviada',
-        'descripcion'=>'Solicitud enviada en espera de revisión y aprobación',
-        'date'=> date('Y-m-d'),
-        'time'=> date('H:i:s'),
-    ]);
-
-    foreach($this->arrayProduct as $data){
-        solicitud_producto::create([
-            'idsolicitud'=>$idsolicitud->id,
-            'idproducto'=>$data['idPro'],
-            'cantidad'=>$data['cantidad'],
-            'aprobado'=>0,
+        solicitud::create([
+            'folio'=>$this->folio(),
+            'id_empleado'=>$this->idempleado,
+            'descripcion'=>$this->descripcion,
+            'active'=>true,
+            'state'=>true,
         ]);
+
+        $idsolicitud=solicitud::select('id')->where('id_empleado',$this->idempleado)->latest('id')->first();
+        status_solicitud::create([
+            'id_solicitud'=>$idsolicitud->id,
+            'status' => 'Enviada',
+            'descripcion'=>'Solicitud enviada en espera de revisión y aprobación',
+            'date'=> date('Y-m-d'),
+            'time'=> date('H:i:s'),
+        ]);
+
+        foreach($this->arrayProduct as $data){
+            solicitud_producto::create([
+                'idsolicitud'=>$idsolicitud->id,
+                'idproducto'=>$data['idPro'],
+                'cantidad'=>$data['cantidad'],
+                'aprobado'=>0,
+            ]);
+        }
+        event(new RealtimeEventSolicitud);
+        $this->emit('alert');
+        $this->btnenvio=false;
     }
-    event(new RealtimeEventSolicitud);
-    $this->emit('alert');
 }
 
      public function showProducts(){
