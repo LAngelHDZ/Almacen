@@ -50,7 +50,7 @@
                 </div>
               </div>
               <div class=" mt-4">
-                <button wire:click.prevent='create_factura' class="  px-2 py-2 mt-2 rounded-sm btn-success">Guardar factura</button>
+                <button  wire:click.prevent='create_factura' class="  px-2 py-2 mt-2 rounded-sm btn-success">Guardar factura</button>
               </div>
 
             </div>
@@ -115,14 +115,16 @@
               <th class="pt-3 text-center font-weight-normal">{{ $data['producto'] }}</th>
               <th class="pt-3 text-center font-weight-normal">{{ $data['aprobado'] }}</th>
               <th class="pt-2 text-center font-weight-normal">
-                  @if ($data['show'])
-                  <input wire:model="products.{{ $index }}.alta" class="w-10 rounded-lg hover:border-blue-700" type="text">
-                  <button wire:click.prevent="stock({{ $index }})" class=" inline-block btn-success ml-2 px-3 py-2 rounded-sm"><i class="fas fa-check"></i></button>
-                  @else
-                  <i class="fas fa-check text-green-700"></i>
-                  @endif
-
-
+                @foreach ($Validateproducts as $indexb=> $dat)
+                @if ($index==$indexb)
+                @if ($dat['show'] )
+                <input wire:model="products.{{ $index }}.alta" @if ($factura==null) disabled @endif class="w-10 rounded-lg hover:border-blue-700" type="text">
+                <button wire:click.prevent="stock({{ $index }})" @if ($factura==null) disabled @endif class=" inline-block btn-success ml-2 px-3 py-2 rounded-sm"><i class="fas fa-check"></i></button>
+                @else
+                <i class="fas fa-check text-green-500"></i>
+                @endif
+                @endif
+                  @endforeach
                 </th>
     </tr>
     @endforeach
@@ -132,10 +134,10 @@
         {{-- <-- Fin cuerpo modal --> --}}
 
         <div class="modal-footer">
-          <button  wire:click='closemodal'  class="btn btn-secondary" >Cerrar</button>
+          <button   wire:click='closemodal'  class="btn btn-secondary" >Cerrar</button>
 
-          {{-- <button wire:click='aceptar({{1}})' @if ($status) class="hidden"  @else class="btn btn-danger" @endif>Rechazar</button>
-          <button wire:click='aceptar({{2}})' @if ($status) class="hidden"  @else class="btn btn-success" @endif>Aprobar</button> --}}
+          {{-- <button wire:click='aceptar({{1}})' @if ($status) class="hidden"  @else class="btn btn-danger" @endif>Rechazar</button> --}}
+          <button wire:click='aceptar()' @if ($status) class="hidden"  @else class="btn btn-success" @endif>Aprobar</button>
 
 
         </div>
@@ -218,24 +220,24 @@
     show:function(open){
       if(open){
         this.open2=false;
-        this.open=true;
+        // this.open=true;
       }else{
          this.open2=false;
          this.open=true;
       }
     },
-    setOpen(){return this.open===true},
+    setOpen(){return this.open==true},
 
     show2:function(open2){
       if(!open2){
         this.open2=true;
         this.open=false;
       }else{
-        this.open2=true;
+        // this.open2=true;
         this.open=false;
       }
     },
-    setOpen2(){return this.open2===true},
+    setOpen2(){return this.open2==true},
 
     reset:function(){
       this.open2=false;

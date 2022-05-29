@@ -20,14 +20,16 @@ class RequisicionesAlmacen extends Component
 {
     use WithPagination;
     public $products=[];
+    public $Validateproducts=[];
     public $openbtn=true;
+    public $active=true;
+    public $queryproductos=false;
     public $solicitudes=[];
     public $id_solicitud,$aux;
     /*Variables para guardar nueva factura */
     public $nfactura,$idproveedor,$fecha,$descripcion;
     public $factura,$alert;
-
-    // public $status, $filter_status='Revisada';
+     public $status, $filter_status='Revisada';
     public $seguimiento=[];
   protected $listeners = ['echo:solicitud,RealtimeEventSolicitud' => 'updateview'];
 
@@ -95,10 +97,10 @@ public function stock($index){
           }
 
 
-
+          
         }
     }
-
+    $this->active=true;
 }
 
 public function create_factura(){
@@ -111,15 +113,17 @@ public function create_factura(){
             'fecha_elaboracion'=>$this->fecha,
         ]);
         $this->factura =factura::select('no_factura')->latest('id')->first()->no_factura;
-        $messages='';
-        session()->flash('message',$messages);
+        $message='Factura capturada exitosamente';
+        session()->flash('message',$message);
         // session()->flush();
     }
+    $this->active=false;
 }
 
 public function search_f(){
+
  $count=   factura::where('no_factura',$this->factura)->count();
- $messages='Factura capturada exitosamente';
+ 
 
     if($count>0){
         $messages='Factura existente';
@@ -130,6 +134,8 @@ public function search_f(){
     }
     $this->emit('alert',$messages);
     session()->flash('messages',$messages);
+
+    $this->active=false;
 }
 
 public function flashdelete(){
@@ -306,17 +312,17 @@ public function product_aprobado(){
     }
 }
 
-public function aceptar($state){
-    $descrip='';
-    $status='';
-    if($state==1){
-        $status='Rechazada';
-        $descrip='Solicitud rechazada favor de comunicarse con RRMM';
-    }else{
-        $status='Aprobada';
-        $descrip='Solicitud aprobada en proceso de realizar compra';
-    }
-    $this->product_aprobado();
+public function aceptar(){
+    $descrip='Los materiales han llegado al almacen, en espera de darlos de alta al sistema';
+    $status='Almacen';
+    // if($state==1){
+    //     $status='Rechazada';
+    //     $descrip='Solicitud rechazada favor de comunicarse con RRMM';
+    // }else{
+    //     $status='Aprobada';
+    //     $descrip='Solicitud aprobada en proceso de realizar compra';
+    // }
+    // $this->product_aprobado();
     status_solicitud::create([
         'id_solicitud'=>$this->id_solicitud,
         'status'=>$status,
@@ -332,42 +338,67 @@ public function aceptar($state){
 }
 
 public function inforeq($id){
-
     $this->id_solicitud=$id;
-    $status='';
-   $products = solicitud::
-   join('solicitud_productos','solicitud_productos.idsolicitud','=','solicituds.id')
-->join('productos','solicitud_productos.idproducto','=','productos.id')
-->select('solicitud_productos.id','solicitud_productos.idsolicitud as id_sol','solicitud_productos.cantidad','solicitud_productos.aprobado','productos.producto','productos.id as idpro','productos.clave_producto as clave')
-    ->where('solicitud_productos.idsolicitud',$id)
-    ->get();
+  
+  $this->queryproductos=true;
+       
 
-    if($this->openbtn){
-        foreach($products as $data){
-            $this->products[]=[
-                'clave'=>$data->clave,
-                'id'=>$data->id,
-                'idsol'=>$data->id_sol,
-                'idprod'=>$data->idpro,
-                'producto'=>$data->producto,
-                'aprobado'=>$data->aprobado,
-                'alta'=>0,
-                'show'=>true,
-                'hide'=>false,
-            ];
+        //  $this->openbtn=false;
+     $status=status_solicitud::select('status')->where('id_solicitud',$id)->latest('id')->first()->status;
+     if($status!='Transito'){
+             $this->status=true;
+         }else{
+         $this->status=false;
 
-
-            }
-        }
-        $this->openbtn=false;
-    $status=status_solicitud::select('status')->where('id_solicitud',$id)->latest('id')->first()->status;
-    if($status!='Revisada'){
-            $this->status=true;
-        }else{
-        $this->status=false;
-
-    }
+     }
     $this->showmodal();
+}
+
+public function productos(){
+    $this->reset(['products',
+    'Validateproducts']);
+    $products = solicitud::
+    join('solicitud_productos','solicitud_productos.idsolicitud','=','solicituds.id')
+ ->join('productos','solicitud_productos.idproducto','=','productos.id')
+ ->select('solicitud_productos.id','solicitud_productos.idsolicitud as id_sol','solicitud_productos.cantidad','solicitud_productos.aprobado','productos.producto','productos.id as idpro','productos.clave_producto as clave')
+     ->where('solicitud_productos.idsolicitud',$this->id_solicitud)
+     ->get();
+ 
+     if($this->openbtn){
+         foreach($products as $data){
+             $this->products[]=[
+                 'clave'=>$data->clave,
+                 'id'=>$data->id,
+                 'idsol'=>$data->id_sol,
+                 'idprod'=>$data->idpro,
+                 'producto'=>$data->producto,
+                 'aprobado'=>$data->aprobado,
+                 'alta'=>0,
+ 
+             ];
+             $this->Validateproducts[]=['show'=>$this->productoexistencia($data->id_sol,$data->idpro,$this->factura)];
+ 
+             }
+         }
+}
+
+public function productoexistencia($id_solicitud,$id_product,$id_factura){
+$count=productos_factura::where('id_factura',$id_factura)
+->where('id_producto',$id_product)->where('id_solicitud',$id_solicitud)->count();
+$count2=productos_factura::where('id_producto',$id_product)->where('id_solicitud',$id_solicitud)->count();
+
+$value=null;
+if($count==0  ){
+    $value=true;
+}
+ if($count2==0){
+    $value=true;
+}else{
+    $value=false;
+
+}
+return $value;
+
 }
 
 public function showmodal(){
@@ -383,6 +414,7 @@ $this->flashdelete();
 public function resetdatos(){
 $this->reset([
     'products',
+    'Validateproducts',
     'id_solicitud',
     'openbtn',
     'nfactura',
@@ -390,6 +422,8 @@ $this->reset([
     'descripcion',
     'fecha',
     'factura',
+    'active',
+    'queryproductos',
 ]);
 }
 
@@ -404,6 +438,11 @@ public function proveedores(){
 
     public function render()
     {
+
+        if($this->queryproductos && $this->active){
+            
+            $this->productos();
+        }
         return view('livewire.almacen.almacenes.requisiciones-almacen',['solicitud'=> $this->QuerySolicitud()
     ,'listProve'=> $this->proveedores()]);
     }
