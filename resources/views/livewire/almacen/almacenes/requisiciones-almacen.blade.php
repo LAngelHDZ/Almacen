@@ -18,7 +18,7 @@
               <button wire:click='flashdelete' @click="show2(open2)" >Nueva factura</button>
               <button wire:click='flashdelete' @click="show(open)" class="ml-3">Buscar</button>
             </div>
-            
+
             @if(session()->has('message'))
                         <div>
                           <div class="p-2 mb-2 bg-green-700 text-white text-bold rounded-sm"><p> {{session('message') }}</p></div>
@@ -52,7 +52,7 @@
               <div class=" mt-4">
                 <button wire:click.prevent='create_factura' class="  px-2 py-2 mt-2 rounded-sm btn-success">Guardar factura</button>
               </div>
-              
+
             </div>
             <div class="block mt-2">
               <label for="">Descripción</label>
@@ -102,7 +102,7 @@
                                 <th scope="col" class="text-center text-uppercase">Material</th>
                                 <th scope="col" class="text-center text-uppercase">Cantidad</th>
                                 <th scope="col" class="text-center text-uppercase"></th>
-                                
+
 
               </tr>
             </thead>
@@ -114,10 +114,15 @@
               <th class="pt-3 text-center font-weight-normal text-decoration-underline">{{ $data['clave'] }}</th>
               <th class="pt-3 text-center font-weight-normal">{{ $data['producto'] }}</th>
               <th class="pt-3 text-center font-weight-normal">{{ $data['aprobado'] }}</th>
-              <th class="pt-3 text-center font-weight-normal">
+              <th class="pt-2 text-center font-weight-normal">
+                  @if ($data['show'])
                   <input wire:model="products.{{ $index }}.alta" class="w-10 rounded-lg hover:border-blue-700" type="text">
+                  <button wire:click.prevent="stock({{ $index }})" class=" inline-block btn-success ml-2 px-3 py-2 rounded-sm"><i class="fas fa-check"></i></button>
+                  @else
+                  <i class="fas fa-check text-green-700"></i>
+                  @endif
 
-                  <button wire:click.prevent="stock({{ $index }})" class=" inline-block ml-2"><i class="fas fa-check text-green-500"></i></button>
+
                 </th>
     </tr>
     @endforeach
@@ -140,7 +145,7 @@
   </div>
   {{-- <----- Fin fragmento de código modal -----> --}}
     </div>
-    
+
     <div class="h-50">
 
             <table class="table bg-white border shadow-sm rounded-2">

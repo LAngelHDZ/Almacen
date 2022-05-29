@@ -20,6 +20,7 @@ class RequisicionesRh extends Component
     public $btnenvio=true,$access=1;
     public $solicitudes=[];
     public $id_solicitud,$aux;
+    public $id_aux;
     public $status, $filter_status='Enviada';
     public $seguimiento=[];
     public $close=false;
@@ -184,25 +185,27 @@ class RequisicionesRh extends Component
     }
 
     public function aceptar(){
-
+       $id=$this->id_solicitud;
         if($this->btnenvio && $this->access<=1){
+            if(status_solicitud::where('id_solicitud',$id)->where('status','Revisada')->count() ==0 && $id!=null){
 
-            status_solicitud::create([
-                'id_solicitud'=>$this->id_solicitud,
-                'status'=>'Revisada',
-                'descripcion'=>'Solicitud revisada y en proceso de autorización',
-                'date'=>date('Y-m-d'),
-                'time'=>date('H:i:s'),
-            ]);
-            event(new RealtimeEventSolicitud);
-            $this->btnenvio=false;
-            $this->access+=1;
-            $this->closemodal();
+                status_solicitud::create([
+                    'id_solicitud'=>$this->id_solicitud,
+                    'status'=>'Revisada',
+                    'descripcion'=>'Solicitud revisada y en proceso de autorización',
+                    'date'=>date('Y-m-d'),
+                    'time'=>date('H:i:s'),
+                ]);
+                event(new RealtimeEventSolicitud);
+                $this->btnenvio=false;
+                $this->access+=1;
+                $this->closemodal();
+            }
         }
 
 
-    }
-    public function aprob_req($id){
+        }
+        public function aprob_req($id){
 
         if($this->btnenvio && $this->access<=1){
            if(status_solicitud::where('id_solicitud',$id)->where('status','Transito')->count() ==0){
@@ -238,7 +241,7 @@ class RequisicionesRh extends Component
                     'date'=>date('Y-m-d'),
                     'time'=>date('H:i:s'),
                 ]);
-                
+
                 DB::table('solicituds')->where('id',$id)->update(['state'=>false]);
                 event(new RealtimeEventSolicitud);
                 $this->btnenvio=false;

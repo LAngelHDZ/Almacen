@@ -31,7 +31,7 @@ class RequisicionesAlmacen extends Component
     public $seguimiento=[];
   protected $listeners = ['echo:solicitud,RealtimeEventSolicitud' => 'updateview'];
 
-    
+
  public function QuerySolicitud(){
     $filter='Transito';
         $status=true;
@@ -69,6 +69,7 @@ public function facturado($array){
 }
 
 public function stock($index){
+
     foreach($this->products as $in => $data){
         if($index==$in){
           $count=  stock::where('id_producto',$data['idprod'])->count();
@@ -83,7 +84,7 @@ public function stock($index){
             stock::create([
                 'id_producto'=>$data['idprod'],
                 'stock'=>$data['alta'],
-                
+
             ]);
           }else{
               $stock = stock::select('stock')->where('id_producto',$data['idprod'])->get();
@@ -93,26 +94,31 @@ public function stock($index){
               DB::table('stocks')->where('id_producto',$data['idprod'])->update(['stock'=>$stock]);
           }
 
+
+
         }
     }
 
 }
 
 public function create_factura(){
-    factura::create([
-        'NoFactura'=>$this->nfactura,
-        'idproveedor'=>$this->idproveedor,
-        'descripcion'=>$this->descripcion,
-        'fecha_elaboracion'=>$this->fecha,
-    ]);
-    $this->factura =factura::select('NoFactura')->latest('id')->first()->NoFactura;
-    $messages='';
-    session()->flash('message',$messages);
-    // session()->flush();
+    if(factura::where('no_factura',$this->nfactura)->count() ==0){
+
+        factura::create([
+            'no_factura'=>$this->nfactura,
+            'idproveedor'=>$this->idproveedor,
+            'descripcion'=>$this->descripcion,
+            'fecha_elaboracion'=>$this->fecha,
+        ]);
+        $this->factura =factura::select('no_factura')->latest('id')->first()->no_factura;
+        $messages='';
+        session()->flash('message',$messages);
+        // session()->flush();
+    }
 }
 
 public function search_f(){
- $count=   factura::where('NoFactura',$this->factura)->count();
+ $count=   factura::where('no_factura',$this->factura)->count();
  $messages='Factura capturada exitosamente';
 
     if($count>0){
@@ -245,14 +251,14 @@ public function status_seguimiento($array,$object ){
 
 }
 
-// public function updateview(){
-//     if(solicitud::count()!=$this->aux){
-//         $this->reset([
-//             'solicitudes',
-//         ]);
-//         $this->mount();
-//     }
-// }
+ public function updateview(){
+     if(solicitud::count()!=$this->aux){
+         $this->reset([
+             'solicitudes',
+         ]);
+         $this->QuerySolicitud();
+     }
+ }
 
 public function formatday($day){
     $dia='';
@@ -345,7 +351,11 @@ public function inforeq($id){
                 'idprod'=>$data->idpro,
                 'producto'=>$data->producto,
                 'aprobado'=>$data->aprobado,
-                'alta'=>0];
+                'alta'=>0,
+                'show'=>true,
+                'hide'=>false,
+            ];
+
 
             }
         }

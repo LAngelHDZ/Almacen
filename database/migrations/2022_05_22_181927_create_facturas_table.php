@@ -15,9 +15,9 @@ class CreateFacturasTable extends Migration
     {
         Schema::create('facturas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('NoFactura');
+            $table->unsignedBigInteger('no_factura')->unique();
             $table->unsignedBigInteger('idproveedor')->references('id')->on('proveedors');
-            $table->text('descripcion');
+            $table->text('descripcion',100);
             $table->date('fecha_elaboracion');
             $table->timestamps();
         });

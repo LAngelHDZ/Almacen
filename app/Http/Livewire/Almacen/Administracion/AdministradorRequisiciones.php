@@ -178,11 +178,11 @@ class AdministradorRequisiciones extends Component
                 break;
             }else{
                  $aprobado=true;
-                
+
             }
         }
         $this->messagetxt='Para rechar una solicitud no debe de estar aprobado ningun producto';
-        
+
         $status='Rechazada';
         $descrip='Solicitud rechazada favor de comunicarse con RRMM';
     }else{
@@ -249,6 +249,7 @@ class AdministradorRequisiciones extends Component
             $this->status=false;
 
         }
+
         $this->showmodal();
     }
 

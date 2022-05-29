@@ -9,7 +9,7 @@ class factura extends Model
 {
 
     protected $fillable=[
-        'NoFactura',
+        'no_factura',
         'idproveedor',
         'descripcion',
         'fecha_elaboracion',
