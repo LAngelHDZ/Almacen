@@ -77,7 +77,7 @@ public function stock($index){
     foreach($this->products as $in => $data){
         if($index==$in){
           $count=  stock::where('id_producto',$data['idprod'])->count();
-          $count2=  materiales::where('id_producto',$data['idprod'])->where('id_empleado',$id_empleado)->count();
+          $count2=  materiales::where('id_producto',$data['idprod'])->where('id_empleado',$id_empleado[0]->id_empleado)->count();
          $array=array(
              'id_factura'=>$this->factura,
              'id_producto'=>$data['idprod'],
@@ -91,17 +91,11 @@ public function stock($index){
                 'stock'=>$data['alta'],
 
             ]);
-          
+
           }else{
               $stock = stock::select('stock')->where('id_producto',$data['idprod'])->get();
               $stock=$stock[0]->stock + $data['alta'];
               DB::table('stocks')->where('id_producto',$data['idprod'])->update(['stock'=>$stock]);
-
-              $stockm = materiales::select('stock')->where('id_producto',$data['idprod'])
-              ->where('id_empleado',$id_empleado)->get();
-              $stockm=$stockm[0]->stockm + $data['alta'];
-              DB::table('materiales')->where('id_producto',$data['idprod'])
-              ->where('id_empleado',$id_empleado)->update(['stock'=>$stock]);
           }
           if($count2==0){
             materiales::create([
@@ -112,13 +106,13 @@ public function stock($index){
             ]);
           }else{
             $stockm = materiales::select('stock')->where('id_producto',$data['idprod'])
-            ->where('id_empleado',$id_empleado)->get();
-            $stockm=$stockm[0]->stockm + $data['alta'];
+            ->where('id_empleado',$id_empleado[0]->id_empleado)->get();
+            $stockf=$stockm[0]->stock + $data['alta'];
             DB::table('materiales')->where('id_producto',$data['idprod'])
-            ->where('id_empleado',$id_empleado)->update(['stock'=>$stock]);
+            ->where('id_empleado',$id_empleado[0]->id_empleado)->update(['stock'=>$stockf]);
           }
 
-          
+          break;
         }
     }
     $this->active=true;
@@ -144,7 +138,7 @@ public function create_factura(){
 public function search_f(){
 
  $count=   factura::where('no_factura',$this->factura)->count();
- 
+
 
     if($count>0){
         $messages='Factura existente';
@@ -360,9 +354,9 @@ public function aceptar(){
 
 public function inforeq($id){
     $this->id_solicitud=$id;
-  
+
   $this->queryproductos=true;
-       
+
 
         //  $this->openbtn=false;
      $status=status_solicitud::select('status')->where('id_solicitud',$id)->latest('id')->first()->status;
@@ -384,7 +378,7 @@ public function productos(){
  ->select('solicitud_productos.id','solicitud_productos.idsolicitud as id_sol','solicitud_productos.cantidad','solicitud_productos.aprobado','productos.producto','productos.id as idpro','productos.clave_producto as clave')
      ->where('solicitud_productos.idsolicitud',$this->id_solicitud)
      ->get();
- 
+
      if($this->openbtn){
          foreach($products as $data){
              $this->products[]=[
@@ -395,10 +389,10 @@ public function productos(){
                  'producto'=>$data->producto,
                  'aprobado'=>$data->aprobado,
                  'alta'=>0,
- 
+
              ];
              $this->Validateproducts[]=['show'=>$this->productoexistencia($data->id_sol,$data->idpro,$this->factura)];
- 
+
              }
          }
 }
@@ -418,8 +412,8 @@ if($count==0  ){
     $value=false;
 
 }
+$this->active=false;
 return $value;
-
 }
 
 public function showmodal(){
@@ -461,7 +455,7 @@ public function proveedores(){
     {
 
         if($this->queryproductos && $this->active){
-            
+
             $this->productos();
         }
         return view('livewire.almacen.almacenes.requisiciones-almacen',['solicitud'=> $this->QuerySolicitud()
