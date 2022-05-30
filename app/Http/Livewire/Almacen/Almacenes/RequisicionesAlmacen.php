@@ -3,18 +3,20 @@
 namespace App\Http\Livewire\Almacen\Almacenes;
 
 use Carbon\Carbon;
+use App\Models\stock;
 use App\Models\factura;
 use Livewire\Component;
+use App\Models\empleado;
 use App\Models\Productos;
 use App\Models\Proveedor;
 use App\Models\solicitud;
 use Livewire\WithPagination;
 use App\Models\status_solicitud;
+use App\Models\productos_factura;
 use App\Models\solicitud_producto;
 use Illuminate\Support\Facades\DB;
 use App\Events\RealtimeEventSolicitud;
-use App\Models\productos_factura;
-use App\Models\stock;
+use App\Models\materiales;
 
 class RequisicionesAlmacen extends Component
 {
@@ -71,10 +73,11 @@ public function facturado($array){
 }
 
 public function stock($index){
-
+   $id_empleado = solicitud::select('id_empleado')->where('id',$this->id_solicitud)->get();
     foreach($this->products as $in => $data){
         if($index==$in){
           $count=  stock::where('id_producto',$data['idprod'])->count();
+          $count2=  materiales::where('id_producto',$data['idprod'])->where('id_empleado',$id_empleado)->count();
          $array=array(
              'id_factura'=>$this->factura,
              'id_producto'=>$data['idprod'],
@@ -88,14 +91,32 @@ public function stock($index){
                 'stock'=>$data['alta'],
 
             ]);
+          
           }else{
               $stock = stock::select('stock')->where('id_producto',$data['idprod'])->get();
-
               $stock=$stock[0]->stock + $data['alta'];
-
               DB::table('stocks')->where('id_producto',$data['idprod'])->update(['stock'=>$stock]);
-          }
 
+              $stockm = materiales::select('stock')->where('id_producto',$data['idprod'])
+              ->where('id_empleado',$id_empleado)->get();
+              $stockm=$stockm[0]->stockm + $data['alta'];
+              DB::table('materiales')->where('id_producto',$data['idprod'])
+              ->where('id_empleado',$id_empleado)->update(['stock'=>$stock]);
+          }
+          if($count2==0){
+            materiales::create([
+                'id_empleado'=>$id_empleado[0]->id_empleado,
+                'id_producto'=>$data['idprod'],
+                'stock'=>$data['alta'],
+
+            ]);
+          }else{
+            $stockm = materiales::select('stock')->where('id_producto',$data['idprod'])
+            ->where('id_empleado',$id_empleado)->get();
+            $stockm=$stockm[0]->stockm + $data['alta'];
+            DB::table('materiales')->where('id_producto',$data['idprod'])
+            ->where('id_empleado',$id_empleado)->update(['stock'=>$stock]);
+          }
 
           
         }

@@ -8,7 +8,7 @@
                         <th scope="col" class="text-center text-uppercase">Clave</th>
                         {{-- <th scope="col" class="text-center text-uppercase"></th> --}}
                         <th scope="col" class="text-center text-uppercase">Material</th>
-                        <th scope="col" class="text-center text-uppercase">Stock</th>
+                        <th scope="col" class="text-center text-uppercase">Disponible</th>
         {{-- <th scope="col" class=" text-uppercase">Status</th> --}}
         {{-- <th scope="col" class="text-center text-uppercase">Acciones</th> --}}
       </tr>

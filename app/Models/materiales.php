@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class materiales extends Model
 {
+
+    protected $fillable = [
+        'id_empleado',
+        'id_producto',
+        'stock',
+    ];
     use HasFactory;
 }
