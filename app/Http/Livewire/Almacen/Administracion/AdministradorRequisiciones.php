@@ -24,7 +24,10 @@ class AdministradorRequisiciones extends Component
     public $seguimiento=[];
     public $messageP=false;
     public $messagetxt;
+    public $descripc;
     public $btnenvio=true;
+    public $concept_rechazo;
+    public $listadorechazos=true;
 
     protected $listeners = ['echo:solicitud,RealtimeEventSolicitud' => 'updateview'];
 
@@ -166,7 +169,6 @@ class AdministradorRequisiciones extends Component
     }
 
     public function aceptar($state){
-        $descrip='';
         $status='';
         $aprobado=null;
         $this->reset(['messagetxt']);
@@ -179,13 +181,12 @@ class AdministradorRequisiciones extends Component
                 break;
             }else{
                  $aprobado=true;
-
+                 $status='Rechazada';
             }
         }
         $this->messagetxt='Para rechar una solicitud no debe de estar aprobado ningun producto';
 
-        $status='Rechazada';
-        $descrip='Solicitud rechazada favor de comunicarse con RRMM';
+
     }else{
         foreach($this->products as $data){
             if($data['aprobado']==0){
@@ -197,7 +198,7 @@ class AdministradorRequisiciones extends Component
         }
         $this->messagetxt='Debe de aprobar minimo un producto';
             $status='Aprobada';
-            $descrip= msmestatus::select('id')->where('typestatus','Aprobada')->get()[0]->id;
+            $this->descripc= msmestatus::select('id')->where('typestatus','Aprobada')->get()[0]->id;
             ;
         }
 
@@ -206,7 +207,7 @@ class AdministradorRequisiciones extends Component
             status_solicitud::create([
                 'id_solicitud'=>$this->id_solicitud,
                 'status'=>$status,
-                'descripcion'=>$descrip,
+                'descripcion'=>$this->descripc,
                 'date'=>date('Y-m-d'),
                 'time'=>date('H:i:s'),
             ]);
@@ -274,6 +275,11 @@ class AdministradorRequisiciones extends Component
     // $this->resetdatos();
 }
 
+public function rechazolist(){
+    $this->listadorechazos=false;
+    $this->concept_rechazo = msmestatus::select('id','descripcion')->where('typestatus','Rechazada')->get();
+}
+
 public function resetdatos(){
     $this->reset([
         'products',
@@ -286,6 +292,9 @@ public function resetdatos(){
 
     public function render()
     {
+        if($this->listadorechazos){
+        $this->rechazolist();
+        }
         return view('livewire.almacen.administracion.administrador-requisiciones',['solicitud'=> $this->QuerySolicitud(), $this->querydate(),$this->seguimiento()]);
     }
 }
