@@ -24,6 +24,14 @@
     window.addEventListener('close-form', event =>{
         $('#showreq').modal('hide');
     })
+
+    window.addEventListener('show-formr', event =>{
+        $('#showrec').modal('show');
+    })
+
+    window.addEventListener('close-formr', event =>{
+        $('#showrec').modal('hide');
+    })
 </script>
 <script src="{{ asset('js/app.js') }}"></script>
 @stop

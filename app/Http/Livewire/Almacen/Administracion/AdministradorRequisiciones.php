@@ -261,6 +261,16 @@ class AdministradorRequisiciones extends Component
     $this->dispatchBrowserEvent('close-form');
     $this->resetdatos();
 }
+    public function showmodalrec(){
+        $this->dispatchBrowserEvent('show-formr');
+        $this->dispatchBrowserEvent('close-form');
+   }
+
+   public function closemodalrec(){
+    $this->dispatchBrowserEvent('close-formr');
+    $this->dispatchBrowserEvent('show-form');
+    // $this->resetdatos();
+}
 
 public function resetdatos(){
     $this->reset([

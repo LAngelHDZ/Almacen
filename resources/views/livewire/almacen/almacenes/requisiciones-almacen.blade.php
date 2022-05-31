@@ -226,7 +226,7 @@
          this.open=true;
       }
     },
-    setOpen(){return this.open==true},
+    setOpen(){return this.open===true},
 
     show2:function(open2){
       if(!open2){
@@ -237,7 +237,7 @@
         this.open=false;
       }
     },
-    setOpen2(){return this.open2==true},
+    setOpen2(){return this.open2===true},
 
     reset:function(){
       this.open2=false;

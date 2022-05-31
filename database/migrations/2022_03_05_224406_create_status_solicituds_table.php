@@ -17,7 +17,8 @@ class CreateStatusSolicitudsTable extends Migration
             $table->id();
             $table->integer('id_solicitud')->references('id')->on('solicituds');
             $table->string('status');
-            $table->text('descripcion');
+            // $table->text('descripcion')->nullable();
+            $table->unsignedBigInteger('descripcion')->references('msmstatuses')->on('id')->unique();
             $table->date('date');
             $table->time('time');
             $table->timestamps();
