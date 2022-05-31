@@ -2,15 +2,16 @@
 
 namespace App\Http\Livewire\Almacen\RecursosM;
 
-use App\Events\RealtimeEventSolicitud;
+use Carbon\Carbon;
+use Livewire\Component;
 use App\Models\Productos;
 use App\Models\solicitud;
-use App\Models\solicitud_producto;
-use App\Models\status_solicitud;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
-use Livewire\Component;
+use App\Models\msmestatus;
 use Livewire\WithPagination;
+use App\Models\status_solicitud;
+use App\Models\solicitud_producto;
+use Illuminate\Support\Facades\DB;
+use App\Events\RealtimeEventSolicitud;
 
 class RequisicionesRh extends Component
 {
@@ -188,11 +189,12 @@ class RequisicionesRh extends Component
        $id=$this->id_solicitud;
         if($this->btnenvio && $this->access<=1){
             if(status_solicitud::where('id_solicitud',$id)->where('status','Revisada')->count() ==0 && $id!=null){
+        $id_descripcion = msmestatus::select('id')->where('typestatus','Revisada')->get();
 
                 status_solicitud::create([
                     'id_solicitud'=>$this->id_solicitud,
                     'status'=>'Revisada',
-                    'descripcion'=>'Solicitud revisada y en proceso de autorización',
+                    'descripcion'=>$id_descripcion[0]->id,
                     'date'=>date('Y-m-d'),
                     'time'=>date('H:i:s'),
                 ]);
@@ -209,11 +211,12 @@ class RequisicionesRh extends Component
 
         if($this->btnenvio && $this->access<=1){
            if(status_solicitud::where('id_solicitud',$id)->where('status','Transito')->count() ==0){
+        $id_descripcion = msmestatus::select('id')->where('typestatus','Transito')->get();
 
                status_solicitud::create([
                    'id_solicitud'=>$id,
                    'status'=>'Transito',
-                   'descripcion'=>'Compra realizada al proveedor, tiempo de espera 30 dias',
+                   'descripcion'=>$id_descripcion[0]->id,
                    'date'=>date('Y-m-d'),
                    'time'=>date('H:i:s'),
                 ]);
@@ -233,11 +236,12 @@ class RequisicionesRh extends Component
 
         if($this->btnenvio && $this->access<=1){
             if(status_solicitud::where('id_solicitud',$id)->where('status','Cerrada')->count() ==0){
+            $id_descripcion = msmestatus::select('id')->where('typestatus','Transito')->get();
 
                 status_solicitud::create([
                     'id_solicitud'=>$id,
                     'status'=>'Cerrada',
-                    'descripcion'=>'Solicitud cerrada ',
+                    'descripcion'=>$id_descripcion[0]->id,
                     'date'=>date('Y-m-d'),
                     'time'=>date('H:i:s'),
                 ]);

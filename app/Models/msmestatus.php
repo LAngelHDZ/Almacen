@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class msmestatus extends Model
 {
+
+    protected $fillable=[
+        'typestatus',
+        'descripcion',
+    ];
     use HasFactory;
 }

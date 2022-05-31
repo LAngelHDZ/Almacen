@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Almacen\Solictud;
 
 use App\Events\RealtimeEventSolicitud;
+use App\Models\msmestatus;
 use App\Models\Productos;
 use App\Models\solicitud;
 use App\Models\solicitud_producto;
@@ -86,10 +87,11 @@ public function create(){
         ]);
 
         $idsolicitud=solicitud::select('id')->where('id_empleado',$this->idempleado)->latest('id')->first();
+        $id_descripcion = msmestatus::select('id')->where('typestatus','Enviado')->get();
         status_solicitud::create([
             'id_solicitud'=>$idsolicitud->id,
             'status' => 'Enviada',
-            'descripcion'=>'Solicitud enviada en espera de revisión y aprobación',
+            'descripcion'=>$id_descripcion[0]->id ,
             'date'=> date('Y-m-d'),
             'time'=> date('H:i:s'),
         ]);

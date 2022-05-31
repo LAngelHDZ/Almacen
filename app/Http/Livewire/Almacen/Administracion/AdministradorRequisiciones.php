@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Almacen\Administracion;
 
 use App\Events\RealtimeEventSolicitud;
+use App\Models\msmestatus;
 use App\Models\Productos;
 use App\Models\solicitud;
 use App\Models\solicitud_producto;
@@ -196,7 +197,8 @@ class AdministradorRequisiciones extends Component
         }
         $this->messagetxt='Debe de aprobar minimo un producto';
             $status='Aprobada';
-            $descrip='Solicitud aprobada en proceso de realizar compra';
+            $descrip= msmestatus::select('id')->where('typestatus','Aprobada')->get()[0]->id;
+            ;
         }
 
         if($aprobado){

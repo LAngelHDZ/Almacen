@@ -11,6 +11,7 @@ use App\Models\status_solicitud;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Events\RealtimeEventSolicitud;
+use App\Models\msmestatus;
 
 class HistorialRequisiciones extends Component
 {
@@ -19,6 +20,7 @@ class HistorialRequisiciones extends Component
     public $solicitud=[],$aux;
     public $seguimiento=[];
     public $close=false;
+    public $descripcionaux;
 
     //Consulto las solicitudes de el empleado usuario que se encuentre activo en la sesion
     public function mount(){
@@ -151,16 +153,29 @@ public function values($id,$atribute){
     $desc =status_solicitud::select($atribute,'status')->where('id_solicitud',$id)->count();
     $auxiliar=null;
     $value=null;
+
     if($desc==2){
         foreach($des as $index=> $data){
             if($data->status=='Revisada' || $data->status=='Cerrada'){
                 $value=$auxiliar;
             }else{
-                $auxiliar=$data->$atribute;
+                if($atribute=='descripcion'){
+                    $value = status_solicitud::select($atribute,'status')->where('id_solicitud',$id)->latest('id')->first()->$atribute;
+                    $auxiliar = msmestatus::select($atribute)->where('id',$value)->get()[0]->$atribute;
+
+
+                }else{
+                    $auxiliar=$data->$atribute;
+
+                }
             }
         }
     }else{
         $value = status_solicitud::select($atribute,'status')->where('id_solicitud',$id)->latest('id')->first()->$atribute;
+        if($atribute=='descripcion'){
+            $value = msmestatus::select($atribute)->where('id',$value)->get()[0]->$atribute;
+            // $this->descripcionaux =$value;
+        }
     }
       if($atribute=='date'){
         $value =  $this->formatdate($value);

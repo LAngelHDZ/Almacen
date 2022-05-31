@@ -10,13 +10,14 @@ use App\Models\empleado;
 use App\Models\Productos;
 use App\Models\Proveedor;
 use App\Models\solicitud;
+use App\Models\materiales;
+use App\Models\msmestatus;
 use Livewire\WithPagination;
 use App\Models\status_solicitud;
 use App\Models\productos_factura;
 use App\Models\solicitud_producto;
 use Illuminate\Support\Facades\DB;
 use App\Events\RealtimeEventSolicitud;
-use App\Models\materiales;
 
 class RequisicionesAlmacen extends Component
 {
@@ -178,7 +179,9 @@ public function descripcion($id){
     $des =status_solicitud::select('descripcion','status')->where('id_solicitud',$id)->get();
     foreach($des as $index => $data){
         if($data->status =='Transito'){
-            return $data->descripcion;
+
+            return   $auxiliar = msmestatus::select('descripcion')->where('id',$data->descripcion)->get()[0]->descripcion;
+
             break;
         }
 }
@@ -328,7 +331,7 @@ public function product_aprobado(){
 }
 
 public function aceptar(){
-    $descrip='Los materiales han llegado al almacen, en espera de darlos de alta al sistema';
+        $id_descripcion = msmestatus::select('id')->where('typestatus','Almacen')->get();
     $status='Almacen';
     // if($state==1){
     //     $status='Rechazada';
@@ -341,7 +344,7 @@ public function aceptar(){
     status_solicitud::create([
         'id_solicitud'=>$this->id_solicitud,
         'status'=>$status,
-        'descripcion'=>$descrip,
+        'descripcion'=>$id_descripcion[0]->id,
         'date'=>date('Y-m-d'),
         'time'=>date('H:i:s'),
     ]);

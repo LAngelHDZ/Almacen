@@ -37,25 +37,24 @@ class msmpredetermibate extends Seeder
             ],
             [
                 'typestatus'=>'Rechazada',
-                'descripcion'=>'Solicitud Rechazada por razon No. 1',
+                'descripcion'=>'Rechazo por activo fijo',
             ],
             [
                 'typestatus'=>'Rechazada',
-                'descripcion'=>'Solicitud Rechazada por razon No. 2',
+                'descripcion'=>'Rechazo por solicitud duplicada',
             ],
             [
                 'typestatus'=>'Rechazada',
-                'descripcion'=>'Solicitud Rechazada por razon No. 3',
+                'descripcion'=>'Rechazo por falta de recursos',
             ],
             [
                 'typestatus'=>'Rechazada',
-                'descripcion'=>'Solicitud Rechazada por razon No. 4',
+                'descripcion'=>'Rechazo por existencia de producto',
             ],
             [
                 'typestatus'=>'Rechazada',
-                'descripcion'=>'Solicitud Rechazada por razon No. 5',
+                'descripcion'=>'Rechazo por otro motivo',
             ],
-           
 
         ];
 
