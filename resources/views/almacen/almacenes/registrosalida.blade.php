@@ -3,11 +3,11 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <p class="text-4xl font-bold text-blue">Historial</p>
+    <p class="text-4xl font-bold text-blue">Registro de salidad de productos</p>
 @stop
 
 @section('content')
-    @livewire('almacen.almacenes.requisiciones-almacen')
+    @livewire('almacen.almacenes.registro-salida')
 @stop
 
 @section('css')

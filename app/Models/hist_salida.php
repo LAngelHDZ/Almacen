@@ -13,5 +13,7 @@ class hist_salida extends Model
         'id_producto',
         'id_empleado',
         'id_solicitud',
+        'date',
+        'time',
     ];
 }

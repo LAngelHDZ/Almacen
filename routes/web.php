@@ -52,6 +52,7 @@ Route::get('/adminlte',[GeneralController::class,'adminlte'])->name('adminlte');
 Route::get('/profile',[PerfilController::class,'profile'])->name('profile');
 
 Route::get('/almacen/requisiciones',[AlmacenController::class,'requisiciones'])->name('requisicionesAlmacen');
+Route::get('/almacen/salida',[AlmacenController::class,'salida'])->name('salida_producto');
 
 Route::get('/facturas',[FacturasController::class,'index'])->name('facturas');
 Route::get('/stock',[FacturasController::class,'stock'])->name('stock');

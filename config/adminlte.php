@@ -303,6 +303,11 @@ return [
                     'text' => 'Historial',
                     'url'  => 'admin/blog',
                 ],
+                [
+                    'icon'    => 'fas fa-sign-out-alt',
+                    'text' => 'Salida',
+                    'route'  => 'salida_producto',
+                ],
             ],
         ],
 

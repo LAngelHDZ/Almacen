@@ -16,8 +16,8 @@ class CreateHistSalidasTable extends Migration
         Schema::create('hist_salidas', function (Blueprint $table) {
             $table->id();
             $table->integer('id_producto')->references('id')->on('productos');
-            $table->integer('id_empleaddo')->references('id')->on('empleados');
-            $table->integer('id_solicitud')->references('id')->on('solicituds');
+            $table->integer('id_empleado')->references('id')->on('empleados');
+            $table->string('representante')->nullable();
             $table->date('date');
             $table->time('time');
             $table->timestamps();
