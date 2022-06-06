@@ -55,6 +55,10 @@ class msmpredetermibate extends Seeder
                 'typestatus'=>'Rechazada',
                 'descripcion'=>'Rechazo por otro motivo',
             ],
+            [
+                'typestatus'=>'Cerrada',
+                'descripcion'=>'Solicitud cerrada',
+            ],
 
         ];
 

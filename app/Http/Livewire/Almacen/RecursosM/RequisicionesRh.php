@@ -236,7 +236,7 @@ class RequisicionesRh extends Component
 
         if($this->btnenvio && $this->access<=1){
             if(status_solicitud::where('id_solicitud',$id)->where('status','Cerrada')->count() ==0){
-            $id_descripcion = msmestatus::select('id')->where('typestatus','Transito')->get();
+            $id_descripcion = msmestatus::select('id')->where('typestatus','Cerrada')->get();
 
                 status_solicitud::create([
                     'id_solicitud'=>$id,

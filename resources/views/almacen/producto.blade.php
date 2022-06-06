@@ -3,10 +3,11 @@
 @section('title', 'Productos')
 
 @section('content_header')
-    <p class="text-blue fw-bold ">Producto</p>
+<x-header/>
 @stop
 @livewireStyles
 @section('content')
+
 <div class="w-auto mx-5 ">
 @if(!$view)
 <div class="pt-2">

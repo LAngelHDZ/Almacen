@@ -3,6 +3,8 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
+
+<x-header/>
 @if(!$view)
 <p class="text-blue-500 font-bold text-4xl">Registro de usuario</p>
     @else

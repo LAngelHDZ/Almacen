@@ -3,7 +3,7 @@
 @section('title', 'Proveedores')
 
 @section('content_header')
-    <p class="text-blue fw-bold ">Proveedor</p>
+<x-header/>
 @stop
 @livewireStyles
 @section('content')

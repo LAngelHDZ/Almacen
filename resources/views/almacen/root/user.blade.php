@@ -3,9 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <div class="w-75 h-25 px-2 mx-auto">
-        <img src="{{ asset('img/Salud.jpg') }}" width="100%" height="25%" alt="">
-    </div>
+<x-header/>
 @stop
 
 @section('content')

@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <p class="text-4xl font-bold text-blue">Requisiciones en espera de llega de materiales</p>
+<x-header/>
 @stop
 
 @section('content')

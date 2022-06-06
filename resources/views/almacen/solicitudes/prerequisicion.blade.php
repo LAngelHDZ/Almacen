@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <p class="text-4xl font-bold text-blue">Pre-requisicion</p>
+<x-header/>
 @stop
 
 @section('content')
