@@ -15,6 +15,12 @@ class UserstController extends Controller
     public function users(){
         return view('almacen.root.user');
     }
+    public function roles(){
+        return view('almacen.root.roles');
+    }
+    public function permisos(){
+        return view('almacen.root.permission');
+    }
 
     public function create(){
         $view=false;

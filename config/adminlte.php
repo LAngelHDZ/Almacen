@@ -427,14 +427,17 @@ return [
                     'route'  => 'users',
                 ],
                 [
+                    'icon'    => 'fas fa-key',
                     'text' => 'permisos',
                     'can'     => 'root.dashboard.root',
-                    // 'url'  => 'admin/blog',
+                    'route'  => 'permisos',
                 ],
                 [
-                    'text' => 'auditoria',
+                    'icon'    => 'fas fa-unlock-alt',
+
+                    'text' => 'roles',
                     'can'     => 'root.dashboard.root',
-                    // 'url'  => 'admin/blog',
+                    'route'  => 'roles',
                 ],
                 [
                     'text' => 'opcion 4',
