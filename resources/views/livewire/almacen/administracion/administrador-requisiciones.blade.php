@@ -15,6 +15,10 @@
 
         {{-- <-- Inicio Cuerpo del modal donde estan los controles de formulario --> --}}
         <div class="modal-body bg-gray-50">
+            @if ($messageP)
+            <p class="text-sm text-red ">{{ $messagetxt }}</p>
+            @endif
+
             <select wire:model='descripc' name="" id="" class="rounded-lg w-100 form-select hover:border-blue-700">
                 <option value="" selected>Seleccionar</option>
                 @foreach ($concept_rechazo as $data )

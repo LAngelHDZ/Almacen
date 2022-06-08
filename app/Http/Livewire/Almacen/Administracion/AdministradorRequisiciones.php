@@ -23,6 +23,7 @@ class AdministradorRequisiciones extends Component
     public $status, $filter_status='Revisada';
     public $seguimiento=[];
     public $messageP=false;
+    public $rechazo=false;
     public $messagetxt;
     public $descripc;
     public $btnenvio=true;
@@ -180,6 +181,7 @@ class AdministradorRequisiciones extends Component
                 $aprobado=false;
                 break;
             }else{
+                $this->rechazo=true;
                  $aprobado=true;
                  $status='Rechazada';
             }
@@ -213,7 +215,15 @@ class AdministradorRequisiciones extends Component
             ]);
             $aprobado=false;
             event(new RealtimeEventSolicitud);
-            $this->closemodal();
+
+            $this->closemodalrec();
+            // if($this->rechazo){
+
+            //     $this->closemodalrec();
+            // }else{
+            //     $this->closemodal();
+
+            // }
         }else{
             $this->messageP=true;
         }
@@ -270,8 +280,13 @@ class AdministradorRequisiciones extends Component
    }
 
    public function closemodalrec(){
-    $this->dispatchBrowserEvent('close-formr');
-    $this->dispatchBrowserEvent('show-form');
+       if($this->rechazo){
+
+           $this->dispatchBrowserEvent('close-formr');
+        }else{
+            $this->dispatchBrowserEvent('close-formr');
+            $this->dispatchBrowserEvent('show-form');
+        }
     // $this->resetdatos();
 }
 
@@ -287,6 +302,7 @@ public function resetdatos(){
         'openbtn',
         'btnenvio',
         'messageP',
+        'rechazo',
     ]);
 }
 

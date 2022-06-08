@@ -14,8 +14,10 @@
         </div>
     </header>
 
-
-    <footer class="w-75 h-25 px-2 mx-auto">
+    <div>
+        {{-- <img class="img-fluid" src="{{ asset('img/SSFederal.jpeg') }}" style="opacity:0.1;" alt=""> --}}
+    </div>
+    <footer class=" h-25 px-2 mx-auto">
         <div class="">
             <img class="img-fluid" src="{{ asset('img/footerimg.jpeg') }}" alt="">
         </div>

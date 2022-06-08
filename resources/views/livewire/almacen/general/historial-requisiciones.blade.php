@@ -41,9 +41,9 @@
                         @endif
                         @endif
                             @endforeach
-                            <button  class="p-2 mt-1 btn btn-primary">
+                            {{-- <button  class="p-2 mt-1 btn btn-primary">
                                 Abrir
-                            </button>
+                            </button> --}}
                         </div>
                     </div>
                     <div class="mt-2" x-data="togg()">

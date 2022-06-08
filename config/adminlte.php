@@ -301,7 +301,7 @@ return [
                 [
                     'icon'    => 'fas fa-sm fa-list-ul',
                     'text' => 'Historial',
-                    'url'  => 'admin/blog',
+                    // 'url'  => 'admin/blog',
                 ],
                 [
                     'icon'    => 'fas fa-sign-out-alt',
@@ -338,7 +338,7 @@ return [
                         'text' => 'Cotización',
                         'route' => 'catalogo',
                     ],
-                   
+
                     ['header' => 'ALTAS y ACTUALZACIONES'],
                     [
                         'icon'    => 'fas fa-sm fa-truck',
@@ -390,26 +390,26 @@ return [
                     ],
                 ],
 
-                [
-                    'text' => 'Director',
-                    'url'  => 'admin/blog',
-                    'submenu' => [
-                        [
-                            'text' => 'opcion 1',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'opcion 2',
-                            'url' => '#',
-                        ],
+                // [
+                //     'text' => 'Director',
+                //     'url'  => 'admin/blog',
+                //     'submenu' => [
+                //         [
+                //             'text' => 'opcion 1',
+                //             'url' => '#',
+                //         ],
+                //         [
+                //             'text' => 'opcion 2',
+                //             'url' => '#',
+                //         ],
 
-                        [
-                            'text' => 'opcion 3',
-                            'url' => '#',
-                        ],
+                //         [
+                //             'text' => 'opcion 3',
+                //             'url' => '#',
+                //         ],
 
-                    ],
-                ],
+                //     ],
+                // ],
 
 
             ],
@@ -429,17 +429,17 @@ return [
                 [
                     'text' => 'permisos',
                     'can'     => 'root.dashboard.root',
-                    'url'  => 'admin/blog',
+                    // 'url'  => 'admin/blog',
                 ],
                 [
                     'text' => 'auditoria',
                     'can'     => 'root.dashboard.root',
-                    'url'  => 'admin/blog',
+                    // 'url'  => 'admin/blog',
                 ],
                 [
                     'text' => 'opcion 4',
                     'can'     => 'root.dashboard.root',
-                    'url'  => 'admin/blog',
+                    // 'url'  => 'admin/blog',
                 ],
 
 
