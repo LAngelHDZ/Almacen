@@ -16,14 +16,14 @@
         <div  class="modal-body bg-gray-50">
           <div   class="mb-2 px-3 pb-3">
             <div>
-                <label for="" class="block">No. de empleado</label>
+                <label for="" class="block">Nombre de usuario</label>
                 <div class="flex">
                   <div class="mr-2 pb-0 border rounded-lg flex border-secondary  hover:border-blue-700">
                     <div class="bg-blue rounded-left pb-0 pt-1 px-1">
                       <i class="mx-1 mt-2 mb-0 fa fa-lg fa-search"></i>
                     </div>
                     <div class="mb-0 pb-0">
-                      <input wire:model="" type="text" class="border-0 rounded-right form-input hover:border-blue-700"  placeholder="Buscar">
+                      <input wire:model="idempleado" type="text" class="border-0 rounded-right form-input hover:border-blue-700"  placeholder="Buscar">
                     </div>
                 </div>
                 <div class="">
@@ -36,13 +36,17 @@
               <div class="flex ">
                 <div >
                   <label for="" class="block">Producto clave</label>
-                  <input type="text" class="w-64 rounded-lg hover:border-blue-700" name="" id="">
+                  <input wire:model="idproducto" type="text" class="w-64 rounded-lg hover:border-blue-700" name="" id="">
+                </div>
+                <div class="ml-3" >
+                  <label for="" class="block ">Cantidad</label>
+                  <input wire:model="cantidad" type="text" class="w-64 rounded-lg hover:border-blue-700" name="" id="">
                 </div>
                 {{-- <div class="mx-4">
                   <label for="" class="block">Proveedor</label>
                   <select  name="" class=" w-64 rounded-lg hover:border-blue-700" id="">
                     <option value="" selected>Seleccionar</option>
-                           
+
                   </select>
                 </div>
                 <div>
@@ -71,20 +75,20 @@
         </thead>
       </div>
       <tbody>
-    
+
         @foreach ($salidas as $index=> $data)
         <tr class=" bg-green-100">
             <th class="pt-3 text-center  text-decoration-underline">{{ $data->name }}</th>
             <th class="pt-3 text-center  text-success">{{ $data->date.' - '.$data->time }} </th>
             <th class="pt-3 text-center  text-danger">{{ $data->producto }}</th>
-      
+
         </tr>
     @endforeach
     </tbody>
     </table>
-            </div>
-            </div>
-           
+    </div>
+    </div>
+
           </div>
         {{-- <-- Fin cuerpo modal --> --}}
 
@@ -135,7 +139,7 @@
         <th class="pt-3 text-center  text-decoration-underline">{{ $data->name }}</th>
         <th class="pt-3 text-center  text-success">{{ $data->date.' - '.$data->time }} </th>
         <th class="pt-3 text-center  text-danger">{{ $data->producto }}</th>
-  
+
     </tr>
 @endforeach
 </tbody>
