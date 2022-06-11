@@ -29,6 +29,7 @@ class AdministradorRequisiciones extends Component
     public $btnenvio=true;
     public $concept_rechazo;
     public $listadorechazos=true;
+    public $typemodal="";
 
     protected $listeners = ['echo:solicitud,RealtimeEventSolicitud' => 'updateview'];
 
@@ -182,8 +183,9 @@ class AdministradorRequisiciones extends Component
                 break;
             }else{
                 $this->rechazo=true;
-                 $aprobado=true;
-                 $status='Rechazada';
+                $this->typemodal="R";
+                $aprobado=true;
+                $status='Rechazada';
             }
         }
         $this->messagetxt='Para rechar una solicitud no debe de estar aprobado ningun producto';
@@ -194,6 +196,7 @@ class AdministradorRequisiciones extends Component
             if($data['aprobado']==0){
                 $aprobado=false;
             }else{
+                $this->typemodal="A";
                 $aprobado=true;
                 break;
             }
@@ -215,18 +218,13 @@ class AdministradorRequisiciones extends Component
             ]);
             $aprobado=false;
             event(new RealtimeEventSolicitud);
+            $this->fuctModals();
 
-            $this->closemodalrec();
-            // if($this->rechazo){
-
-            //     $this->closemodalrec();
-            // }else{
-            //     $this->closemodal();
-
-            // }
+            $this->btnenvio=false;
         }else{
             $this->messageP=true;
         }
+
     }
     }
 
@@ -264,6 +262,15 @@ class AdministradorRequisiciones extends Component
         }
 
         $this->showmodal();
+    }
+
+    public function fuctModals(){
+        if($this->typemodal=="A"){
+            $this->closemodal();
+        }else{
+            $this->closemodalrec();
+        }
+
     }
 
     public function showmodal(){

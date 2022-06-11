@@ -53,7 +53,7 @@
         {{-- <--- Cabecera del modal donde aparece el titulo del modal ---> --}}
         <div class="modal-header">
 
-          <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo proveedor</h5>
+          <h5 class="modal-title" id="exampleModalLabel"></h5>
         </div>
         {{-- <--- Fin cabecera modal ---> --}}
 

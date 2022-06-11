@@ -17,6 +17,8 @@ class RequisicionesRh extends Component
 {
     use WithPagination;
     public $products=[];
+    public $listadoespera=true;
+    public $concept_espera,$descripc;
     public $openbtn=true;
     public $btnenvio=true,$access=1;
     public $solicitudes=[];
@@ -25,7 +27,7 @@ class RequisicionesRh extends Component
     public $status, $filter_status='Enviada';
     public $seguimiento=[];
     public $close=false;
-    public $aprobado=false;
+    public $aprobado=false, $idaprob;
 
     protected $listeners = ['echo:solicitud,RealtimeEventSolicitud' => 'updateview'];
     public function QuerySolicitud(){
@@ -207,22 +209,23 @@ class RequisicionesRh extends Component
 
 
         }
-        public function aprob_req($id){
+        public function aprob_req(){
 
         if($this->btnenvio && $this->access<=1){
-           if(status_solicitud::where('id_solicitud',$id)->where('status','Transito')->count() ==0){
-        $id_descripcion = msmestatus::select('id')->where('typestatus','Transito')->get();
+           if(status_solicitud::where('id_solicitud',$this->idaprob)->where('status','Transito')->count() ==0){
+        // $id_descripcion = msmestatus::select('id')->where('typestatus','Transito')->get();
 
                status_solicitud::create([
-                   'id_solicitud'=>$id,
+                   'id_solicitud'=>$this->idaprob,
                    'status'=>'Transito',
-                   'descripcion'=>$id_descripcion[0]->id,
+                   'descripcion'=>$this->descripc,
                    'date'=>date('Y-m-d'),
                    'time'=>date('H:i:s'),
                 ]);
 
                 // DB::table('solicituds')->where('id',$id)->update(['state'=>false]);
                 event(new RealtimeEventSolicitud);
+                $this->closemodaltran();
             }
 
             // $this->closemodal();
@@ -232,8 +235,6 @@ class RequisicionesRh extends Component
             $this->resetdatos();
     }
     public function close_req($id){
-
-
         if($this->btnenvio && $this->access<=1){
             if(status_solicitud::where('id_solicitud',$id)->where('status','Cerrada')->count() ==0){
             $id_descripcion = msmestatus::select('id')->where('typestatus','Cerrada')->get();
@@ -300,6 +301,17 @@ class RequisicionesRh extends Component
     $this->resetdatos();
 }
 
+public function showmodaltran($id){
+    $this->idaprob=$id;
+    $this->dispatchBrowserEvent('show-formr');
+    // $this->dispatchBrowserEvent('close-form');
+}
+
+public function closemodaltran(){
+        $this->dispatchBrowserEvent('close-formr');
+ // $this->resetdatos();
+}
+
 public function resetdatos(){
     $this->reset([
         'products',
@@ -311,8 +323,17 @@ public function resetdatos(){
     ]);
 }
 
+public function esperalist(){
+    $this->listadoespera=false;
+    $this->concept_espera = msmestatus::select('id','descripcion')->where('typestatus','Transito')->get();
+}
+
     public function render()
     {
+
+        if($this->listadoespera){
+            $this->esperalist();
+            }
         return view('livewire.almacen.recursos-m.requisiciones-rh',['solicitud'=> $this->QuerySolicitud(), $this->querydate(),$this->seguimiento()]);
     }
 

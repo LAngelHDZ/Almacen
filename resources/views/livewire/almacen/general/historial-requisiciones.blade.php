@@ -25,7 +25,9 @@
                                 </div>
                             </div>
                             <div class="ml-4">
-                                <p class="text-gray-700">{{$list['descripcion']}}</p>
+                                <p class="text-gray-700">@if ($list['status']=='transito')
+                                    <span>Compra realizada al provedor </span>
+                                @endif{{$list['descripcion']}}</p>
 
 
                             </div>

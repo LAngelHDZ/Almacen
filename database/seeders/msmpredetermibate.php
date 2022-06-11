@@ -29,7 +29,23 @@ class msmpredetermibate extends Seeder
             ],
             [
                 'typestatus'=>'Transito',
-                'descripcion'=>'Compra realizada al proveedor',
+                'descripcion'=>'tiempo de espera de 7 a 15 dias',
+            ],
+            [
+                'typestatus'=>'Transito',
+                'descripcion'=>'tiempo de espera de 16 a 25 dias',
+            ],
+            [
+                'typestatus'=>'Transito',
+                'descripcion'=>'tiempo de espera de 26 a 35 dias',
+            ],
+            [
+                'typestatus'=>'Transito',
+                'descripcion'=>'tiempo de espera de 36 a 45 dias',
+            ],
+            [
+                'typestatus'=>'Transito',
+                'descripcion'=>'tiempo de espera de 2 a 3 meses',
             ],
             [
                 'typestatus'=>'Almacen',
