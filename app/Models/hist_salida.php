@@ -12,7 +12,8 @@ class hist_salida extends Model
     protected $fillable=[
         'id_producto',
         'id_empleado',
-        'id_solicitud',
+        'cantidad',
+        'representante',
         'date',
         'time',
     ];

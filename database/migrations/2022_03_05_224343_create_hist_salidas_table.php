@@ -17,6 +17,7 @@ class CreateHistSalidasTable extends Migration
             $table->id();
             $table->integer('id_producto')->references('id')->on('productos');
             $table->integer('id_empleado')->references('id')->on('empleados');
+            $table->unsignedInteger('cantidad');
             $table->string('representante')->nullable();
             $table->date('date');
             $table->time('time');

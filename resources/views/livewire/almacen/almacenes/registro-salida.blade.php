@@ -23,11 +23,11 @@
                       <i class="mx-1 mt-2 mb-0 fa fa-lg fa-search"></i>
                     </div>
                     <div class="mb-0 pb-0">
-                      <input wire:model="idempleado" type="text" class="border-0 rounded-right form-input hover:border-blue-700"  placeholder="Buscar">
+                      <input wire:model="user" type="text" class="border-0 rounded-right form-input hover:border-blue-700"  placeholder="Buscar">
                     </div>
                 </div>
                 <div class="">
-                  <button  wire:click="search_empleado" class="  px-2 py-2  rounded-sm btn-primary">Buscar</button>
+                  <button  wire:click="search_user" class="  px-2 py-2  rounded-sm btn-primary">Buscar</button>
                 </div>
               </div>
             </div>
@@ -55,7 +55,7 @@
                 </div> --}}
               </div>
               <div class=" mt-4">
-                <button  class="  px-2 py-2 mt-2 rounded-sm btn-success">Registrar</button>
+                <button wire:click.prevent='registrarsalida'  class="  px-2 py-2 mt-2 rounded-sm btn-success">Registrar</button>
               </div>
 
             </div>
@@ -69,18 +69,23 @@
                             {{-- <th scope="col" class="text-center text-uppercase"></th> --}}
                             <th scope="col" class="text-center text-uppercase">Producto</th>
                             <th scope="col" class="text-center text-uppercase">Disponible</th>
-                            {{-- <th scope="col" class=" text-uppercase">Cantidad</th> --}}
+                            <th scope="col" class=" text-uppercase"></th>
                             {{-- <th scope="col" class="text-center text-uppercase">Acciones</th> --}}
           </tr>
         </thead>
       </div>
       <tbody>
 
-        @foreach ($salidas as $index=> $data)
+        @foreach ($disponible as $index=> $data)
         <tr class=" bg-green-100">
-            <th class="pt-3 text-center  text-decoration-underline">{{ $data->name }}</th>
-            <th class="pt-3 text-center  text-success">{{ $data->date.' - '.$data->time }} </th>
-            <th class="pt-3 text-center  text-danger">{{ $data->producto }}</th>
+            <th class="pt-3 text-center  text-decoration-underline">{{ $data['clave']}}</th>
+            <th class="pt-3 text-center  text-success">{{ $data['producto']}} </th>
+            <th class="pt-3 text-center  text-danger">{{ $data['stock'] }}</th>
+            <th class="pt-3 text-center  text-danger">
+              {{-- {!! Form::radio('checkMaterial', $data['id_prod'], null,null) !!} --}}
+              <input wire:model='idproducto' type="radio" id="idmaterialChekbox" name="checkMaterial" value="{{ $data['id_prod'] }}">
+              {{-- <input wire:model='idproducto' type="checkbox" name="checkMaterial" id="idmaterialChekbox" value="{{ $data['id_prod'] }}"> --}}
+            </th>
 
         </tr>
     @endforeach
