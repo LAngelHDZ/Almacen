@@ -333,14 +333,6 @@ public function product_aprobado(){
 public function aceptar(){
         $id_descripcion = msmestatus::select('id')->where('typestatus','Almacen')->get();
     $status='Almacen';
-    // if($state==1){
-    //     $status='Rechazada';
-    //     $descrip='Solicitud rechazada favor de comunicarse con RRMM';
-    // }else{
-    //     $status='Aprobada';
-    //     $descrip='Solicitud aprobada en proceso de realizar compra';
-    // }
-    // $this->product_aprobado();
     status_solicitud::create([
         'id_solicitud'=>$this->id_solicitud,
         'status'=>$status,

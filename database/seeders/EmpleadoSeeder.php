@@ -46,5 +46,19 @@ class EmpleadoSeeder extends Seeder
             'area'=>11,
             'cargo'=>'Jefe',
         ]);
+        User::create([
+            'name'=>'Jose Vazquez Mendoza',
+            'email'=>'almacen@gmail.com',
+            'password'=> Hash::make('Almacen'),
+            'access'=>'1',
+        ])->assignRole('almacen');
+
+        DB::table('empleados')->insert([
+            'clave'=>003,
+            'id_user'=>4,
+            'rfc'=>'VAMJ3652158S9',
+            'area'=>11,
+            'cargo'=>'Jefe',
+        ]);
     }
 }

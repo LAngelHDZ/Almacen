@@ -22,7 +22,7 @@ class TableUsers extends Component
         ->select('users.id','users.name','users.email','empleados.id as id_empleado','empleados.clave','empleados.cargo','areas.area')
         ->orderBy('id_empleado','desc')
         ->where($this->campo,'like','%'.$this->search.'%')
-        ->paginate(1);
+        ->paginate(10);
         return $users;
     }
 

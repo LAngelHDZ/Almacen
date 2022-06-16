@@ -278,38 +278,47 @@ return [
             // ],
         // ],
 
-        [
-            'text'    => 'Almacen',
-            'icon'    => 'fas fa-fw fa-archive',
-            'can'     => 'root.dashboard.almacen',
-            'submenu' => [
+        ['header' => 'ALMACEN',
+        'can'     => 'root.dashboard.almacen',
+       ],
+
+        // [
+        //     'text'    => 'Almacen',
+        //     'icon'    => 'fas fa-fw fa-archive',
+        //     'can'     => 'root.dashboard.almacen',
+        //     'submenu' => [
                 [
                     'text' => 'Requisiciones',
                     'icon'    => 'fas fa-sm fa-clipboard-list',
+                    'can'     => 'root.dashboard.almacen',
                     'route'  => 'requisicionesAlmacen',
                 ],
                 [
                     'text' => 'Stock',
                     'icon'    => 'fas fa-sm fa-chart-line',
+                    'can'     => 'root.dashboard.almacen',
                     'route'  => 'stock',
                 ],
                 [
                     'text' => 'Facturas',
                     'icon'    => 'fas fa-sm fa-file-invoice-dollar',
+                    'can'     => 'root.dashboard.almacen',
                     'route'  => 'facturas',
                 ],
                 [
                     'icon'    => 'fas fa-sm fa-list-ul',
                     'text' => 'Historial',
+                    'can'     => 'root.dashboard.almacen',
                     // 'url'  => 'admin/blog',
                 ],
                 [
                     'icon'    => 'fas fa-sign-out-alt',
                     'text' => 'Salida',
+                    'can'     => 'root.dashboard.almacen',
                     'route'  => 'salida_producto',
                 ],
-            ],
-        ],
+            // ],
+        // ],
 
 
             [
