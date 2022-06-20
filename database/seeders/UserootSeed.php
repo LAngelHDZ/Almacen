@@ -22,6 +22,6 @@ class UserootSeed extends Seeder
             'email'=>'root@gmail.com',
             'password'=> Hash::make('Admin'),
             'access'=>'1',
-        ])->assignRole('root');
+        ])->assignRole('Root');
     }
 }

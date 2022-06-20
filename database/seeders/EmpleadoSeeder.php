@@ -22,7 +22,7 @@ class EmpleadoSeeder extends Seeder
             'email'=>'empleado@gmail.com',
             'password'=> Hash::make('Empleado'),
             'access'=>'1',
-        ])->assignRole('rm');
+        ])->assignRole('RecursosM');
 
         DB::table('empleados')->insert([
             'clave'=>001,
@@ -37,7 +37,7 @@ class EmpleadoSeeder extends Seeder
             'email'=>'empleado2@gmail.com',
             'password'=> Hash::make('Empleado'),
             'access'=>'1',
-        ])->assignRole('userG');
+        ])->assignRole('Ususario');
 
         DB::table('empleados')->insert([
             'clave'=>002,
@@ -51,12 +51,27 @@ class EmpleadoSeeder extends Seeder
             'email'=>'almacen@gmail.com',
             'password'=> Hash::make('Almacen'),
             'access'=>'1',
-        ])->assignRole('almacen');
+        ])->assignRole('Almacen');
 
         DB::table('empleados')->insert([
             'clave'=>003,
             'id_user'=>4,
             'rfc'=>'VAMJ3652158S9',
+            'area'=>11,
+            'cargo'=>'Jefe',
+        ]);
+
+        User::create([
+            'name'=>'Benjamin Vazquez Vinalay',
+            'email'=>'administrador@gmail.com',
+            'password'=> Hash::make('Admin'),
+            'access'=>'1',
+        ])->assignRole('Administrador');
+
+        DB::table('empleados')->insert([
+            'clave'=>004,
+            'id_user'=>5,
+            'rfc'=>'VAMJ3652158S5',
             'area'=>11,
             'cargo'=>'Jefe',
         ]);

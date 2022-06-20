@@ -9,7 +9,7 @@ class UserstController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('role:root');
+        $this->middleware('role:Root');
     }
     
     public function users(){

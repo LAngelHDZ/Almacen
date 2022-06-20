@@ -60,11 +60,14 @@
                   <label for="" class="block">Fecha de elaboracion</label>
                   <input  type="date" class="w-64 rounded-lg hover:border-blue-700">
                 </div> --}}
-                                    </div>
-                                    <div class=" mt-4">
-                                        <button wire:click.prevent='registrarsalida'
-                                            class="  px-2 py-2 mt-2 rounded-sm btn-success">Registrar</button>
-                                    </div>
+                
+            </div>
+            @can('almacen.dashboard.create')
+            <div class=" mt-4">
+                <button wire:click.prevent='registrarsalida'
+                class="  px-2 py-2 mt-2 rounded-sm btn-success">Registrar</button>
+            </div>
+            @endcan
 
                                 </div>
                                 <div class="block mt-2">
@@ -131,10 +134,14 @@
     <div class="flex justify-between">
         <div>
         </div>
+
+        @can('almacen.dashboard.create')
         <div>
             <button wire:click='showmodal' class=" rounded-sm mb-3 px-2 py-2 btn-primary">Registrar salida</button>
 
         </div>
+            
+        @endcan
     </div>
     <div class="h-50">
         <table class="table bg-white border shadow-sm rounded-2">

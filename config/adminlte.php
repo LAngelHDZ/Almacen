@@ -243,7 +243,7 @@ return [
         ],
 
          ['header' => 'GENERAL',
-         'can'     => 'root.dashboard.gen',
+         'can'     => 'userG.dashboard.index',
         ],
 
         // [
@@ -254,32 +254,32 @@ return [
                  [
                     'icon'    => 'fas fa-ms fa-file-alt',
                     'text' => 'requisicion',
-                    'can'     => 'root.dashboard.gen',
+                    'can'     => 'userG.dashboard.index',
                     'route'  => 'solicitud',
                 ],
                 [
                     'icon'    => 'fas fa-clipboard-list',
                     'text' => 'solicitudes',
-                    'can'     => 'root.dashboard.gen',
+                    'can'     => 'userG.dashboard.index',
                     'route'  => 'h_requisiciones_gral',
                 ],
                 [
                     'icon'    => 'fas fa-sm fa-vials',
                     'text' => 'materiales',
-                    'can'     => 'root.dashboard.gen',
+                    'can'     => 'userG.dashboard.index',
                     'route'  => 'materiales',
                 ],
                 [
                     'icon'    => 'fas fa-list-ul',
                     'text' => 'historial',
-                    'can'     => 'root.dashboard.gen',
+                    'can'     => 'userG.dashboard.index',
                     'route'  => 'historial_general',
                 ],
             // ],
         // ],
 
         ['header' => 'ALMACEN',
-        'can'     => 'root.dashboard.almacen',
+        'can'     => 'almacen.dashboard.index',
        ],
 
         // [
@@ -290,31 +290,31 @@ return [
                 [
                     'text' => 'Requisiciones',
                     'icon'    => 'fas fa-sm fa-clipboard-list',
-                    'can'     => 'root.dashboard.almacen',
+                    'can'     => 'almacen.dashboard.index',
                     'route'  => 'requisicionesAlmacen',
                 ],
                 [
                     'text' => 'Stock',
                     'icon'    => 'fas fa-sm fa-chart-line',
-                    'can'     => 'root.dashboard.almacen',
+                    'can'     => 'almacen.dashboard.show',
                     'route'  => 'stock',
                 ],
                 [
                     'text' => 'Facturas',
                     'icon'    => 'fas fa-sm fa-file-invoice-dollar',
-                    'can'     => 'root.dashboard.almacen',
+                    'can'     => 'almacen.dashboard.show',
                     'route'  => 'facturas',
                 ],
                 [
                     'icon'    => 'fas fa-sm fa-list-ul',
                     'text' => 'Historial',
-                    'can'     => 'root.dashboard.almacen',
+                    'can'     => 'almacen.dashboard.index',
                     // 'url'  => 'admin/blog',
                 ],
                 [
                     'icon'    => 'fas fa-sign-out-alt',
                     'text' => 'Salida',
-                    'can'     => 'root.dashboard.almacen',
+                    'can'     => 'almacen.dashboard.index',
                     'route'  => 'salida_producto',
                 ],
             // ],
@@ -324,7 +324,7 @@ return [
             [
                 'text'    => 'Recursos Materiales',
                 'icon'    => 'fas fa-fw fa-boxes',
-                'can'     => 'root.dashboard.rm',
+                'can'     => 'rm.dashboard.index',
 
                 'submenu' => [
                     ['header' => 'REQUISICIONES'],
@@ -368,36 +368,38 @@ return [
         [
             'text'    => 'Administración',
             'icon'    => 'fas fa-fw fa-globe',
-            'can'     => 'root.dashboard.admon',
+            'can'     => 'admin.dashboard.index',
             'submenu' => [
-                [
-                    'text' => 'Administrador',
-                    'url'  => 'admin/blog',
-                    'submenu' => [
+                // [
+                    ['header' => 'ADMINISTRADOR'],
                         [
                         'icon'    => 'fas fa-clipboard-list',
                         'text' => 'Lista de requisiciones',
+                        'can'     => 'admin.dashboard.index',
                         'route' => 'requisicionesA',
                         ],
                         [
                             'text' => 'Stock',
                             'icon'    => 'fas fa-sm fa-chart-line',
+                            'can'     => 'admin.dashboard.index',
                         'route' => 'stock',
                         ],
 
                         [
                         'icon'    => 'fas fa-sm fa-list',
                         'text' => 'Historial',
+                        'can'     => 'admin.dashboard.index',
                         'route' => 'historialReq-Admin',
                         ],
                         [
                             'text' => 'Facturas',
                             'icon'    => 'fas fa-sm fa-file-invoice-dollar',
+                            'can'     => 'admin.dashboard.index',
                             'route'  => 'facturas',
                         ],
 
-                    ],
-                ],
+                    
+                // ],
 
                 // [
                 //     'text' => 'Director',
@@ -426,31 +428,30 @@ return [
 
 
             ['header' => 'SUPER ADMIN',
-            'can'     => 'root.dashboard.root',
+            'can'     => 'root.dashboard.index',
         ],
 
                 [
                     'icon'    => 'fas fa-sm fa-users',
                     'text' => 'usuarios',
-                    'can'     => 'root.dashboard.root',
+                    'can'     => 'root.dashboard.index',
                     'route'  => 'users',
                 ],
                 [
                     'icon'    => 'fas fa-key',
                     'text' => 'permisos',
-                    'can'     => 'root.dashboard.root',
+                    'can'     => 'root.dashboard.index',
                     'route'  => 'permisos',
                 ],
                 [
                     'icon'    => 'fas fa-unlock-alt',
-
                     'text' => 'roles',
-                    'can'     => 'root.dashboard.root',
+                    'can'     => 'root.dashboard.index',
                     'route'  => 'roles',
                 ],
                 [
                     'text' => 'opcion 4',
-                    'can'     => 'root.dashboard.root',
+                    'can'     => 'root.dashboard.index',
                     // 'url'  => 'admin/blog',
                 ],
 
@@ -468,7 +469,7 @@ return [
             'text' => 'profile',
             'route'  => 'profile',
             'icon' => 'fas fa-fw fa-address-card',
-            'can'     => 'root.dashboard.profile',
+            'can'     => 'profile.dashboard.index',
         ],
 
 
