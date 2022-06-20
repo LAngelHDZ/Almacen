@@ -9,7 +9,7 @@ class RecursoMController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('permission:root.dashboard.rm');
+        $this->middleware('permission:rm.dashboard.index');
     }
     
     public function catalogo(){
