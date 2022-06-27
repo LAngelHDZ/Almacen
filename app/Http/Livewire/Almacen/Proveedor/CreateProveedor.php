@@ -11,7 +11,7 @@ class CreateProveedor extends Component
     public $rfc, $empresa, $direccion, $email, $telefono;
 
 
-//---- reglas de validación para el formulario
+    //---- reglas de validación para el formulario
     protected $rules = [
         'rfc' => 'required|min:12|max:14',
         'empresa' => 'required',
@@ -39,15 +39,17 @@ class CreateProveedor extends Component
     }
 
     //metodo que manda eventos
-    public function emitevent(){
+    public function emitevent()
+    {
         //manda a refrescar el la vista y componente producto-insumos que muestra los datos en la tabla
         $this->emit('datatable');
         //manda una alerta despues de realizar una operacion de  guardar registro
         $this->emit('alert');
     }
 
-        //resetea todas las variables en 0
-    public function resetdatos(){
+    //resetea todas las variables en 0
+    public function resetdatos()
+    {
         $this->reset([
             'rfc',
             'empresa',
@@ -57,13 +59,15 @@ class CreateProveedor extends Component
         ]);
     }
     //    cierra el modal del formulario
-     public function closemodal(){
+    public function closemodal()
+    {
         $this->dispatchBrowserEvent('close-form');
-     }
+    }
 
-        // Muestra el modal del formulario
-     public function showmodal(){
-         $this->dispatchBrowserEvent('show-form');
+    // Muestra el modal del formulario
+    public function showmodal()
+    {
+        $this->dispatchBrowserEvent('show-form');
     }
 
     public function render()

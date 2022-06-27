@@ -1,6 +1,4 @@
 <?php
-
-use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Administracion\AdminsController;
 use App\Http\Controllers\AlmacenController;
@@ -26,7 +24,6 @@ use App\Http\Controllers\solicitudes\SolicitudController;
      return view('welcome');
  });
 
-// Route::get('/',[LoginController::class,'__invoke']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
@@ -49,7 +46,7 @@ Route::get('/root/users/create',[UserstController::class,'create'])->name('formu
 Route::get('/root/users/update/{id}/',[UserstController::class,'update'])->name('formupdate');
 Route::get('/root/roles',[UserstController::class,'roles'])->name('roles');
 Route::get('/root/permisos',[UserstController::class,'permisos'])->name('permisos');
-Route::get('/adminlte',[GeneralController::class,'adminlte'])->name('adminlte');
+
 
 Route::get('/profile',[PerfilController::class,'profile'])->name('profile');
 

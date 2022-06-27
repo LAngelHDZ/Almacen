@@ -9,6 +9,7 @@ use App\Models\Proveedor;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
+
 class CatalogoInsumos extends Component
 {
     use WithPagination;

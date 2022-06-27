@@ -2,19 +2,20 @@
 
 namespace App\Http\Livewire\Almacen\Administracion;
 
-use App\Events\RealtimeEventSolicitud;
-use App\Models\msmestatus;
-use App\Models\Productos;
-use App\Models\solicitud;
-use App\Models\solicitud_producto;
-use App\Models\status_solicitud;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use App\Models\solicitud;
+use App\Models\msmestatus;
 use Livewire\WithPagination;
+use App\Traits\DateFunctions;
+use App\Models\status_solicitud;
+use Illuminate\Support\Facades\DB;
+use App\Events\RealtimeEventSolicitud;
+use App\Traits\DataStatus;
 
 class AdministradorRequisiciones extends Component
 {
+    use DateFunctions;
+    use DataStatus;
     use WithPagination;
     public $products=[];
     public $openbtn=true;
@@ -92,28 +93,7 @@ class AdministradorRequisiciones extends Component
         }
     }
 
-    public function status_seguimiento($array,$object ){
-        $status_array=[];
-        foreach($array as $data){
-            if($object=='status'){
-                switch($data->status){
-                    case 'Aprobada':$status_array[]=['status'=>'Aprobado']; break;
-                    case 'Rechazada':$status_array[]=['status'=>'Rechazada']; break;
-                    case 'Transito':$status_array[]=['status'=>'Transito']; break;
-                    case 'Almacen':$status_array[]=['status'=>'Almacen']; break;
-                }
-            }else{
-                switch($data->status){
-                    case 'Aprobada':$status_array[]=['icon'=>'fas fa-clipboard-check mx-3']; break;
-                    case 'Rechazada':$status_array[]=['icon'=>'fas fa-file-excel mx-4']; break;
-                    case 'Transito':$status_array[]=['icon'=>'fas fa-shipping-fast mx-3']; break;
-                    case 'Almacen':$status_array[]=['icon'=>'fas fa-archive mx-3']; break;
-                }
-            }
-        }
-         return $status_array;
-
-    }
+   
 
     public function updateview(){
         if(solicitud::count()!=$this->aux){
@@ -124,42 +104,6 @@ class AdministradorRequisiciones extends Component
         }
     }
 
-    public function formatday($day){
-        $dia='';
-        switch($day){
-            case 'Monday':$dia='Lunes'; break;
-            case 'Tuesday':$dia='Martes'; break;
-            case 'Wednesday':$dia='Miercoles'; break;
-            case 'Thursday':$dia='Jueves'; break;
-            case 'Friday':$dia='Viernes'; break;
-            case 'Saturday':$dia='Sabado'; break;
-            case 'Sunday':$dia='Domingo'; break;
-        }
-        return $dia;
-    }
-    public function formatweek($week){
-        $mes='';
-        switch($week){
-            case 'January':$mes='Enero'; break;
-            case 'February':$mes='Febrero'; break;
-            case 'March':$mes='Marzo'; break;
-            case 'April':$mes='Abril'; break;
-            case 'May':$mes='Mayo'; break;
-            case 'June':$mes='Junio'; break;
-            case 'July':$mes='Julio'; break;
-            case 'August':$mes='Agosto'; break;
-            case 'September':$mes='Septiembre'; break;
-            case 'October':$mes='Octubre'; break;
-            case 'November':$mes='Noviembre'; break;
-            case 'December':$mes='Diciembre'; break;
-        }
-        return $mes;
-    }
-
-    public function formatdate($date){
-        $dat= new Carbon($date);
-        return $this->formatday(date_format($dat,'l')).' '.date_format($dat,'d').' de '.$this->formatweek(date_format($dat,'F')).' del '.date_format($dat,'Y');
-    }
 
     public function product_aprobado(){
         foreach($this->products as $data){

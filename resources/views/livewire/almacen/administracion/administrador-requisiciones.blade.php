@@ -1,121 +1,121 @@
 <div>
     <div>
 
-{{-- <----- Este fragmento de código es el modal -----> --}}
-<div wire:ignore.self  class="modal fade" id="showrec" tabindex="-1" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen-sm-down">
-      <div class="modal-content">
+        {{-- <----- Este fragmento de código es el modal -----> --}}
+        <div wire:ignore.self class="modal fade" id="showrec" tabindex="-1" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen-sm-down">
+                <div class="modal-content">
 
-        {{-- <--- Cabecera del modal donde aparece el titulo del modal ---> --}}
-        <div class="modal-header">
+                    {{-- <--- Cabecera del modal donde aparece el titulo del modal ---> --}}
+                    <div class="modal-header">
 
-          <h5 class="modal-title" id="exampleModalLabel">Motivo de rechazo de la solicitud</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Motivo de rechazo de la solicitud</h5>
+                    </div>
+                    {{-- <--- Fin cabecera modal ---> --}}
+
+                    {{-- <-- Inicio Cuerpo del modal donde estan los controles de formulario --> --}}
+                    <div class="modal-body bg-gray-50">
+                        @if ($messageP)
+                        <p class="text-sm text-red ">{{ $messagetxt }}</p>
+                        @endif
+
+                        <select wire:model='descripc' name="" id="" class="rounded-lg w-100 form-select hover:border-blue-700">
+                            <option value="" selected>Seleccionar</option>
+                            @foreach ($concept_rechazo as $data )
+                            <option value="{{$data->id }}">{{$data->descripcion}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    {{-- <-- Fin cuerpo modal --> --}}
+
+                    <div class="modal-footer">
+                        <button wire:click='closemodalrec' class="btn btn-secondary">Cerrar</button>
+
+                        <button wire:click='aceptar({{1}})' @if ($status) class="hidden" @else class="btn btn-danger" @endif>Rechazar</button>
+                        {{-- <button wire:click='aceptar({{2}})' @if ($status) class="hidden" @else class="btn btn-success" @endif>Aprobar</button> --}}
+
+
+                    </div>
+
+                </div>
+            </div>
         </div>
-        {{-- <--- Fin cabecera modal ---> --}}
-
-        {{-- <-- Inicio Cuerpo del modal donde estan los controles de formulario --> --}}
-        <div class="modal-body bg-gray-50">
-            @if ($messageP)
-            <p class="text-sm text-red ">{{ $messagetxt }}</p>
-            @endif
-
-            <select wire:model='descripc' name="" id="" class="rounded-lg w-100 form-select hover:border-blue-700">
-                <option value="" selected>Seleccionar</option>
-                @foreach ($concept_rechazo as $data )
-                <option value="{{$data->id }}">{{$data->descripcion}}</option>
-                @endforeach
-            </select>
-        </div>
-        {{-- <-- Fin cuerpo modal --> --}}
-
-        <div class="modal-footer">
-          <button wire:click='closemodalrec' class="btn btn-secondary" >Cerrar</button>
-
-          <button wire:click='aceptar({{1}})' @if ($status) class="hidden"  @else class="btn btn-danger" @endif>Rechazar</button>
-          {{-- <button wire:click='aceptar({{2}})' @if ($status) class="hidden"  @else class="btn btn-success" @endif>Aprobar</button> --}}
-
-
-        </div>
-
-      </div>
+        {{-- <----- Fin fragmento de código modal -----> --}}
     </div>
-  </div>
-  {{-- <----- Fin fragmento de código modal -----> --}}
-    </div>
 
 
 
-  {{-- <----- Este fragmento de código es el modal -----> --}}
-  <div wire:ignore.self  class="modal fade" id="showreq" tabindex="-1" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
+    {{-- <----- Este fragmento de código es el modal -----> --}}
+    <div wire:ignore.self class="modal fade" id="showreq" tabindex="-1" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
 
-        {{-- <--- Cabecera del modal donde aparece el titulo del modal ---> --}}
-        <div class="modal-header">
+                {{-- <--- Cabecera del modal donde aparece el titulo del modal ---> --}}
+                <div class="modal-header">
 
-          <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                </div>
+                {{-- <--- Fin cabecera modal ---> --}}
+
+                {{-- <-- Inicio Cuerpo del modal donde estan los controles de formulario --> --}}
+                <div class="modal-body bg-gray-50">
+                    <div class="h-50">
+                        @if ($messageP)
+                        <p class="text-sm text-red ">{{ $messagetxt }}</p>
+                        @endif
+                        <table class="table border shadow-sm table-hover table-striped table-light table-sm rounded-2">
+                            <div class="p-1 bg-primary bg-gradient ">
+                                <thead class="bg-white ">
+                                    <tr>
+                                        <th scope="col" class="text-center text-uppercase">Clave</th>
+                                        <th scope="col" class="text-center text-uppercase">Material</th>
+                                        <th scope="col" class="text-center text-uppercase">Solicitado</th>
+                                        <th scope="col" class="text-center text-uppercase">Aprobado</th>
+
+                                    </tr>
+                                </thead>
+                            </div>
+                            <tbody class="">
+
+                                @foreach ($products as $index=> $data)
+                                <tr class="">
+                                    <th class="pt-3 text-center font-weight-normal text-decoration-underline">{{ $data['clave'] }}</th>
+                                    <th class="pt-3 text-center font-weight-normal">{{ $data['producto'] }}</th>
+                                    <th class="pt-3 text-center font-weight-normal">{{ $data['cantidad'] }}</th>
+                                    <th class="pt-3 text-center font-weight-normal">
+                                        @if($status)
+                                        {{ $data['aprobado'] }}
+                                        @else
+                                        <input wire:model="products.{{ $index }}.aprobado" class="w-10 rounded-lg hover:border-blue-700" type="text">
+                                        @endif
+                                    </th>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    {{-- <-- Fin cuerpo modal --> --}}
+
+                    <div class="modal-footer">
+                        <button wire:click='closemodal' class="btn btn-secondary">Cerrar</button>
+
+                        <button wire:click='showmodalrec()' @if ($status) class="hidden" @else class="btn btn-danger" @endif>Rechazar</button>
+                        <button wire:click='aceptar({{2}})' @if ($status) class="hidden" @else class="btn btn-success" @endif>Aprobar</button>
+
+
+                    </div>
+
+                </div>
+            </div>
         </div>
-        {{-- <--- Fin cabecera modal ---> --}}
-
-        {{-- <-- Inicio Cuerpo del modal donde estan los controles de formulario --> --}}
-        <div class="modal-body bg-gray-50">
-            <div class="h-50">
-                @if ($messageP)
-        <p class="text-sm text-red ">{{ $messagetxt }}</p>
-        @endif
-                <table class="table border shadow-sm table-hover table-striped table-light table-sm rounded-2">
-                    <div class="p-1 bg-primary bg-gradient ">
-                        <thead class="bg-white ">
-                            <tr>
-                                <th scope="col" class="text-center text-uppercase">Clave</th>
-                                <th scope="col" class="text-center text-uppercase">Material</th>
-                                <th scope="col" class="text-center text-uppercase">Solicitado</th>
-                                <th scope="col" class="text-center text-uppercase">Aprobado</th>
-
-              </tr>
-            </thead>
-          </div>
-          <tbody class="">
-
-            @foreach ($products as $index=> $data)
-            <tr class="">
-              <th class="pt-3 text-center font-weight-normal text-decoration-underline">{{ $data['clave'] }}</th>
-              <th class="pt-3 text-center font-weight-normal">{{ $data['producto'] }}</th>
-              <th class="pt-3 text-center font-weight-normal">{{ $data['cantidad'] }}</th>
-              <th class="pt-3 text-center font-weight-normal">
-                  @if($status)
-                    {{ $data['aprobado'] }}
-                      @else
-                  <input wire:model="products.{{ $index }}.aprobado" class="w-10 rounded-lg hover:border-blue-700" type="text">
-                  @endif
-                </th>
-    </tr>
-    @endforeach
-    </tbody>
-    </table>
-        </div>
-        {{-- <-- Fin cuerpo modal --> --}}
-
-        <div class="modal-footer">
-          <button wire:click='closemodal' class="btn btn-secondary" >Cerrar</button>
-
-          <button wire:click='showmodalrec()'  @if ($status) class="hidden"  @else class="btn btn-danger" @endif>Rechazar</button>
-          <button wire:click='aceptar({{2}})' @if ($status) class="hidden"  @else class="btn btn-success" @endif>Aprobar</button>
-
-
-        </div>
-
-      </div>
-    </div>
-  </div>
-  {{-- <----- Fin fragmento de código modal -----> --}}
+        {{-- <----- Fin fragmento de código modal -----> --}}
     </div>
     <div class="mx-5 mb-3 ">
         <nav class="block">
             <button wire:click='filterquery({{ 2 }})' class="px-3 py-2 bg-white border rounded-lg border-primary">Nuevas <i class="fas fa-envelope text-primary"></i></button>
             {{-- <button wire:click='filterquery({{ 2 }})' class="px-3 py-2 ml-2 bg-white border rounded-lg border-warning">Revisado <i class="fas fa-envelope-open-text text-warning"></i></button> --}}
             <button wire:click='filterquery({{ 3 }})' class="px-3 py-2 mx-2 bg-white border rounded-lg border-success">Aprobado <i class="text-green-500 fas fa-clipboard-check"></i></button>
-            <button wire:click='filterquery({{ 4 }})' class="px-3 py-2 bg-white border rounded-lg border-danger">Rechazado  <i class="text-red-500 fas fa-file-excel"></i></button>
+            <button wire:click='filterquery({{ 4 }})' class="px-3 py-2 bg-white border rounded-lg border-danger">Rechazado <i class="text-red-500 fas fa-file-excel"></i></button>
         </nav>
     </div>
     <div class="mx-5">
@@ -147,31 +147,33 @@
                         </div>
                         <div class="flex">
                             @foreach ($seguimiento as $indexc => $da )
-                                @if ($indexc == $indexa)
-                                <div class="flex px-3">
-                                    @foreach ($da['status'] as $indexadoa => $status )
-                                    <div class="mx-3 ">
-                                        <div>
-                                            <p class="text-sm text-bold">
-                                                {{ $status['status']}}
-                                            </p>
-                                        </div>
-                                        @foreach ($da['icon'] as $indexadob => $icon )
-                                        <div class="pl-1">
-                                            <i
-                                            @if($indexadoa == $indexadob)
-                                            class="{{ $icon['icon']}}"
+                            @if ($indexc == $indexa)
+                            <div class="flex px-3">
+                                @foreach ($da['status'] as $indexadoa => $status )
+                                @if ($status['status']!='Enviada')
+                                <div class="mx-3 ">
+                                    <div>
+                                        <p class="text-sm text-bold">
+                                            {{ $status['status']}}
+                                        </p>
+                                    </div>
+                                    @foreach ($da['icon'] as $indexadob => $icon )
+                                    @if($indexadoa == $indexadob)
 
-                                            @endif
-                                            ></i>
-                                        </div>
-                                        @endforeach
+                                    <div class="pl-1">
+                                        <i class="{{ $icon['icon']}}"></i>
                                     </div>
-                                    <div class="">
-                                        <i class="text-gray-500 far fa-lg fa-window-minimize"></i>
-                                    </div>
-                                    @endforeach                               </div>
+                                    @endif
+                                    @endforeach
+                                </div>
+
+                                <div class="">
+                                    <i class="text-blue-500 far fa-lg fa-window-minimize"></i>
+                                </div>
                                 @endif
+                                @endforeach
+                            </div>
+                            @endif
                             @endforeach
                         </div>
                     </div>
@@ -181,32 +183,29 @@
                         </button>
                     </div>
                 </div>
-
             </div>
         </div>
         @endforeach
-
         <div class="pb-2">
-
             {{ $solicitud->links() }}
         </div>
-
     </div>
-
     <script>
-        function togg(){
-            return{
-              open:[],
-              show:function(open){
-                if(open){
-                  this.open=false;
-                }else{
-                  this.open=true;
+        function togg() {
+            return {
+                open: []
+                , show: function(open) {
+                    if (open) {
+                        this.open = false;
+                    } else {
+                        this.open = true;
+                    }
                 }
-              },
-              setOpen(){return this.open===true},
-            }
+                , setOpen() {
+                    return this.open === true
+                }
+            , }
         }
-    </script>
 
+    </script>
 </div>

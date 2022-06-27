@@ -16,7 +16,12 @@
                             </div>
                             <div class="mx-2">
                                 <div>
-                                    <p class="text-bold">Solicitud {{$list['status']}}</p>
+                                    <p class="text-bold">
+                                        @if ($list['status'] !='transito')
+                                        Solicitud
+                                    @else
+                                        Materiales en
+                                    @endif {{$list['status']}}</p>
                                 </div>
                                 <div class="flex text-gray-700">
                                     <p class=""><span class="ml-1">{{$list['date']}}</span></p>
