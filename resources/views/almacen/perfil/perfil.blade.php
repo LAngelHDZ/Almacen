@@ -17,7 +17,7 @@
 @stop
 
 @section('js')
-<script defer src="https://unpkg.com/alpinejs@3.9.5/dist/cdn.min.js"></script>
+{{-- <script defer src="https://unpkg.com/alpinejs@3.9.5/dist/cdn.min.js"></script> --}}
 <script>
     window.addEventListener('show-form', event =>{
         $('#showreq').modal('show');
@@ -27,5 +27,6 @@
         $('#showreq').modal('hide');
     })
 </script>
+
     <script src="{{ asset('js/app.js') }}"></script>
 @stop

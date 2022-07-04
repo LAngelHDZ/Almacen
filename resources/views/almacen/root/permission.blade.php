@@ -10,7 +10,7 @@
 @stop
 
 @section('content')
-
+@livewire('almacen.root.permission-root')
 @stop
 
 @section('css')

@@ -44,12 +44,12 @@ class PermissionUserSeeder extends Seeder
         Permission::create(['name'=>'rm.dashboard.query','description'=>'Permiso de opciones de consultar información'])->syncRoles([$role1,$role2]);
 
 
-        Permission::create(['name'=>'userg.dashboard.index','description'=>'Permiso de ver la vista principal de Usuario General'])->syncRoles([$role2,$role3]);
-        Permission::create(['name'=>'userg.dashboard.show','description'=>'Permiso de ver contenido en las vistas de Usuario General'])->syncRoles([$role2,$role3]);
-        Permission::create(['name'=>'userg.dashboard.create','description'=>'Permiso de opciones de crear información'])->syncRoles([$role2,$role3]);
-        Permission::create(['name'=>'userg.dashboard.edit','description'=>'Permiso de opciones de editar informacion'])->syncRoles([$role2,$role3]);
-        Permission::create(['name'=>'userg.dashboard.delete','description'=>'Permiso de opciones de eliminar informacion'])->syncRoles([$role2,$role3]);
-        Permission::create(['name'=>'userg.dashboard.query','description'=>'Permiso de opciones de consultar información'])->syncRoles([$role2,$role3]);
+        Permission::create(['name'=>'userg.dashboard.index','description'=>'Permiso de ver la vista principal de Usuario General'])->syncRoles([$role3]);
+        Permission::create(['name'=>'userg.dashboard.show','description'=>'Permiso de ver contenido en las vistas de Usuario General'])->syncRoles([$role3]);
+        Permission::create(['name'=>'userg.dashboard.create','description'=>'Permiso de opciones de crear información'])->syncRoles([$role3]);
+        Permission::create(['name'=>'userg.dashboard.edit','description'=>'Permiso de opciones de editar informacion'])->syncRoles([$role3]);
+        Permission::create(['name'=>'userg.dashboard.delete','description'=>'Permiso de opciones de eliminar informacion'])->syncRoles([$role3]);
+        Permission::create(['name'=>'userg.dashboard.query','description'=>'Permiso de opciones de consultar información'])->syncRoles([$role3]);
 
         Permission::create(['name'=>'almacen.dashboard.index','description'=>'Permiso de ver la vista principal almacen'])->syncRoles([$role1,$role4]);
         Permission::create(['name'=>'almacen.dashboard.show','description'=>'Permiso de ver la vista principal almacen'])->syncRoles([$role4]);

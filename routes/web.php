@@ -1,12 +1,13 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Administracion\AdminsController;
+use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\AlmacenController;
+use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\FacturasController;
 use App\Http\Controllers\RecursoMController;
-use App\Http\Controllers\PerfilController;
-use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\root\UserstController;
+use App\Http\Controllers\root\RolePermisisonEdit;
+use App\Http\Controllers\Administracion\AdminsController;
 use App\Http\Controllers\solicitudes\SolicitudController;
 
 /*
@@ -42,10 +43,12 @@ Route::get('/requisiciones/historial',[GeneralController::class,'historial'])->n
 Route::get('/materiales',[GeneralController::class,'materiales'])->name('materiales');
 
 Route::get('/root/users',[UserstController::class,'users'])->name('users');
-Route::get('/root/users/create',[UserstController::class,'create'])->name('formusers');
-Route::get('/root/users/update/{id}/',[UserstController::class,'update'])->name('formupdate');
+Route::get('/root/user/create',[UserstController::class,'create'])->name('formusers');
+Route::get('/root/user/update/{id}/',[UserstController::class,'update'])->name('formupdate');
 Route::get('/root/roles',[UserstController::class,'roles'])->name('roles');
 Route::get('/root/permisos',[UserstController::class,'permisos'])->name('permisos');
+Route::get('/root/user/edit/{user}/',[RolePermisisonEdit::class,'index'])->name('asingrole');
+Route::put('/root/user/edit/{user}/role',[RolePermisisonEdit::class,'update'])->name('root.user.roleasing');
 
 
 Route::get('/profile',[PerfilController::class,'profile'])->name('profile');

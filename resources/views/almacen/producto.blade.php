@@ -47,6 +47,7 @@
 @stop
 
 @section('js')
+<script src="/js/alpine.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
 <script>
     window.addEventListener('show-form', event =>{
@@ -86,7 +87,9 @@
 }
 
 </script>
-<script defer src="https://unpkg.com/alpinejs@3.9.5/dist/cdn.min.js"></script>
+{{-- <script defer src="https://unpkg.com/alpinejs@3.9.5/dist/cdn.min.js"></script> --}}
+<script src="{{ asset('js/app.js') }}"></script>
+
 
 
 @stop

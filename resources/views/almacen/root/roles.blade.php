@@ -9,7 +9,10 @@
 @stop
 
 @section('content')
+<div class=" mx-4">
 
+    @livewire('almacen.root.roles-root')
+</div>
 @stop
 
 @section('css')
